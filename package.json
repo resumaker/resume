@@ -1,0 +1,63 @@
+{
+  "name": "resumaker",
+  "private": true,
+  "description": "Gatsby starter for resume",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+  },
+  "dependencies": {
+    "@loadable/component": "^5.12.0",
+    "filepond": "^4.15.1",
+    "filepond-plugin-image-exif-orientation": "^1.0.9",
+    "filepond-plugin-image-preview": "^4.6.4",
+    "gatsby": "^2.18.12",
+    "gatsby-plugin-manifest": "^2.2.34",
+    "gatsby-plugin-netlify-cms": "^4.1.33",
+    "gatsby-plugin-offline": "^3.0.30",
+    "gatsby-plugin-postcss": "^2.1.18",
+    "gatsby-plugin-purgecss": "^4.0.1",
+    "gatsby-plugin-react-helmet": "^3.1.18",
+    "gatsby-plugin-react-redux": "^1.1.0-0",
+    "gatsby-plugin-react-svg": "^2.1.2",
+    "gatsby-source-filesystem": "^2.1.43",
+    "gatsby-transformer-json": "^2.2.22",
+    "html2canvas": "^1.0.0-rc.5",
+    "immer": "^6.0.9",
+    "jspdf": "^1.5.3",
+    "lodash.get": "^4.4.2",
+    "lodash.isempty": "^4.4.0",
+    "lodash.kebabcase": "^4.1.1",
+    "lodash.set": "^4.3.2",
+    "lodash.startcase": "^4.4.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-color": "^2.18.1",
+    "react-date-picker": "^8.0.1",
+    "react-dom": "^16.12.0",
+    "react-filepond": "^7.0.1",
+    "react-helmet": "^5.2.1",
+    "react-icons": "^3.10.0",
+    "react-phone-input-2": "^2.13.5",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.88.2"
+  },
+  "devDependencies": {
+    "tailwindcss": "^1.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guypeer8/resumaker"
+  },
+  "bugs": {
+    "url": "https://github.com/guypeer8/resumaker/issues"
+  }
+}
