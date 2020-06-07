@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import kebabCase from 'lodash.kebabcase';
-import loadable from '@loadable/component';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Label, Popup } from 'semantic-ui-react';
 
@@ -9,7 +8,7 @@ import ColorPicker from '../elements/color-picker';
 
 import '../main.css';
 
-const html2canvas = loadable(() => import('html2canvas'));
+const html2canvas = typeof window !== `undefined` ? require('html2canvas') : null
 
 const styles = {
   actionsBar: {
