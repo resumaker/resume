@@ -1,11 +1,10 @@
-import loadable from '@loadable/component';
-
-import kebabCase from 'lodash.kebabcase';
 import React, { useEffect } from 'react';
+import kebabCase from 'lodash.kebabcase';
+import loadable from '@loadable/component';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Label, Popup } from 'semantic-ui-react';
-import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
 
+import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
 import ColorPicker from '../elements/color-picker';
 
 import '../main.css';
