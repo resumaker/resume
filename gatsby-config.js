@@ -37,6 +37,7 @@ module.exports = {
       options: {
         printRejected: true,
         tailwind: true, 
+        ignore: ['/css'],
       },
     },
     {

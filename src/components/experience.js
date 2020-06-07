@@ -5,8 +5,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Modal, Button, Header, Checkbox } from 'semantic-ui-react';
 
-// import 'react-phone-input-2/lib/style.css';
-
 import Input from '../elements/input';
 
 const styles = {

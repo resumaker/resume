@@ -6,6 +6,12 @@ import { Button, Label, Popup } from 'semantic-ui-react';
 import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
 import ColorPicker from '../elements/color-picker';
 
+import '../css/filepond.css';
+import '../css/filepond-plugin-image-preview.css';
+import '../css/phone-input.css';
+import '../css/calendar.css';
+import '../css/date-picker.css';
+// import '../css/semantic-ui.css';
 import '../main.css';
 
 const html2canvas = typeof window !== `undefined` ? require('html2canvas') : null

@@ -6,9 +6,6 @@ import { Segment, Portal, Header, Button } from 'semantic-ui-react';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
 
-// import 'filepond/dist/filepond.min.css';
-// import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-
 import Input from '../elements/input';
 
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
