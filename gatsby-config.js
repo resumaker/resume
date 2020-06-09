@@ -23,6 +23,7 @@ module.exports = {
     },
     'gatsby-plugin-offline',
     'gatsby-transformer-json',
+    'gatsby-plugin-sass',
     {
       resolve: 'gatsby-plugin-react-svg',
       options: {

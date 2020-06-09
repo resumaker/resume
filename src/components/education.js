@@ -68,7 +68,7 @@ const Education = () => {
       {isEdit && (
         <>
           <Button 
-            color="teal" 
+            color="violet" 
             style={styles.button}
             onClick={() => setOpen(true)} 
           >

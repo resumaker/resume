@@ -67,7 +67,7 @@ const Experience = () => {
       {isEdit && (
         <>
           <Button 
-            color="teal" 
+            color="violet" 
             style={styles.button}
             onClick={() => setOpen(true)} 
           >

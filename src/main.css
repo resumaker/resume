@@ -56,4 +56,8 @@
     z-index: 0 !important;
 }
 
+.ui.violet.button, .ui.violet.buttons .button {
+    background-color: #5B4F96;
+}
+
 @tailwind utilities;

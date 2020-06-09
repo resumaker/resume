@@ -3,16 +3,16 @@ module.exports = {
     touched: false,
 
     resume: {
-        fullname: 'Guy Peer',
+        fullname: 'Jon London',
         role: 'Software Engineer',
         profilePicture: './profile.png',
         summary: 'Highly focused technologist with a multidisciplinary skill set honed over 10+ years in the IT industry. I strive to build great products and can take an initial idea, tackle it from multiple angles and take it from something great to something incredible. With 10+ years of experience in various industries, I help tech startups from idea phase to high volumes. I design and build scalable solutions, implement internal processes that fit your organization, build teams that produce results.',
 
         contact: {
-            phone: '+972503546454',
-            email: 'guypeer8@gmail.com',
+            phone: '+972503215221',
+            email: 'resumakerme@gmail.com',
             website: 'https://datayears.com',
-            location: 'Holon, Israel'
+            location: 'Chicago, USA'
         },
 
         skills: [

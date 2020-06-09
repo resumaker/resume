@@ -73,7 +73,7 @@ const Skills = () => {
       {isEdit && (
         <>
           <Button 
-            color="teal" 
+            color="violet" 
             style={styles.button}
             onClick={() => setOpen(true)} 
           >
@@ -155,7 +155,7 @@ const Skills = () => {
                           />
                           {!isEmpty(newSkill.subskills) && newSkill.subskills.map((tag, i) => !isEmpty(tag.name) && (
                             <div key={`${tag.name}-${i}`} className="inline-block mb-1 mr-1">
-                              <Label color="teal" size="large">
+                              <Label color="violet" size="large">
                                 {tag.name}
                                 <Icon
                                   name="delete"
