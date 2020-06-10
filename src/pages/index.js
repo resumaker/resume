@@ -21,12 +21,8 @@ const styles = {
     maxHeight: 49,
   },
   actionsBar: {
-    alignItems: 'center',
     justifyContent: 'space-between',
   },  
-  alignCenter: {
-    alignItems: 'center',
-  },
   actionButton: {
     marginRight: 15,
   },
@@ -77,22 +73,52 @@ const CreatePage = ({ data }) => {
   
   return (
     <>
-      <div className="flex container mx-auto bg-white py-5 pl-1" style={styles.actionsBar}>
-        <a href="/" title="Resumaker Logo" style={styles.logoLink} onClick={e => e.preventDefault()}>
+      <div className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" style={styles.actionsBar}>
+        <a 
+          href="/" 
+          className="my-2"
+          title="Resumaker Logo" 
+          style={styles.logoLink} 
+          onClick={e => e.preventDefault()}
+        >
           <Img fixed={data.logo.childImageSharp.fixed} alt="Resumaker Logo" />
         </a>
-        <div className="flex">
+        <div className="flex flex-wrap">
           {!isEdit && (
-            <Button color="violet" content="Edit" icon="edit" labelPosition="right" style={styles.actionButton} onClick={toggleMode} />
+            <Button 
+              icon="edit" 
+              color="violet" 
+              content="Edit" 
+              onClick={toggleMode}
+              labelPosition="right" 
+              style={styles.actionButton} 
+            />
           )}
           {isEdit && (
             <Popup
               content="Click to enable Export"
-              trigger={<Button color="violet" content="Preview" icon="eye" labelPosition="right" style={styles.actionButton} onClick={toggleMode} />}
+              trigger={
+                <Button 
+                  icon="eye" 
+                  color="violet" 
+                  content="Preview" 
+                  onClick={toggleMode} 
+                  labelPosition="right" 
+                  style={styles.actionButton} 
+                />
+              }
             />
           )}
-          <Button color="violet" content="Export" icon="download" labelPosition="right" style={styles.actionButton} onClick={exportResume} disabled={isEdit} />
-          <div className="flex" style={styles.alignCenter}>
+          <Button 
+            color="violet" 
+            icon="download" 
+            content="Export" 
+            disabled={isEdit}
+            labelPosition="right" 
+            onClick={exportResume} 
+            style={styles.actionButton}
+          />
+          <div className="flex items-center">
             <ColorPicker onChange={setThemeColor} />
             <Label basic color="violet" pointing="left">
               Customize Theme Color
@@ -104,7 +130,11 @@ const CreatePage = ({ data }) => {
       <main className="antialiased text-neutral-900 bg-neutral-100 min-h-screen sm:p-5">
         <SEO title="Resumaker" />
         <div id="resume" className="container mx-auto shadow bg-white py-5 px-10">
-          <Header name={resume.fullname} role={resume.role} contacts={resume.contact} />
+          <Header 
+            name={resume.fullname} 
+            role={resume.role} 
+            contacts={resume.contact}
+          />
           <Summary data={resume.summary} />
           <div className="border-b border-neutral-300 pb-2 my-5 lg:flex">
             <div className="lg:w-2/3 lg:pr-8">

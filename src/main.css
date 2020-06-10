@@ -58,6 +58,15 @@
 
 .ui.violet.button, .ui.violet.buttons .button {
     background-color: #5B4F96;
+    transition: background-color 0.5s;
+}
+
+.ui.violet.button:hover, .ui.violet.buttons .button:hover {
+    background-color: #42396d;
+}
+
+.ui[class*="right labeled"].icon.button>.icon {
+    background-color: #695ca9;
 }
 
 @tailwind utilities;

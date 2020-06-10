@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Free online professional resume creation tool`,
+    title: `Free Online Professional Resume Creation Tool`,
     author: `resumaker.me`,
     description: `Resumaker eases the process of building professional, beautiful & costumisable resumes and cv documents. Edit, Customise, Preview, and Export your resume within minutes.`,
     siteUrl: `https://resumaker.me/`,

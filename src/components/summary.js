@@ -51,7 +51,7 @@ const Summary = ({ data }) => {
 
   return (
     <section className="py-5 border-b border-neutral-300 lg:flex items-center">
-      <div className="my-5" style={{width:'25%'}}>
+      <div className="my-5 md:w-full lg:w-1/4">
         {isEdit ? (
           <FilePond
             files={files}
@@ -79,11 +79,11 @@ const Summary = ({ data }) => {
             alt="profile"
             src={resume.profilePicture}
             style={{borderColor: '#eee'}}
-            className="rounded-full border mx-auto w-32 lg:w-full xl:w-4/5"
+            className="rounded-full border mx-auto md:w-64 lg:w-32 xl:w-4/5"
           />
         )}
       </div>
-      <div style={{width:'75%'}}>
+      <div className="md:w-full xl:w-3/4">
         {mode === 'edit' ? (
           <Input type="textarea" value={data} path="resume.summary" />
         ) : (
