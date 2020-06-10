@@ -1,7 +1,7 @@
 {
   "name": "resumaker",
   "private": true,
-  "description": "Gatsby starter for resume",
+  "description": "Free online professional resume creation tool",
   "version": "0.0.1",
   "scripts": {
     "build": "gatsby build",
@@ -9,6 +9,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "publish": "npm run build && git add . && git commit -m \"publish\" && git push",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {

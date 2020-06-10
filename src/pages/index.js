@@ -89,7 +89,7 @@ const CreatePage = () => {
       </div>
 
       <main className="antialiased text-neutral-900 bg-neutral-100 min-h-screen sm:p-5">
-        <SEO title="Resume" />
+        <SEO title="Resumaker" />
         <div id="resume" className="container mx-auto shadow bg-white py-5 px-10">
           <Header name={resume.fullname} role={resume.role} contacts={resume.contact} />
           <Summary data={resume.summary} />

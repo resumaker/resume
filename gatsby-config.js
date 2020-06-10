@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Resumaker | Free online professional resume creation tool`,
+    title: `Free online professional resume creation tool`,
     author: `resumaker.me`,
     description: `Resumaker eases the process of building professional, beautiful & costumisable resumes and cv documents. Edit, Customise, Preview, and Export your resume within minutes.`,
     siteUrl: `https://resumaker.me/`,
@@ -15,10 +15,10 @@ module.exports = {
         name: `Guy Peer`,
         short_name: `Resumaker`,
         start_url: `/`,
-        background_color: `#f7f0eb`,
-        theme_color: `#38B2AC`,
-        display: `standalone`,
-        icon: 'src/assets/site-icon.png'
+        background_color: `#5b4f96`,
+        theme_color: `#5b4f96`,
+        display: `mini-ui`,
+        icon: 'src/assets/resumaker-favicon.png'
       },
     },
     'gatsby-plugin-offline',
