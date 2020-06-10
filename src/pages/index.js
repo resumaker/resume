@@ -1,3 +1,4 @@
+import Img from 'gatsby-image';
 import kebabCase from 'lodash.kebabcase';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,7 +17,14 @@ import '../main.css';
 const html2canvas = typeof window !== `undefined` ? require('html2canvas') : null
 
 const styles = {
+  logoLink: {
+    maxHeight: 49,
+  },
   actionsBar: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },  
+  alignCenter: {
     alignItems: 'center',
   },
   actionButton: {
@@ -24,7 +32,7 @@ const styles = {
   },
 };
 
-const CreatePage = () => {
+const CreatePage = ({ data }) => {
   const dispatch = useDispatch();
   const { mode, resume, touched } = useSelector(({ global }) => global);
   const isEdit = mode === 'edit';
@@ -70,21 +78,26 @@ const CreatePage = () => {
   return (
     <>
       <div className="flex container mx-auto bg-white py-5 pl-1" style={styles.actionsBar}>
-        {!isEdit && (
-          <Button color="violet" content="Edit" icon="edit" labelPosition="right" style={styles.actionButton} onClick={toggleMode} />
-        )}
-        {isEdit && (
-          <Popup
-            content="Click to enable Export"
-            trigger={<Button color="violet" content="Preview" icon="eye" labelPosition="right" style={styles.actionButton} onClick={toggleMode} />}
-          />
-        )}
-        <Button color="violet" content="Export" icon="download" labelPosition="right" style={styles.actionButton} onClick={exportResume} disabled={isEdit} />
-        <div className="flex" style={styles.actionsBar}>
-          <ColorPicker onChange={setThemeColor} />
-          <Label basic color="violet" pointing="left">
-            Customize Theme Color
-          </Label>
+        <a href="/" title="Resumaker Logo" style={styles.logoLink} onClick={e => e.preventDefault()}>
+          <Img fixed={data.logo.childImageSharp.fixed} alt="Resumaker Logo" />
+        </a>
+        <div className="flex">
+          {!isEdit && (
+            <Button color="violet" content="Edit" icon="edit" labelPosition="right" style={styles.actionButton} onClick={toggleMode} />
+          )}
+          {isEdit && (
+            <Popup
+              content="Click to enable Export"
+              trigger={<Button color="violet" content="Preview" icon="eye" labelPosition="right" style={styles.actionButton} onClick={toggleMode} />}
+            />
+          )}
+          <Button color="violet" content="Export" icon="download" labelPosition="right" style={styles.actionButton} onClick={exportResume} disabled={isEdit} />
+          <div className="flex" style={styles.alignCenter}>
+            <ColorPicker onChange={setThemeColor} />
+            <Label basic color="violet" pointing="left">
+              Customize Theme Color
+            </Label>
+          </div>
         </div>
       </div>
 
@@ -112,5 +125,17 @@ const CreatePage = () => {
     </>
   );
 };
+
+export const query = graphql`
+  {
+    logo: file(relativePath: { eq: "resumaker-logo-dark.png" }) {
+      childImageSharp {
+        fixed(width: 200) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`;
 
 export default CreatePage;

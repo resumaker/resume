@@ -18,7 +18,7 @@ module.exports = {
         background_color: `#5b4f96`,
         theme_color: `#5b4f96`,
         display: `mini-ui`,
-        icon: 'src/assets/resumaker-favicon.png'
+        icon: 'src/images/resumaker-favicon.png'
       },
     },
     'gatsby-plugin-offline',
@@ -32,6 +32,15 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `images`,
+        path: `${__dirname}/src/images/`,
+      },
+    },
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-purgecss`,

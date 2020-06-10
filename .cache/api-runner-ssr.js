@@ -1,6 +1,6 @@
 var plugins = [{
       plugin: require('/Users/guypeer/Desktop/projects/resumaker/node_modules/gatsby-plugin-manifest/gatsby-ssr'),
-      options: {"plugins":[],"name":"Guy Peer","short_name":"Resumaker","start_url":"/","background_color":"#5b4f96","theme_color":"#5b4f96","display":"mini-ui","icon":"src/assets/resumaker-favicon.png","cache_busting_mode":"query","include_favicon":true,"legacy":true,"theme_color_in_head":true,"cacheDigest":"4fdc72d0f6b35a446d48e64fb90af057"},
+      options: {"plugins":[],"name":"Guy Peer","short_name":"Resumaker","start_url":"/","background_color":"#5b4f96","theme_color":"#5b4f96","display":"mini-ui","icon":"src/images/resumaker-favicon.png","cache_busting_mode":"query","include_favicon":true,"legacy":true,"theme_color_in_head":true,"cacheDigest":"4fdc72d0f6b35a446d48e64fb90af057"},
     },{
       plugin: require('/Users/guypeer/Desktop/projects/resumaker/node_modules/gatsby-plugin-offline/gatsby-ssr'),
       options: {"plugins":[]},
