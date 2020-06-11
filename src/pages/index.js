@@ -1,4 +1,5 @@
 import Img from 'gatsby-image';
+import { graphql } from 'gatsby';
 import kebabCase from 'lodash.kebabcase';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -76,7 +77,7 @@ const CreatePage = ({ data }) => {
       <div className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" style={styles.actionsBar}>
         <a 
           href="/" 
-          className="my-2"
+          className="my-4"
           title="Resumaker Logo" 
           style={styles.logoLink} 
           onClick={e => e.preventDefault()}
@@ -118,7 +119,7 @@ const CreatePage = ({ data }) => {
             onClick={exportResume} 
             style={styles.actionButton}
           />
-          <div className="flex items-center">
+          <div className="flex items-center color-picker-container">
             <ColorPicker onChange={setThemeColor} />
             <Label basic color="violet" pointing="left">
               Customize Theme Color

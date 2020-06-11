@@ -69,4 +69,10 @@
     background-color: #695ca9;
 }
 
+@media only screen and (max-width: 483px) {
+    .color-picker-container {
+        margin-top: 1.5rem;
+    }
+}
+
 @tailwind utilities;
