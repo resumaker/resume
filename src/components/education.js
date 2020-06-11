@@ -1,9 +1,10 @@
 import isEmpty from 'lodash.isempty';
 import DatePicker from 'react-date-picker';
+import { GrMoreVertical } from 'react-icons/gr';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Button, Header, Checkbox } from 'semantic-ui-react';
+import { Modal, Button, Header, Checkbox, Dropdown } from 'semantic-ui-react';
 
 import Input from '../elements/input';
 
@@ -54,13 +55,44 @@ const Education = () => {
     <section className="mb-5">
       <h1 className="section-header mb-5">Education</h1>
       {!isEmpty(resume.education) && resume.education.map(
-        ({ degree, institution, start, end }) => (
-          <div className="my-2" key={degree}>
-            <h2 className="item-header text-lg">{degree}</h2>
-            <h3 className="item-sub">{institution}</h3>
-            <p className="text-sm text-neutral-500 font-light">
-              {start} - {end || 'PRESENT'}
-            </p>
+        ({ degree, institution, start, end }, i) => (
+            <div className="flex my-2" style={{justifyContent: 'space-between'}}>          <div className="my-2" key={degree}>
+              <h2 className="item-header text-lg">{degree}</h2>
+              <h3 className="item-sub">{institution}</h3>
+              <p className="text-sm text-neutral-500 font-light">
+                {start} - {end || 'PRESENT'}
+              </p>
+            </div>
+            {isEdit && (
+              <Dropdown text={<GrMoreVertical size={18} />} pointing="right">
+                <Dropdown.Menu>
+                  <Dropdown.Item 
+                    icon="edit"
+                    text="Edit" 
+                    onClick={() => {
+                      setNewEducation({ degree, institution, start, end });
+                      setOpen(true);
+                    }} 
+                  />
+                  {resume.education.length > 1 && i !== 0 && (
+                    <Dropdown.Item 
+                      icon="arrow up" 
+                      text="Move Up"
+                    />
+                  )}
+                  {resume.education.length > 1 && i !== resume.education.length - 1 && (
+                    <Dropdown.Item 
+                      icon="arrow down" 
+                      text="Move down"
+                    />
+                  )}
+                  <Dropdown.Item 
+                    icon="trash" 
+                    text="Delete"
+                  />
+                </Dropdown.Menu>
+              </Dropdown>
+            )}
           </div>
         )
       )}

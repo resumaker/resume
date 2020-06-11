@@ -1,9 +1,10 @@
 import isEmpty from 'lodash.isempty';
 import DatePicker from 'react-date-picker';
+import { GrMoreVertical } from 'react-icons/gr';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Button, Header, Checkbox } from 'semantic-ui-react';
+import { Modal, Button, Header, Checkbox, Dropdown } from 'semantic-ui-react';
 
 import Input from '../elements/input';
 
@@ -55,13 +56,45 @@ const Experience = () => {
     <section>
       <h1 className="section-header">Experience</h1>
       {!isEmpty(resume.experience) && resume.experience.map((item, i) => (
-        <article className="my-5" key={`${item.company}-${i}`}>
-          <h2 className="item-header">{item.role}</h2>
-          <h3 className="item-sub">
-            {item.company} | {item.start} - {item.end || 'PRESENT'}
-          </h3>
-          <p className="py-6">{item.description}</p>
-        </article>
+        <div className="flex my-5" key={`${item.company}-${i}`} style={{justifyContent: 'space-between'}}>
+          <article>
+            <h2 className="item-header">{item.role}</h2>
+            <h3 className="item-sub">
+              {item.company} | {item.start} - {item.end || 'PRESENT'}
+            </h3>
+            <p className="py-6">{item.description}</p>
+          </article>
+          {isEdit && (
+            <Dropdown text={<GrMoreVertical size={18} />} pointing="right">
+              <Dropdown.Menu>
+                <Dropdown.Item 
+                  icon="edit"
+                  text="Edit" 
+                  onClick={() => {
+                    setNewExperience({ ...item });
+                    setOpen(true);
+                  }} 
+                />
+                {resume.experience.length > 1 && i !== 0 && (
+                  <Dropdown.Item 
+                    icon="arrow up" 
+                    text="Move Up"
+                  />
+                )}
+                {resume.experience.length > 1 && i !== resume.experience.length - 1 && (
+                  <Dropdown.Item 
+                    icon="arrow down" 
+                    text="Move down"
+                  />
+                )}
+                <Dropdown.Item 
+                  icon="trash" 
+                  text="Delete"
+                />
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
+        </div>
       ))}
 
       {isEdit && (

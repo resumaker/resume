@@ -70,6 +70,10 @@
     transition: background-color 0.5s;
 }
 
+.ui.dropdown>.dropdown.icon {
+    display: none !important;
+}
+
 @media only screen and (max-width: 483px) {
     .color-picker-container {
         margin-top: 1.5rem;

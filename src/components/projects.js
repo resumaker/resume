@@ -1,8 +1,9 @@
 import isEmpty from 'lodash.isempty';
+import { GrMoreVertical } from 'react-icons/gr';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Button, Header } from 'semantic-ui-react';
+import { Modal, Button, Header, Dropdown } from 'semantic-ui-react';
 
 import Input from '../elements/input';
 
@@ -43,25 +44,57 @@ const Projects = () => {
   return (
     <section>
       <h1 className="section-header">Projects</h1>
-      {!isEmpty(resume.projects) && resume.projects.map(item => (
-        <article className="my-5" key={item.name}>
-          <h2 className="item-header">{item.name}</h2>
-          <h3 className="item-sub">{item.company}</h3>
-          <p className="py-4">{item.description}</p>
-          {item.link && (
-            <div className="flex">
-              <a
-                className="btn btn-secondary"
-                rel="noopener noreferrer"
-                style={{fontSize:13}}
-                href={item.link}
-                target="_blank"
-              >
-                {item.link}
-              </a>
-            </div>
+      {!isEmpty(resume.projects) && resume.projects.map((item, i) => (
+        <div className="flex my-5" key={`${item.name}-${i}`} style={{justifyContent: 'space-between'}}>
+          <article>
+            <h2 className="item-header">{item.name}</h2>
+            <h3 className="item-sub">{item.company}</h3>
+            <p className="py-4">{item.description}</p>
+            {item.link && (
+              <div className="flex">
+                <a
+                  className="btn btn-secondary"
+                  rel="noopener noreferrer"
+                  style={{fontSize:13}}
+                  href={item.link}
+                  target="_blank"
+                >
+                  {item.link}
+                </a>
+              </div>
+            )}
+          </article>
+          {isEdit && (
+            <Dropdown text={<GrMoreVertical size={18} />} pointing="right">
+              <Dropdown.Menu>
+                <Dropdown.Item 
+                  icon="edit"
+                  text="Edit" 
+                  onClick={() => {
+                    setNewProject({ ...item });
+                    setOpen(true);
+                  }} 
+                />
+                {resume.projects.length > 1 && i !== 0 && (
+                  <Dropdown.Item 
+                    icon="arrow up" 
+                    text="Move Up"
+                  />
+                )}
+                {resume.projects.length > 1 && i !== resume.projects.length - 1 && (
+                  <Dropdown.Item 
+                    icon="arrow down" 
+                    text="Move down"
+                  />
+                )}
+                <Dropdown.Item 
+                  icon="trash" 
+                  text="Delete"
+                />
+              </Dropdown.Menu>
+            </Dropdown>
           )}
-        </article>
+        </div>
       ))}
 
       {isEdit && (

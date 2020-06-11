@@ -1,9 +1,10 @@
 import isEmpty from 'lodash.isempty';
+import { GrMoreVertical } from 'react-icons/gr';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
 import { FaRegQuestionCircle } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
-import { Modal, Button, Header, Popup, Card, Label, List, Icon } from 'semantic-ui-react';
+import { Modal, Button, Header, Popup, Dropdown, Card, Label, List, Icon } from 'semantic-ui-react';
 
 import Progress from './progress';
 import ListItem from './list_item';
@@ -47,26 +48,58 @@ const Skills = () => {
   return (
     <section>
       <h1 className="section-header">Skills</h1>
-      {!isEmpty(resume.skills) && resume.skills.map(skill => (
-        <div key={skill.title} className="my-5">
-          <h1 className="item-header font-semibold text-lg mb-2">
-            {skill.title}
-          </h1>
-          {skill.subskills.map(subskill => (
-            <span key={subskill.name}>
-              {skill.type === 'percent' && (
-                <Progress name={subskill.name} percent={subskill.percent} />
-              )}
-              {skill.type === 'tag' && (
-                <span key={subskill.name} className="tag">
-                  {subskill.name}
-                </span>
-              )}
-              {skill.type === 'list' && (
-                <ListItem key={subskill.name} text={subskill.name} />
-              )}
-            </span>
-          ))}
+      {!isEmpty(resume.skills) && resume.skills.map((skill, i) => (
+        <div className="flex my-5" key={`${skill.title}-${i}`} style={{justifyContent: 'space-between'}}>
+          <div style={{width: '100%'}}>
+            <h1 className="item-header font-semibold text-lg mb-2">
+              {skill.title}
+            </h1>
+            {skill.subskills.map(subskill => (
+              <span key={subskill.name}>
+                {skill.type === 'percent' && (
+                  <Progress name={subskill.name} percent={subskill.percent} />
+                )}
+                {skill.type === 'tag' && (
+                  <span key={subskill.name} className="tag">
+                    {subskill.name}
+                  </span>
+                )}
+                {skill.type === 'list' && (
+                  <ListItem key={subskill.name} text={subskill.name} />
+                )}
+              </span>
+            ))}
+          </div>
+          {isEdit && (
+            <Dropdown text={<GrMoreVertical size={18} />} pointing="right">
+              <Dropdown.Menu>
+                <Dropdown.Item 
+                  icon="edit"
+                  text="Edit" 
+                  onClick={() => {
+                    setNewSkill({ ...skill });
+                    setOpen(true);
+                  }} 
+                />
+                {resume.skills.length > 1 && i !== 0 && (
+                  <Dropdown.Item 
+                    icon="arrow up" 
+                    text="Move Up"
+                  />
+                )}
+                {resume.skills.length > 1 && i !== resume.skills.length - 1 && (
+                  <Dropdown.Item 
+                    icon="arrow down" 
+                    text="Move down"
+                  />
+                )}
+                <Dropdown.Item 
+                  icon="trash" 
+                  text="Delete"
+                />
+              </Dropdown.Menu>
+            </Dropdown>
+          )}
         </div>
       ))}
 
