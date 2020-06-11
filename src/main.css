@@ -57,16 +57,17 @@
 }
 
 .ui.violet.button, .ui.violet.buttons .button {
-    background-color: #5B4F96;
+    background-color: #5B4F96 !important;
     transition: background-color 0.5s;
 }
 
 .ui.violet.button:hover, .ui.violet.buttons .button:hover {
-    background-color: #42396d;
+    background-color: #42396d !important;
 }
 
 .ui[class*="right labeled"].icon.button>.icon {
-    background-color: #695ca9;
+    background-color: #695ca9 !important;
+    transition: background-color 0.5s;
 }
 
 @media only screen and (max-width: 483px) {
