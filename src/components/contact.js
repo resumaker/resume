@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaTrash } from 'react-icons/fa';
+import { Button } from 'semantic-ui-react';
 import { FaMapSigns } from 'react-icons/fa';
 import PhoneInput from 'react-phone-input-2';
 import { MdSmartphone } from 'react-icons/md';
@@ -7,38 +9,82 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Input from '../elements/input';
 
+const ContactField = ({ Icon, InputField, PreviewField, buttonText }) => {
+  const { mode } = useSelector(({ global }) => global);
+  const isEdit = mode === 'edit';
+
+  const [visible, setVisibility] = useState(true);
+  const toggleVisibility = () => setVisibility(!visible);
+
+  return (
+    <>
+      {visible && Icon}
+      {isEdit ? (
+        <div 
+          className="flex items-center w-full my-2" 
+          style={{justifyContent: 'space-between'}}
+        >
+          {visible ? (
+            <>
+              {InputField}
+              <FaTrash 
+                size={14} 
+                onClick={toggleVisibility} 
+                style={{cursor: 'pointer'}}
+              />
+            </>
+          ) : (
+            <Button 
+              size="tiny" 
+              color="violet" 
+              style={{marginLeft: 28}}
+              onClick={toggleVisibility} 
+            >
+              {buttonText}
+            </Button>
+          )}
+        </div>
+      ) : (
+        visible && PreviewField
+      )}
+    </>
+  );
+};
+
 const Contact = ({ field, value }) => {
   const dispatch = useDispatch();
   const { mode } = useSelector(({ global }) => global);
   const isEdit = mode === 'edit';
 
   return (
-    <span className="flex my-2 text-primary-900 tracking-widest items-center">
+    <span className="flex text-primary-900 tracking-widest items-center">
       {field === 'email' && (
-        <>
-          <GoMailRead className="contact-icon" />
-          {isEdit ? (
+        <ContactField 
+          Icon={<GoMailRead className="contact-icon" />}
+          InputField={
             <Input
               type="email"
               label="Email"
               value={value}
               path="resume.contact.email"
-            />
-          ): (
-            <a className="contact-link" href={`mailto:${value}`} title="email">
+            /> 
+          }
+          PreviewField={
+            <a className="contact-link my-2" href={`mailto:${value}`} title="email">
               {value}
             </a>
-          )}
-        </>
+          }
+          buttonText="Add Email"
+        />
       )}
 
       {field === 'phone' && (
-        <>
-          <MdSmartphone className="contact-icon" />
-          {isEdit ? (
+        <ContactField 
+          Icon={<MdSmartphone className="contact-icon" />}
+          InputField={
             <Input
-               label="Phone"
-               InputComp={
+                label="Phone"
+                InputComp={
                 <PhoneInput
                   enableSearch
                   value={value}
@@ -54,53 +100,59 @@ const Contact = ({ field, value }) => {
                     })
                   }
                 />
-               }
+                }
             />
-          ): (
-            <a className="contact-link" href={`tel:${value}`} title="phone">
+          }
+          PreviewField={
+            <a className="contact-link my-2" href={`tel:${value}`} title="phone">
               {value}
             </a>
-          )}
-        </>
+          }
+          buttonText="Add Phone"
+        />
       )}
 
       {field === 'website' && (
-        <>
-          <GoGlobe className="contact-icon" />
-          {isEdit ? (
+        <ContactField 
+          Icon={<GoGlobe className="contact-icon" />}
+          InputField={
             <Input
               type="url"
-              label="Personal Website"
               value={value}
+              label="Website"
               path="resume.contact.website"
             />
-          ): (
+          }
+          PreviewField={
             <a
+              className="contact-link my-2"
               rel="noopener noreferrer"
-              className="contact-link"
               title="website"
               target="_blank"
               href={value}
             >
               {value}
             </a>
-          )}
-        </>
+          }
+          buttonText="Add Website"
+        />
       )}
 
       {field === 'location' && (
-        <>
-          <FaMapSigns className="contact-icon" />
-          {isEdit ? (
+        <ContactField 
+          Icon={<FaMapSigns className="contact-icon" />}
+          InputField={
             <Input
               value={value}
               label="Location"
               path="resume.contact.location"
             />
-          ): (
-            <span className="contact-link">{value}</span>
-          )}
-        </>
+          }
+          PreviewField={
+            <span className="contact-link my-2">{value}</span>
+          }
+          buttonText="Add Location"
+        />
       )}
     </span>
   );
