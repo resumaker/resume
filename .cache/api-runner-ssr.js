@@ -9,7 +9,7 @@ var plugins = [{
       options: {"plugins":[],"pathToCreateStoreModule":"./src/store/index","serialize":{"space":0,"isJSON":true,"unsafe":false},"cleanupOnClient":true,"windowKey":"__PRELOADED_STATE__"},
     },{
       plugin: require('/Users/guypeer/Desktop/projects/resumaker/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
-      options: {"plugins":[],"trackingId":"UA-169227649-1","head":true,"anonymize":true,"respectDNT":true,"exclude":[],"pageTransitionDelay":0,"defer":true,"sampleRate":5,"siteSpeedSampleRate":10,"cookieDomain":"app.resumaker.me"},
+      options: {"plugins":[],"trackingId":"UA-169227649-1"},
     }]
 // During bootstrap, we write requires at top of this file which looks like:
 // var plugins = [
