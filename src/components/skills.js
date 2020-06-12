@@ -51,7 +51,7 @@ const Skills = () => {
       setEditIndex(null);
     }
   }, [open]);
-  
+
   return (
     <section>
       <h1 className="section-header">Skills</h1>
@@ -85,6 +85,7 @@ const Skills = () => {
                   text="Edit" 
                   onClick={() => {
                     setNewSkill({ ...skill });
+                    setEditIndex(i);
                     setOpen(true);
                   }} 
                 />
@@ -92,17 +93,56 @@ const Skills = () => {
                   <Dropdown.Item 
                     icon="arrow up" 
                     text="Move Up"
+                    onClick={() => {
+                      const skills = [...resume.skills];
+                      const prevSkills = resume.skills[i - 1];
+                      const currSkills = resume.skills[i];
+                      skills[i - 1] = currSkills;
+                      skills[i] = prevSkills;
+                      dispatch({ 
+                        type: 'SET_FIELD',
+                        payload: { 
+                          path: 'resume.skills', 
+                          value: skills,
+                        }, 
+                      });
+                    }}
                   />
                 )}
                 {resume.skills.length > 1 && i !== resume.skills.length - 1 && (
                   <Dropdown.Item 
                     icon="arrow down" 
-                    text="Move down"
+                    text="Move Down"
+                    onClick={() => {
+                      const skills = [...resume.skills];
+                      const nextSkills = resume.skills[i + 1];
+                      const currSkills = resume.skills[i];
+                      skills[i + 1] = currSkills;
+                      skills[i] = nextSkills;
+                      dispatch({ 
+                        type: 'SET_FIELD',
+                        payload: { 
+                          path: 'resume.skills', 
+                          value: skills,
+                        }, 
+                      });
+                    }}
                   />
                 )}
                 <Dropdown.Item 
                   icon="trash" 
                   text="Delete"
+                  onClick={() => {
+                    const skills = [...resume.skills];
+                    skills.splice(i, 1);
+                    dispatch({ 
+                      type: 'SET_FIELD',
+                      payload: { 
+                        path: 'resume.skills', 
+                        value: skills,
+                      }, 
+                    });
+                  }}
                 />
               </Dropdown.Menu>
             </Dropdown>
@@ -121,9 +161,8 @@ const Skills = () => {
             <AiFillPlusCircle size={22} className="ml-2" />
           </Button>
           
-          <Modal size="small" open={open} onClose={() => setOpen(false)}>
+          <Modal size="small" open={open} onClose={close}>
             <Modal.Header>Add Skill</Modal.Header>
-
             <Modal.Content>
               <Modal.Description>
                 <Header>Fill the Fields</Header>
@@ -366,14 +405,20 @@ const Skills = () => {
               <Button
                 positive
                 icon="checkmark"
-                content="Create"
                 labelPosition="right"
+                content={editIndex === null ? 'Create' : 'Edit'}
                 onClick={() => {
+                  const skills = [...resume.skills];
+                  if (editIndex !== null) {
+                    skills[editIndex] = newSkill;
+                  } else {
+                    skills.push(newSkill);
+                  }
                   dispatch({ 
                     type: 'SET_FIELD', 
                     payload: { 
                       path: 'resume.skills', 
-                      value: [...resume.skills, newSkill],
+                      value: skills,
                     }, 
                   });
                   close();

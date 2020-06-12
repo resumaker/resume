@@ -71,7 +71,14 @@
 }
 
 .ui.dropdown>.dropdown.icon {
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
     display: none !important;
+}
+
+.ui.dropdown>.dropdown.icon:before {
+    content: '';
 }
 
 @media only screen and (max-width: 483px) {

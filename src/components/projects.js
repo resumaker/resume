@@ -106,7 +106,7 @@ const Projects = () => {
                 {resume.projects.length > 1 && i !== resume.projects.length - 1 && (
                   <Dropdown.Item 
                     icon="arrow down" 
-                    text="Move down"
+                    text="Move Down"
                     onClick={() => {
                       const projects = [...resume.projects];
                       const nextProject = resume.projects[i + 1];
@@ -154,7 +154,7 @@ const Projects = () => {
               <span>Add Project</span> 
               <AiFillPlusCircle size={22} className="inline ml-2" />
             </Button>
-            <Modal size="small" open={open} onClose={() => setOpen(false)}>
+            <Modal size="small" open={open} onClose={close}>
               <Modal.Header>Add Project</Modal.Header>
               <Modal.Content>
                 <Modal.Description>

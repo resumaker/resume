@@ -105,7 +105,7 @@ const Education = () => {
                   {resume.education.length > 1 && i !== resume.education.length - 1 && (
                     <Dropdown.Item 
                       icon="arrow down" 
-                      text="Move down"
+                      text="Move Down"
                       onClick={() => {
                         const education = [...resume.education];
                         const nextEducation = resume.education[i + 1];
@@ -154,7 +154,7 @@ const Education = () => {
             <span>Add Education Info</span> 
             <AiFillPlusCircle size={22} className="ml-2" />
           </Button>
-          <Modal size="small" open={open} onClose={() => setOpen(false)}>
+          <Modal size="small" open={open} onClose={close}>
             <Modal.Header>Add Education Info</Modal.Header>
             <Modal.Content>
               <Modal.Description>

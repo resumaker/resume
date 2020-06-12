@@ -106,7 +106,7 @@ const Experience = () => {
                 {resume.experience.length > 1 && i !== resume.experience.length - 1 && (
                   <Dropdown.Item 
                     icon="arrow down" 
-                    text="Move down"
+                    text="Move Down"
                     onClick={() => {
                       const experience = [...resume.experience];
                       const nextExperience = resume.experience[i + 1];
@@ -154,7 +154,7 @@ const Experience = () => {
             <span>Add Work Experience</span> 
             <AiFillPlusCircle size={22} className="ml-2" />
           </Button>
-          <Modal size="small" open={open} onClose={() => setOpen(false)}>
+          <Modal size="small" open={open} onClose={close}>
             <Modal.Header>Add Work Experience</Modal.Header>
             <Modal.Content>
               <Modal.Description>
