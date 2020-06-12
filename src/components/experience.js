@@ -31,6 +31,7 @@ const Experience = () => {
   const isEdit = mode === 'edit';
 
   const [open, setOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const [newExperience, setNewExperience] = useState(createNewExperience());
 
   const close = () => {
@@ -52,6 +53,12 @@ const Experience = () => {
     }
   }, [newExperience.currentlyWorkHere]);
 
+  useEffect(function onClose() {
+    if (!open) {
+      setEditIndex(null);
+    }
+  }, [open]);
+
   return (
     <section>
       <h1 className="section-header">Experience</h1>
@@ -72,6 +79,7 @@ const Experience = () => {
                   text="Edit" 
                   onClick={() => {
                     setNewExperience({ ...item });
+                    setEditIndex(i);
                     setOpen(true);
                   }} 
                 />
@@ -79,17 +87,56 @@ const Experience = () => {
                   <Dropdown.Item 
                     icon="arrow up" 
                     text="Move Up"
+                    onClick={() => {
+                      const experience = [...resume.experience];
+                      const prevExperience = resume.experience[i - 1];
+                      const currExperience = resume.experience[i];
+                      experience[i - 1] = currExperience;
+                      experience[i] = prevExperience;
+                      dispatch({ 
+                        type: 'SET_FIELD',
+                        payload: { 
+                          path: 'resume.experience', 
+                          value: experience,
+                        }, 
+                      });
+                    }}
                   />
                 )}
                 {resume.experience.length > 1 && i !== resume.experience.length - 1 && (
                   <Dropdown.Item 
                     icon="arrow down" 
                     text="Move down"
+                    onClick={() => {
+                      const experience = [...resume.experience];
+                      const nextExperience = resume.experience[i + 1];
+                      const currExperience = resume.experience[i];
+                      experience[i + 1] = currExperience;
+                      experience[i] = nextExperience;
+                      dispatch({ 
+                        type: 'SET_FIELD',
+                        payload: { 
+                          path: 'resume.experience', 
+                          value: experience,
+                        }, 
+                      });
+                    }}
                   />
                 )}
                 <Dropdown.Item 
                   icon="trash" 
                   text="Delete"
+                  onClick={() => {
+                    const experience = [...resume.experience];
+                    experience.splice(i, 1);
+                    dispatch({ 
+                      type: 'SET_FIELD',
+                      payload: { 
+                        path: 'resume.experience', 
+                        value: experience,
+                      }, 
+                    });
+                  }}
                 />
               </Dropdown.Menu>
             </Dropdown>
@@ -196,15 +243,21 @@ const Experience = () => {
               </Button>
               <Button
                 positive
-                content="Create"
                 icon="checkmark"
                 labelPosition="right"
+                content={editIndex === null ? 'Create' : 'Edit'}
                 onClick={() => {
+                  const experience = [...resume.experience];
+                  if (editIndex !== null) {
+                    experience[editIndex] = newExperience;
+                  } else {
+                    experience.push(newExperience);
+                  }
                   dispatch({ 
                     type: 'SET_FIELD', 
                     payload: { 
                       path: 'resume.experience', 
-                      value: [...resume.experience, newExperience],
+                      value: experience,
                     }, 
                   });
                   close();

@@ -32,6 +32,7 @@ const Skills = () => {
   const isEdit = mode === 'edit';
 
   const [open, setOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const [newSkill, setNewSkill] = useState(createNewSkill());
 
   const close = () => {
@@ -45,6 +46,12 @@ const Skills = () => {
     }
   }, [touched, isEdit, dispatch]);
 
+  useEffect(function onClose() {
+    if (!open) {
+      setEditIndex(null);
+    }
+  }, [open]);
+  
   return (
     <section>
       <h1 className="section-header">Skills</h1>

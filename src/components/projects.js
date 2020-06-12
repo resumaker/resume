@@ -28,6 +28,7 @@ const Projects = () => {
   const isEdit = mode === 'edit';
 
   const [open, setOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const [newProject, setNewProject] = useState(createNewProject());
 
   const close = () => {
@@ -40,6 +41,12 @@ const Projects = () => {
       dispatch({ type: 'SET_FIELD', payload: { path: 'resume.projects', value: [] } });
     }
   }, [touched, isEdit, dispatch]);
+
+  useEffect(function onClose() {
+    if (!open) {
+      setEditIndex(null);
+    }
+  }, [open]);
 
   return (
     <section>
@@ -72,6 +79,7 @@ const Projects = () => {
                   text="Edit" 
                   onClick={() => {
                     setNewProject({ ...item });
+                    setEditIndex(i);
                     setOpen(true);
                   }} 
                 />
@@ -79,17 +87,56 @@ const Projects = () => {
                   <Dropdown.Item 
                     icon="arrow up" 
                     text="Move Up"
+                    onClick={() => {
+                      const projects = [...resume.projects];
+                      const prevProject = resume.projects[i - 1];
+                      const currProject = resume.projects[i];
+                      projects[i - 1] = currProject;
+                      projects[i] = prevProject;
+                      dispatch({ 
+                        type: 'SET_FIELD',
+                        payload: { 
+                          path: 'resume.projects', 
+                          value: projects,
+                        }, 
+                      });
+                    }}
                   />
                 )}
                 {resume.projects.length > 1 && i !== resume.projects.length - 1 && (
                   <Dropdown.Item 
                     icon="arrow down" 
                     text="Move down"
+                    onClick={() => {
+                      const projects = [...resume.projects];
+                      const nextProject = resume.projects[i + 1];
+                      const currProject = resume.projects[i];
+                      projects[i + 1] = currProject;
+                      projects[i] = nextProject;
+                      dispatch({ 
+                        type: 'SET_FIELD',
+                        payload: { 
+                          path: 'resume.projects', 
+                          value: projects,
+                        }, 
+                      });
+                    }}
                   />
                 )}
                 <Dropdown.Item 
                   icon="trash" 
                   text="Delete"
+                  onClick={() => {
+                    const projects = [...resume.projects];
+                    projects.splice(i, 1);
+                    dispatch({ 
+                      type: 'SET_FIELD',
+                      payload: { 
+                        path: 'resume.projects', 
+                        value: projects,
+                      }, 
+                    });
+                  }}
                 />
               </Dropdown.Menu>
             </Dropdown>
@@ -158,15 +205,21 @@ const Projects = () => {
                 </Button>
                 <Button
                   positive
-                  content="Create"
                   icon="checkmark"
                   labelPosition="right"
+                  content={editIndex === null ? 'Create' : 'Edit'}
                   onClick={() => {
+                    const projects = [...resume.projects];
+                    if (editIndex !== null) {
+                      projects[editIndex] = newProject;
+                    } else {
+                      projects.push(newProject);
+                    }
                     dispatch({ 
                       type: 'SET_FIELD', 
                       payload: { 
                         path: 'resume.projects', 
-                        value: [...resume.projects, newProject],
+                        value: projects,
                       }, 
                     });
                     close();

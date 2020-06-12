@@ -30,6 +30,7 @@ const Education = () => {
   const isEdit = mode === 'edit';
 
   const [open, setOpen] = useState(false);
+  const [editIndex, setEditIndex] = useState(null);
   const [newEducation, setNewEducation] = useState(createNewEducation());
 
   const close = () => {
@@ -51,6 +52,12 @@ const Education = () => {
     }
   }, [newEducation.currentlyStudyHere]);
 
+  useEffect(function onClose() {
+    if (!open) {
+      setEditIndex(null);
+    }
+  }, [open]);
+
   return (
     <section className="mb-5">
       <h1 className="section-header mb-5">Education</h1>
@@ -71,6 +78,7 @@ const Education = () => {
                     text="Edit" 
                     onClick={() => {
                       setNewEducation({ degree, institution, start, end });
+                      setEditIndex(i);
                       setOpen(true);
                     }} 
                   />
@@ -78,17 +86,56 @@ const Education = () => {
                     <Dropdown.Item 
                       icon="arrow up" 
                       text="Move Up"
+                      onClick={() => {
+                        const education = [...resume.education];
+                        const prevEducation = resume.education[i - 1];
+                        const currEducation = resume.education[i];
+                        education[i - 1] = currEducation;
+                        education[i] = prevEducation;
+                        dispatch({ 
+                          type: 'SET_FIELD',
+                          payload: { 
+                            path: 'resume.education', 
+                            value: education,
+                          }, 
+                        });
+                      }}
                     />
                   )}
                   {resume.education.length > 1 && i !== resume.education.length - 1 && (
                     <Dropdown.Item 
                       icon="arrow down" 
                       text="Move down"
+                      onClick={() => {
+                        const education = [...resume.education];
+                        const nextEducation = resume.education[i + 1];
+                        const currEducation = resume.education[i];
+                        education[i + 1] = currEducation;
+                        education[i] = nextEducation;
+                        dispatch({ 
+                          type: 'SET_FIELD',
+                          payload: { 
+                            path: 'resume.education', 
+                            value: education,
+                          }, 
+                        });
+                      }}
                     />
                   )}
                   <Dropdown.Item 
                     icon="trash" 
                     text="Delete"
+                    onClick={() => {
+                      const education = [...resume.education];
+                      education.splice(i, 1);
+                      dispatch({ 
+                        type: 'SET_FIELD',
+                        payload: { 
+                          path: 'resume.education', 
+                          value: education,
+                        }, 
+                      });
+                    }}
                   />
                 </Dropdown.Menu>
               </Dropdown>
@@ -181,20 +228,26 @@ const Education = () => {
               </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
-              <Button color='black' onClick={close}>
+              <Button color="black" onClick={close}>
                 Cancel
               </Button>
               <Button
                 positive
                 icon="checkmark"
-                content="Create"
                 labelPosition="right"
+                content={editIndex === null ? 'Create' : 'Edit'}
                 onClick={() => {
+                  const education = [...resume.education];
+                  if (editIndex !== null) {
+                    education[editIndex] = newEducation;
+                  } else {
+                    education.push(newEducation);
+                  }
                   dispatch({ 
                     type: 'SET_FIELD', 
                     payload: { 
                       path: 'resume.education', 
-                      value: [...resume.education, newEducation],
+                      value: education,
                     }, 
                   });
                   close();
