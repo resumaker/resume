@@ -9,9 +9,20 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Input from '../elements/input';
 
+const styles = {
+  spaceBetween: {
+    justifyContent: 'space-between',
+  },
+  pointer: {
+    cursor: 'pointer',
+  },
+  button: {
+    marginLeft: 28,
+  },
+};
+
 const ContactField = ({ Icon, InputField, PreviewField, buttonText }) => {
   const { mode } = useSelector(({ global }) => global);
-  const isEdit = mode === 'edit';
 
   const [visible, setVisibility] = useState(true);
   const toggleVisibility = () => setVisibility(!visible);
@@ -19,25 +30,25 @@ const ContactField = ({ Icon, InputField, PreviewField, buttonText }) => {
   return (
     <>
       {visible && Icon}
-      {isEdit ? (
+      {mode === 'edit' ? (
         <div 
+          style={styles.spaceBetween}
           className="flex items-center w-full my-2" 
-          style={{justifyContent: 'space-between'}}
         >
           {visible ? (
             <>
               {InputField}
               <FaTrash 
                 size={14} 
+                style={styles.pointer}
                 onClick={toggleVisibility} 
-                style={{cursor: 'pointer'}}
               />
             </>
           ) : (
             <Button 
               size="tiny" 
               color="violet" 
-              style={{marginLeft: 28}}
+              style={styles.button}
               onClick={toggleVisibility} 
             >
               {buttonText}
@@ -53,8 +64,6 @@ const ContactField = ({ Icon, InputField, PreviewField, buttonText }) => {
 
 const Contact = ({ field, value }) => {
   const dispatch = useDispatch();
-  const { mode } = useSelector(({ global }) => global);
-  const isEdit = mode === 'edit';
 
   return (
     <span className="flex text-primary-900 tracking-widest items-center">
