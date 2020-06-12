@@ -8,6 +8,9 @@ module.exports = [{
       plugin: require('../node_modules/gatsby-plugin-react-redux/gatsby-browser.js'),
       options: {"plugins":[],"pathToCreateStoreModule":"./src/store/index","serialize":{"space":0,"isJSON":true,"unsafe":false},"cleanupOnClient":true,"windowKey":"__PRELOADED_STATE__"},
     },{
+      plugin: require('../node_modules/gatsby-plugin-google-analytics/gatsby-browser.js'),
+      options: {"plugins":[],"trackingId":"UA-169227649-1","head":true,"anonymize":true,"respectDNT":true,"exclude":[],"pageTransitionDelay":0,"defer":true,"sampleRate":5,"siteSpeedSampleRate":10,"cookieDomain":"app.resumaker.me"},
+    },{
       plugin: require('../gatsby-browser.js'),
       options: {"plugins":[]},
     }]
