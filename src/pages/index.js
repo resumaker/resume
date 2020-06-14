@@ -4,6 +4,7 @@ import kebabCase from 'lodash.kebabcase';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Label, Popup } from 'semantic-ui-react';
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
 import ColorPicker from '../elements/color-picker';
@@ -48,14 +49,25 @@ const CreatePage = ({ data }) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    trackCustomEvent({
+      category: 'Export Button',
+      action: 'Click',
+      label: 'Export',
+    });
   };
 
   const toggleMode = () => {
+    trackCustomEvent({
+      category: 'Edit / Preview Button',
+      action: 'Click',
+      label: isEdit ? 'Edit -> Preview' : 'Preview -> Edit',
+    });
     dispatch({
       type: 'SET_FIELD', 
       payload: { path: 'mode', value: isEdit ? 'preview' : 'edit' },
     });
   };
+
   useEffect(function onFirstTouch() {
     if (isEdit && !touched) {
       dispatch({ type: 'SET_FIELD', payload: { path: 'touched', value: true } });
@@ -70,6 +82,12 @@ const CreatePage = ({ data }) => {
       .btn-secondary, .btn-secondary:hover {color: white !important; background: ${themeColor} !important;}
       .bg-primary-500, .tag {background: ${themeColor} !important;}
     `;
+    trackCustomEvent({
+      category: 'Color Widget',
+      action: 'Change',
+      label: 'Change Color',
+      value: Number(themeColor.replace('#', '')),
+    });
   }, [themeColor]);
   
   return (

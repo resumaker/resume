@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import startCase from 'lodash.startcase';
 import { useDispatch } from 'react-redux';
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import { Form, Input, TextArea, Label, Dropdown } from 'semantic-ui-react';
 
 const CustomInput = ({ type, value, rows, size, path, placeholder, options, pointing, label, extraLabel, extraLabelPointing, InputComp, onChange, style, inputStyle, ...rest }) => {
@@ -11,8 +12,18 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
         if (onChange) {
             if (type === 'select') {
                 onChange(arg.value);
+                trackCustomEvent({
+                    category: `Select Option - "${arg.value}"`,
+                    action: 'Select',
+                    label: 'Select Option',
+                });
             } else {
                 onChange(e.target.value);
+                trackCustomEvent({
+                    category: `Change Input - "${arg.value}"`,
+                    action: 'Input',
+                    label: 'Change Input',
+                });
             }
         } else {
             dispatch({
@@ -21,6 +32,11 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
                     path, 
                     value: type === 'select' ? e : e.target.value,
                 }, 
+            });
+            trackCustomEvent({
+                category: `Change Input (Type, Value) - "(${type}, ${type === 'select' ? e : e.target.value})"`,
+                action: 'Change Input Type',
+                label: 'Change Input Type',
             });
         }
     };
@@ -32,9 +48,9 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
                     rows={rows}
                     value={value}
                     style={inputStyle}
+                    onChange={_onChange}
                     placeholder={placeholder}
                     className={`border rounded-lg py-2 px-4 w-full block ${label ? '' : `leading-relaxed lg:text-left lg:mx-8 lg:text-lg`}`}
-                    onChange={_onChange}
                 />
                 {label && (
                     <Label pointing={pointing}>{label}</Label>

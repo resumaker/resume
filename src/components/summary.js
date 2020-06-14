@@ -2,6 +2,7 @@ import isEmpty from 'lodash.isempty';
 import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FilePond, registerPlugin } from 'react-filepond';
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import { Segment, Portal, Header, Button } from 'semantic-ui-react';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation';
@@ -40,7 +41,12 @@ const Summary = ({ data }) => {
   const { mode, resume } = useSelector(({ global }) => global);
   const isEdit = mode === 'edit';
 
-  const setProfilePicture = src => 
+  const setProfilePicture = src => {
+    trackCustomEvent({
+      category: 'Profile Picture File',
+      action: 'Upload',
+      label: 'Upload Profile',
+    });
     dispatch({
       type: 'SET_FIELD',
       payload: {
@@ -48,6 +54,7 @@ const Summary = ({ data }) => {
         value: src,
       },
     });
+  };
 
   return (
     <section className="py-5 border-b border-neutral-300 lg:flex items-center">
@@ -78,8 +85,8 @@ const Summary = ({ data }) => {
           <img
             alt="profile"
             src={resume.profilePicture}
-            className="rounded-full border mx-auto xs:w-32 sm:w-64 md:w-64 xl:w-64 lg:w-64"
             style={{borderColor: '#eee'}}
+            className="rounded-full border mx-auto xs:w-32 sm:w-64 md:w-64 xl:w-64 lg:w-64"
           />
         )}
       </div>
