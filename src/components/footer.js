@@ -1,5 +1,5 @@
 import React from 'react';
-import SocialIcon from './social_icon';
+// import SocialIcon from './social_icon';
 
 const Footer = ({ social }) => (
   <footer className="py-6 mx-auto items-center justify-between md:flex">
@@ -16,7 +16,7 @@ const Footer = ({ social }) => (
         https://resumaker.me
       </a>
     </div>
-    {social && (
+    {/* {social && (
       <div className="flex items-center justify-center ml-2">
         {social.map(item => (
           <a
@@ -31,7 +31,7 @@ const Footer = ({ social }) => (
           </a>
         ))}
       </div>
-    )}
+    )} */}
   </footer>
 );
 

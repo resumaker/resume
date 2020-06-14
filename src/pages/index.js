@@ -39,8 +39,8 @@ const CreatePage = ({ data }) => {
   const exportResume = async () => {
     const resumeEl = document.getElementById('resume');
     const width = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).width) : 0;
-    const height = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).height) + 50 : 0;
-    const canvas = await html2canvas(resumeEl, { y: 0, width, height });
+    const height = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).height) : 0;
+    const canvas = await html2canvas(resumeEl, { y: 135, width, height });
     const imgData = canvas.toDataURL('image/png');
     var link = document.createElement('a');
     link.download = `${kebabCase(resume.fullname)}-resume.png`;
