@@ -58,6 +58,7 @@ const SEO = ({ description, lang, meta, title }) => {
         },
       ].concat(meta)}
     >
+      <script data-ad-client="ca-pub-8377217125784648" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
       <meta name="google-site-verification" content="frBjtmq8mQ4ngQJX7rrEg2Tg8QkIo7T_dMw3nVHs0Q8" />
     </Helmet>
   );
