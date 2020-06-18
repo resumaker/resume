@@ -4,8 +4,8 @@ import kebabCase from 'lodash.kebabcase';
 import { TiDirections } from 'react-icons/ti';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Button, Label, Popup } from 'semantic-ui-react';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
+import { Button, Label, Popup, Dropdown } from 'semantic-ui-react';
 
 import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
 import ColorPicker from '../elements/color-picker';
@@ -17,6 +17,7 @@ import '../css/calendar.css';
 import '../css/date-picker.css';
 import '../main.css';
 
+const jsPDF = typeof window !== `undefined` ? require('jspdf') : null
 const html2canvas = typeof window !== `undefined` ? require('html2canvas') : null
 
 const styles = {
@@ -41,6 +42,42 @@ const styles = {
   },
 };
 
+const exportPNG = (canvas, name) => {
+  const imgData = canvas.toDataURL('image/png');
+  const link = document.createElement('a');
+  link.download = `${kebabCase(name)}-resume.png`;
+  link.href = imgData;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  trackCustomEvent({
+    category: 'Export PNG',
+    action: 'Click',
+    label: 'Export',
+  });
+};
+
+const exportPDF = (canvas, name) => {
+  const imgData = canvas.toDataURL('image/png', 1.0);
+  const doc = (() => {
+    if (canvas.width > canvas.height) {
+      return new jsPDF('l', 'mm', [canvas.width, canvas.height]);
+    }
+    return new jsPDF('p', 'mm', [canvas.height, canvas.width]);
+  })();
+
+  const docWidth = doc.internal.pageSize.getWidth();
+  const docHeight = doc.internal.pageSize.getHeight();
+
+  doc.addImage(imgData, 'PNG', 0, 0, docWidth, docHeight);
+  doc.save(`${kebabCase(name)}-resume.pdf`);
+  trackCustomEvent({
+    category: 'Export PDF',
+    action: 'Click',
+    label: 'Export',
+  });
+};
+
 const CreatePage = ({ data }) => {
   const dispatch = useDispatch();
   const { mode, resume, touched, direction, isMobile } = useSelector(({ global }) => global);
@@ -49,23 +86,16 @@ const CreatePage = ({ data }) => {
 
   const [themeColor, setThemeColor] = useState('#5b4f96');
 
-  const exportResume = async () => {
+  const exportResume = async docType => {
     const resumeEl = document.getElementById('resume');
     const width = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).width) : 0;
     const height = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).height) : 0;
-    const canvas = await html2canvas(resumeEl, { y: 135, width, height });
-    const imgData = canvas.toDataURL('image/png');
-    var link = document.createElement('a');
-    link.download = `${kebabCase(resume.fullname)}-resume.png`;
-    link.href = imgData;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    trackCustomEvent({
-      category: 'Export Button',
-      action: 'Click',
-      label: 'Export',
-    });
+    const canvas = await html2canvas(resumeEl, { y: isMobile ? 215 : 135, width, height });
+    if (docType === 'pdf') {
+      exportPDF(canvas, resume.fullname);
+    } else if (docType === 'png') {
+      exportPNG(canvas, resume.fullname);
+    }
   };
 
   const toggleMode = () => {
@@ -199,15 +229,30 @@ const CreatePage = ({ data }) => {
                 }
               />
             )}
-            <Button 
-              color="violet" 
-              icon="download" 
-              content="Export" 
-              disabled={isEdit}
-              labelPosition="right" 
-              onClick={exportResume} 
-              style={styles.actionButton}
-            />
+            <Dropdown
+              lazyLoad
+              trigger={
+                <Button 
+                  color="violet" 
+                  icon="download" 
+                  content="Export" 
+                  disabled={isEdit}
+                  labelPosition="right" 
+                  style={styles.actionButton}
+                />
+              }
+            >
+              <Dropdown.Menu>
+                <Dropdown.Header content="Choose Format" />
+                <Dropdown.Divider />
+                <Dropdown.Item onClick={() => exportResume('pdf')}>
+                  <Button size="small" color="violet" content='PDF' icon='file pdf' labelPosition="right"  />
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => exportResume('png')}>
+                  <Button size="small" color="violet" content='PNG' icon='file image' labelPosition="right" />
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
             <div className="flex items-center color-picker-container">
               <ColorPicker onChange={setThemeColor} />
               <Label basic color="violet" pointing="left">
