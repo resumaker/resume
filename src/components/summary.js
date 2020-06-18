@@ -38,7 +38,8 @@ const Summary = ({ data }) => {
   const [files, setFiles] = useState([]);
   const [invalidFile, setInvalidFile] = useState(false);
 
-  const { mode, resume } = useSelector(({ global }) => global);
+  const { mode, resume, direction } = useSelector(({ global }) => global);
+  const ltr = direction === 'ltr';
   const isEdit = mode === 'edit';
 
   const setProfilePicture = src => {
@@ -94,7 +95,7 @@ const Summary = ({ data }) => {
         {mode === 'edit' ? (
           <Input type="textarea" value={data} path="resume.summary" />
         ) : (
-          <p className="text-center tracking-wide leading-relaxed lg:text-left lg:mx-8 lg:text-lg">
+          <p className={`text-center tracking-wide leading-relaxed lg:text-${ltr ? 'left' : 'right'} lg:mx-8 lg:text-lg`}>
             {data}
           </p>
         )}

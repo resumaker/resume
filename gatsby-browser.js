@@ -7,7 +7,10 @@
 })();
 
 (function() {
-  const style = document.createElement('style');
-  style.setAttribute('id', 'custom-theme-styles');
-  document.head.appendChild(style);
+  const head = document.head || document.getElementsByTagName('head')[0];
+  ['custom-theme-styles', 'custom-direction-styles'].forEach(id => {
+    const style = document.createElement('style');
+    style.setAttribute('id', id);
+    head.appendChild(style);
+  });
 })();

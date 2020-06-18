@@ -5,7 +5,8 @@ import Contact from './contact';
 import Input from '../elements/input';
 
 const Header = ({ name, role, contacts }) => {
-  const { mode } = useSelector(({ global }) => global);
+  const { mode, direction } = useSelector(({ global }) => global);
+  const ltr = direction === 'ltr';
   const isEdit = mode === 'edit';
 
   return (
@@ -40,7 +41,7 @@ const Header = ({ name, role, contacts }) => {
         )}
       </div>
 
-      <div className="mt-5 md:mt-0 md:border-l md:border-neutral-300 md:pl-4">
+      <div className={`mt-5 md:mt-0 md:border-${ltr ? 'l' : 'r'} md:border-neutral-300 md:p${ltr ? 'l' : 'r'}-4`}>
         {contacts && Object.keys(contacts).map(key => (
           <Contact key={key} field={key} value={contacts[key]} />
         ))}

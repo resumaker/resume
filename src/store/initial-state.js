@@ -1,6 +1,8 @@
 module.exports = {
-    mode: 'preview',
     touched: false,
+    mode: 'preview',
+    direction: 'ltr',
+    isMobile: typeof window !== `undefined` ? window.innerWidth < 766 : true,
 
     resume: {
         fullname: 'Jon London',
