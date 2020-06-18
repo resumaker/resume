@@ -86,6 +86,20 @@ const CreatePage = ({ data }) => {
     }
   }, [isEdit, touched, dispatch]);
 
+  useEffect(function onResizeScreen() {
+    const onResize = () => {
+      dispatch({ 
+        type: 'SET_FIELD', 
+        payload: { path: 'isMobile', value: window.innerWidth < 767 },
+      });
+    };
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
   useEffect(function onColorChange() {
     const customThemeStylesEl = document.getElementById('custom-theme-styles');
     customThemeStylesEl.innerHTML = `
