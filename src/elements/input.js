@@ -19,11 +19,6 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
                 });
             } else {
                 onChange(e.target.value);
-                trackCustomEvent({
-                    category: `Change Input - "${arg.value}"`,
-                    action: 'Input',
-                    label: 'Change Input',
-                });
             }
         } else {
             dispatch({
@@ -50,6 +45,13 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
                     style={inputStyle}
                     onChange={_onChange}
                     placeholder={placeholder}
+                    onBlur={e => 
+                        trackCustomEvent({
+                            category: `Value - "${e.target.value}"`,
+                            action: 'Input',
+                            label: 'Change Textarea',
+                        })
+                    }
                     className={`border rounded-lg py-2 px-4 w-full block ${label ? '' : `leading-relaxed lg:text-left lg:mx-8 lg:text-lg`}`}
                 />
                 {label && (
@@ -67,15 +69,11 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
             <Form.Field style={style}>
                 <Dropdown 
                     selection
-                    placeholder={placeholder}
-                    options={options.map(opt => ({
-                        key: opt,
-                        value: opt,
-                        text: startCase(opt),
-                    }))}
                     value={value}
                     style={inputStyle}
                     onChange={_onChange}
+                    placeholder={placeholder}
+                    options={options.map(opt => ({ key: opt, value: opt, text: startCase(opt) }))}
                     {...rest}
                 />
                 {label && (
@@ -118,6 +116,13 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
                     style={inputStyle}
                     onChange={_onChange}
                     placeholder={placeholder} 
+                    onBlur={e => 
+                        trackCustomEvent({
+                            category: `Value - "${e.target.value}"`,
+                            action: 'Input',
+                            label: 'Change Input',
+                        })
+                    }
                     {...rest}
                 />
             )}
