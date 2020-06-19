@@ -242,16 +242,18 @@ const CreatePage = ({ data }) => {
                 />
               }
             >
-              <Dropdown.Menu>
-                <Dropdown.Header content="Choose Format" />
-                <Dropdown.Divider />
-                <Dropdown.Item onClick={() => exportResume('pdf')}>
-                  <Button size="small" color="violet" content='PDF' icon='file pdf' labelPosition="right"  />
-                </Dropdown.Item>
-                <Dropdown.Item onClick={() => exportResume('png')}>
-                  <Button size="small" color="violet" content='PNG' icon='file image' labelPosition="right" />
-                </Dropdown.Item>
-              </Dropdown.Menu>
+              {isEdit ? <React.Fragment /> : (
+                <Dropdown.Menu>
+                  <Dropdown.Header content="Choose Format" />
+                  <Dropdown.Divider />
+                  <Dropdown.Item onClick={() => exportResume('pdf')}>
+                    <Button size="small" color="violet" content='PDF' icon='file pdf' labelPosition="right"  />
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => exportResume('png')}>
+                    <Button size="small" color="violet" content='PNG' icon='file image' labelPosition="right" />
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              )}
             </Dropdown>
             <div className="flex items-center color-picker-container">
               <ColorPicker onChange={setThemeColor} />
