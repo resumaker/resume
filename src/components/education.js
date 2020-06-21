@@ -14,6 +14,9 @@ const styles = {
     margin: '15px 0',
     alignItems:'center',
   },
+  justify: {
+    justifyContent: 'space-between',
+  },
 };
 
 const createNewEducation = () => ({
@@ -63,7 +66,8 @@ const Education = () => {
       <h1 className="section-header mb-5">Education</h1>
       {!isEmpty(resume.education) && resume.education.map(
         ({ degree, institution, start, end }, i) => (
-            <div className="flex my-2" style={{justifyContent: 'space-between'}}>          <div className="my-2" key={degree}>
+          <div key={`${degree}-${i}`} className="flex my-2" style={styles.justify}>          
+            <div className="my-2">
               <h2 className="item-header text-lg">{degree}</h2>
               <h3 className="item-sub">{institution}</h3>
               <p className="text-sm text-neutral-500 font-light">

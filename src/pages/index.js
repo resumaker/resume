@@ -5,12 +5,12 @@ import { TiDirections } from 'react-icons/ti';
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
-import { Button, Label, Popup, Dropdown } from 'semantic-ui-react';
+import { Button, Label, Popup, Dropdown, Icon } from 'semantic-ui-react';
 
-import FiverrModal from '../components/affiliate/fiverr-modal';
-import FiverrHeader from '../components/affiliate/fiverr-header';
-import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
 import ColorPicker from '../elements/color-picker';
+import FiverrModal from '../components/affiliate/fiverr/modal';
+import FiverrHeader from '../components/affiliate/fiverr/header';
+import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
 
 import '../css/filepond.css';
 import '../css/filepond-plugin-image-preview.css';
@@ -80,6 +80,27 @@ const exportPDF = (canvas, name) => {
   });
 };
 
+function exportDoc(htmlBody, name){
+  const htmlHead = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+  const htmlEnd = '</body></html>';
+  const html = htmlHead + htmlBody + htmlEnd;
+
+  const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
+  const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);  
+  const filename = `${kebabCase(name)}-resume.doc`;
+  
+  if (navigator.msSaveOrOpenBlob ){
+      navigator.msSaveOrOpenBlob(blob, filename);
+  } else {
+      const downloadLink = document.createElement('a');
+      document.body.appendChild(downloadLink);
+      downloadLink.href = url;
+      downloadLink.download = filename;
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+  }
+}
+
 const CreatePage = ({ data }) => {
   const dispatch = useDispatch();
   const { mode, resume, touched, direction, isMobile } = useSelector(({ global }) => global);
@@ -97,6 +118,8 @@ const CreatePage = ({ data }) => {
       exportPDF(canvas, resume.fullname);
     } else if (docType === 'png') {
       exportPNG(canvas, resume.fullname);
+    } else if (docType === 'docx') {
+      exportDoc(resumeEl.innerHTML, resume.fullname);
     }
   };
 
@@ -166,15 +189,19 @@ const CreatePage = ({ data }) => {
   
   return (
     <>
-      <FiverrModal time={50} />
+      <FiverrModal appearInSeconds={50} />
       <FiverrHeader />
-      <div className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" style={styles.actionsBar}>
+      <div 
+        style={styles.actionsBar}
+        className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" 
+      >
         <a 
-          href="/" 
+          rel="noopener"
+          target="_blank"
           className="my-4"
           title="Resumaker Logo" 
           style={styles.logoLink} 
-          onClick={e => e.preventDefault()}
+          href="https://resumaker.me" 
         >
           <Img fixed={data.logo.childImageSharp.fixed} alt="Resumaker Logo" />
         </a>
@@ -251,10 +278,82 @@ const CreatePage = ({ data }) => {
                   <Dropdown.Header content="Choose Format" />
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={() => exportResume('pdf')}>
-                    <Button size="small" color="violet" content='PDF' icon='file pdf' labelPosition="right"  />
+                    <Button 
+                      size="small" 
+                      color="violet" 
+                      content="PDF" 
+                      icon="file pdf" 
+                      labelPosition="right"  
+                    />
                   </Dropdown.Item>
+
                   <Dropdown.Item onClick={() => exportResume('png')}>
-                    <Button size="small" color="violet" content='PNG' icon='file image' labelPosition="right" />
+                    <Button 
+                      size="small" 
+                      color="violet" 
+                      content="PNG" 
+                      icon="file image" 
+                      labelPosition="right" 
+                    />
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+
+                  <Dropdown.Item>
+                    <Dropdown
+                      lazyLoad
+                      floating
+                      trigger={
+                        <Button 
+                          color="violet" 
+                          content="DOCX" 
+                          icon="file word" 
+                          labelPosition="right" 
+                        />
+                      }
+                    >
+                      <Dropdown.Menu>
+                        <Dropdown.Header content="Choose Quality" />
+                        <Dropdown.Divider />
+                        <Dropdown.Item>
+                          <div 
+                            style={styles.actionsBar}
+                            className="flex items-center" 
+                            onClick={() => exportResume('docx')}
+                          >
+                            <span>Low</span>
+                            <Popup
+                              size="large"
+                              position="top right"
+                              content="Basic docx format cration using Resumaker's simple algorithm"
+                              trigger={
+                                <Icon circular size="small" name="question" onClick={e => {e.preventDefault();e.stopPropagation();}} />
+                              }
+                            />
+                          </div>
+                        </Dropdown.Item>
+                        <Dropdown.Item>
+                          <div 
+                            style={styles.actionsBar}
+                            className="flex items-center" 
+                            onClick={() => {
+                              exportResume('pdf');
+                              window.open('https://pdfsimpli.com/lp/pdf-to-word?fpr=guy31', '_blank');
+                            }}
+                          >
+                            <span>High</span>
+                            <Popup
+                              size="large"
+                              position="top right"
+                              content="We generate pdf & redirect to a professional pdf-to-docx converter service"
+                              trigger={
+                                <Icon circular size="small" name="question" onClick={e => {e.preventDefault();e.stopPropagation();}} />
+                              }
+                            />
+                          </div>
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </Dropdown.Item>
                   </Dropdown.Item>
                 </Dropdown.Menu>
               )}

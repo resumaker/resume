@@ -32,7 +32,7 @@ class FiverrModal extends Component {
                 window.clearTimeout(timeout);
                 this.setState({ open: true });
             }
-        }, this.props.time * 1000);
+        }, this.props.appearInSeconds * 1000);
         return () => {
             if (timeout) {
                 window.clearTimeout(timeout);
@@ -83,11 +83,11 @@ class FiverrModal extends Component {
 }
 
 FiverrModal.propTypes = {
-    time: PropTypes.number,
+    appearInSeconds: PropTypes.number,
 };
 
 FiverrModal.defaultProps = {
-    time: 30,
+    appearInSeconds: 30,
 };
 
 export default FiverrModal;
