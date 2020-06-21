@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Button, Modal } from 'semantic-ui-react';
 import React, { useState, useEffect } from 'react';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
@@ -5,13 +6,16 @@ import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 const styles = {
     text: {
         lineHeight: 1.7,
-        letterSpacing: 0.25,
+        letterSpacing: 0.2,
+    },
+    innerText: {
+        lineHeight: 1,
     },
 };
 
-const FiverrModal = () => {
-    const [open, setOpen] = useState(false);
+const FiverrModal = ({ time }) => {
     let timeout;
+    const [open, setOpen] = useState(false);
 
     const onClose = () => {
         setOpen(false);
@@ -26,11 +30,9 @@ const FiverrModal = () => {
         timeout = window.setTimeout(() => {
             setOpen(true);
             window.clearTimeout(timeout);
-        }, 30000);
+        }, time * 1000);
         return () => {
-            if (timeout) {
-                window.clearTimeout(timeout);
-            }
+            timeout && window.clearTimeout(timeout);
         };
     }, []);
 
@@ -42,7 +44,7 @@ const FiverrModal = () => {
                 We at Resumaker want you to find a great job as soon as possible.
                 Yet, the job market is not always quick & easy, so if you need some
                 extra money, try Fiverr - a freelancer marketplace you can earn from.<br/><br/>
-                <small>
+                <small style={styles.innerText}>
                     If you click on "Take me there", the link will open in a new tab and
                     the details you entered so far creating your resume will be completely saved.
                 </small>
@@ -69,6 +71,14 @@ const FiverrModal = () => {
             </Modal.Actions>
         </Modal>
     );
+};
+
+FiverrModal.propTypes = {
+    time: PropTypes.number,
+};
+
+FiverrModal.defaultProps = {
+    time: 30,
 };
 
 export default FiverrModal;

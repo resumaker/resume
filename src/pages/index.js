@@ -166,7 +166,7 @@ const CreatePage = ({ data }) => {
   
   return (
     <>
-      <FiverrModal />
+      <FiverrModal time={50} />
       <FiverrHeader />
       <div className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" style={styles.actionsBar}>
         <a 
