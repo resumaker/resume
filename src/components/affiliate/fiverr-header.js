@@ -19,9 +19,9 @@ const FiverrHeader = () => {
             color="violet"
             onDismiss={() => setVisible(false)}
             content={
-                <div className="flex" style={styles.container}>
+                <>
                     <strong className="mr-2">In between jobs?</strong>
-                    <span  className="mr-2">Earn some extra money as a freelancer using Fiverr.</span>
+                    <span className="mr-2">Earn some extra money as a freelancer using Fiverr.</span>
                     <a
                         target="_blank"
                         title="Fiverr Link"
@@ -37,7 +37,7 @@ const FiverrHeader = () => {
                     >
                         Take me there
                     </a>
-                </div>
+                </>
             }
         />
     );
