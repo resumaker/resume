@@ -8,6 +8,7 @@ import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import { Button, Label, Popup, Dropdown } from 'semantic-ui-react';
 
 import FiverrModal from '../components/affiliate/fiverr-modal';
+import FiverrHeader from '../components/affiliate/fiverr-header';
 import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
 import ColorPicker from '../elements/color-picker';
 
@@ -166,6 +167,7 @@ const CreatePage = ({ data }) => {
   return (
     <>
       <FiverrModal />
+      <FiverrHeader />
       <div className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" style={styles.actionsBar}>
         <a 
           href="/" 
