@@ -25,41 +25,26 @@ const SEO = ({ description, lang, meta, title }) => {
       titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={[
         {
-          name: `description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:title`,
-          content: title,
-        },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`,
-        },
-        {
           name: `twitter:creator`,
           content: site.siteMetadata.author,
-        },
-        {
-          name: `twitter:title`,
-          content: title,
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
         },
       ].concat(meta)}
     >
       <script data-ad-client="ca-pub-8377217125784648" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
       <meta name="google-site-verification" content="frBjtmq8mQ4ngQJX7rrEg2Tg8QkIo7T_dMw3nVHs0Q8" />
+      <meta name="description" content={metaDescription} />
+      <meta name="author" content="Resumaker.me" />
+
+      <meta property="og:title" content="Resumaker | Free Online Professional Resume Creation Tool" />
+      <meta property="og:image" content="src/images/resumaker-logo-dark.png" />
+      <meta property="og:url" content="https://app.resumaker.me/" />
+      <meta property="og:description" content={metaDescription} />
+      <meta property="og:type" content="website" />
+
+      <meta property="twitter:title" content="Resumaker | Free Online Professional Resume Creation Tool" />
+      <meta property="twitter:image" content="src/images/resumaker-logo-dark.png" />
+      <meta property="twitter:card" content="https://app.resumaker.me/" />
+      <meta property="twitter:description" content={metaDescription} />
     </Helmet>
   );
 }
