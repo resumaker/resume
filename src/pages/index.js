@@ -52,6 +52,7 @@ const exportPNG = (canvas, name) => {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+
   trackCustomEvent({
     category: 'Export PNG',
     action: 'Click',
@@ -73,6 +74,7 @@ const exportPDF = (canvas, name) => {
 
   doc.addImage(imgData, 'PNG', 0, 0, docWidth, docHeight);
   doc.save(`${kebabCase(name)}-resume.pdf`);
+
   trackCustomEvent({
     category: 'Export PDF',
     action: 'Click',
@@ -99,6 +101,12 @@ function exportDoc(htmlBody, name){
       downloadLink.click();
       document.body.removeChild(downloadLink);
   }
+
+  trackCustomEvent({
+    category: 'Export DOCS',
+    action: 'Click',
+    label: 'Export',
+  });
 }
 
 const CreatePage = ({ data }) => {
@@ -338,6 +346,11 @@ const CreatePage = ({ data }) => {
                             className="flex items-center" 
                             onClick={() => {
                               exportResume('pdf');
+                              trackCustomEvent({
+                                category: 'Affiliate - PDFSimpli',
+                                action: 'Navigate',
+                                label: 'PDFSimpli',
+                              });
                               window.open('https://pdfsimpli.com/lp/pdf-to-word?fpr=guy31', '_blank');
                             }}
                           >

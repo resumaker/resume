@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { Button, Modal } from 'semantic-ui-react';
 import React, { Component } from 'react';
+import { Button, Modal } from 'semantic-ui-react';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 const styles = {
@@ -20,7 +20,7 @@ class FiverrModal extends Component {
     onClose = () => {
         this.setState({ open: false });
         trackCustomEvent({
-            category: `Affiliate`,
+            category: `Affiliate - Fiverr`,
             action: 'Close',
             label: 'Fiverr',
         });
@@ -69,7 +69,7 @@ class FiverrModal extends Component {
                     content="Take me there"
                     onClick={() => {
                         trackCustomEvent({
-                            category: `Affiliate`,
+                            category: `Affiliate - Fiverr`,
                             action: 'Navigate',
                             label: 'Fiverr',
                         });

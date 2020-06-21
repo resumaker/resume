@@ -29,7 +29,7 @@ const FiverrHeader = () => {
                         style={styles.link}
                         onClick={() => {
                             trackCustomEvent({
-                                category: `Affiliate`,
+                                category: `Affiliate - Fiverr`,
                                 action: 'Navigate',
                                 label: 'Fiverr',
                             });
