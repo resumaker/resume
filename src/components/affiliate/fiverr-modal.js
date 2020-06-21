@@ -53,6 +53,7 @@ const FiverrModal = ({ time }) => {
             <Button negative onClick={onClose}>Not now</Button>
             <Button
                 as="a"
+                ref="noopener"
                 target="_blank"
                 icon="checkmark"
                 title="Fiverr Link"
@@ -65,7 +66,7 @@ const FiverrModal = ({ time }) => {
                         label: 'Fiverr',
                     });
                 }}
-                href="https://track.fiverr.com/visit/?bta=119181&brand=fiverrhybrid"
+                href="https://track.fiverr.com/visit/?bta=119181&brand=fiverrhybrid&landingPage=https%3A%2F%2Fwww.fiverr.com%2Fstart_selling"
             />
             </Modal.Actions>
         </Modal>
