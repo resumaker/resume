@@ -5,11 +5,8 @@ import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 const styles = {
     text: {
-        lineHeight: 1.7,
+        lineHeight: 1.5,
         letterSpacing: 0.2,
-    },
-    innerText: {
-        lineHeight: 1,
     },
 };
 
@@ -40,15 +37,17 @@ const FiverrModal = ({ time }) => {
         <Modal size="tiny" open={open} onClose={onClose}>
             <Modal.Header>Earn money in-between jobs</Modal.Header>
             <Modal.Content>
-            <p style={styles.text}>
-                We at Resumaker want you to find a great job as soon as possible.
-                Yet, the job market is not always quick & easy, so if you need some
-                extra money, try Fiverr - a freelancer marketplace you can earn from.<br/><br/>
-                <small style={styles.innerText}>
+            <div style={styles.text}>
+                <p className="mb-2">
+                    We at Resumaker want you to find a great job as soon as possible.
+                    Yet, the job market is not always quick & easy, so if you need some
+                    extra money, try Fiverr - a freelancer marketplace you can earn from.
+                </p>
+                <small>
                     If you click on "Take me there", the link will open in a new tab and
                     the details you entered so far creating your resume will be completely saved.
                 </small>
-            </p>
+            </div>
             </Modal.Content>
             <Modal.Actions>
             <Button negative onClick={onClose}>Not now</Button>
