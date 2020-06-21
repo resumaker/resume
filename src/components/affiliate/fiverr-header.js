@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Message, Button } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 
 const FiverrHeader = () => {
     const [visible, setVisible] = useState(true);
@@ -9,20 +9,17 @@ const FiverrHeader = () => {
             color="violet"
             onDismiss={() => setVisible(false)}
             content={
-                <div>
+                <div className="flex" style={{alignItems:'center'}}>
                     <strong className="mr-2">In between jobs?</strong>
-                    <span className="mr-4">Earn some extra money as a freelancer using Fiverr.</span>
-                    <Button
-                        as="a"
-                        basic
-                        size="tiny"
+                    <span  className="mr-2">Earn some extra money as a freelancer using Fiverr.</span>
+                    <a
                         target="_blank"
-                        icon="right arrow"
                         title="Fiverr Link"
-                        labelPosition="right"
-                        content="Take me there"
+                        style={{textDecoration:'underline'}}
                         href="https://track.fiverr.com/visit/?bta=119181&brand=fiverrhybrid"
-                    />
+                    >
+                        Take me there
+                    </a>
                 </div>
             }
         />
