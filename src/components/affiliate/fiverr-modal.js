@@ -1,9 +1,26 @@
 import { Button, Modal } from 'semantic-ui-react';
 import React, { useState, useEffect } from 'react';
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
+
+const styles = {
+    text: {
+        lineHeight: 1.7,
+        letterSpacing: 0.25,
+    },
+};
 
 const FiverrModal = () => {
     const [open, setOpen] = useState(false);
     let timeout;
+
+    const onClose = () => {
+        setOpen(false);
+        trackCustomEvent({
+            category: `Affiliate`,
+            action: 'Close',
+            label: 'Fiverr',
+        });
+    };
 
     useEffect(function() {
         timeout = window.setTimeout(() => {
@@ -18,10 +35,10 @@ const FiverrModal = () => {
     }, []);
 
     return (
-        <Modal size="tiny" open={open} onClose={() => setOpen(false)}>
+        <Modal size="tiny" open={open} onClose={onClose}>
             <Modal.Header>Earn money in-between jobs</Modal.Header>
             <Modal.Content>
-            <p style={{lineHeight:1.7,letterSpacing:0.25}}>
+            <p style={styles.text}>
                 We at Resumaker want you to find a great job as soon as possible.
                 Yet, the job market is not always quick & easy, so if you need some
                 extra money, try Fiverr - a freelancer marketplace you can earn from.<br/><br/>
@@ -32,7 +49,7 @@ const FiverrModal = () => {
             </p>
             </Modal.Content>
             <Modal.Actions>
-            <Button negative onClick={() => setOpen(false)}>Not now</Button>
+            <Button negative onClick={onClose}>Not now</Button>
             <Button
                 as="a"
                 target="_blank"
@@ -40,6 +57,13 @@ const FiverrModal = () => {
                 title="Fiverr Link"
                 labelPosition="right"
                 content="Take me there"
+                onClick={() => {
+                    trackCustomEvent({
+                        category: `Affiliate`,
+                        action: 'Navigate',
+                        label: 'Fiverr',
+                    });
+                }}
                 href="https://track.fiverr.com/visit/?bta=119181&brand=fiverrhybrid"
             />
             </Modal.Actions>
