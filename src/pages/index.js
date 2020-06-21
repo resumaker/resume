@@ -304,6 +304,7 @@ const CreatePage = ({ data }) => {
                       floating
                       trigger={
                         <Button 
+                          size="small" 
                           color="violet" 
                           content="DOCX" 
                           icon="file word" 
@@ -324,7 +325,7 @@ const CreatePage = ({ data }) => {
                             <Popup
                               size="large"
                               position="top right"
-                              content="Basic docx format cration using Resumaker's simple algorithm"
+                              content="Basic docx using Resumaker's simple algorithm"
                               trigger={
                                 <Icon circular size="small" name="question" onClick={e => {e.preventDefault();e.stopPropagation();}} />
                               }
@@ -344,7 +345,7 @@ const CreatePage = ({ data }) => {
                             <Popup
                               size="large"
                               position="top right"
-                              content="We generate pdf & redirect to a professional pdf-to-docx converter service"
+                              content="We generate pdf & redirect to a professional pdf-to-docx converter"
                               trigger={
                                 <Icon circular size="small" name="question" onClick={e => {e.preventDefault();e.stopPropagation();}} />
                               }
