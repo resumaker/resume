@@ -1,5 +1,6 @@
 import Img from 'gatsby-image';
 import { graphql } from 'gatsby';
+import random from 'lodash.random';
 import kebabCase from 'lodash.kebabcase';
 import React, { useEffect } from 'react';
 import { TiDirections } from 'react-icons/ti';
@@ -8,6 +9,8 @@ import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import { Button, Label, Popup, Dropdown, Icon } from 'semantic-ui-react';
 
 import ColorPicker from '../elements/color-picker';
+import WixModal from '../components/affiliate/wix/modal';
+import WixHeader from '../components/affiliate/wix/header';
 import FiverrModal from '../components/affiliate/fiverr/modal';
 import FiverrHeader from '../components/affiliate/fiverr/header';
 import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components';
@@ -19,8 +22,10 @@ import '../css/calendar.css';
 import '../css/date-picker.css';
 import '../main.css';
 
-const jsPDF = typeof window !== `undefined` ? require('jspdf') : null
-const html2canvas = typeof window !== `undefined` ? require('html2canvas') : null
+const jsPDF = typeof window !== `undefined` ? require('jspdf') : null;
+const html2canvas = typeof window !== `undefined` ? require('html2canvas') : null;
+
+const randomNumber = random(1);
 
 const styles = {
   logoLink: {
@@ -204,8 +209,19 @@ const CreatePage = ({ data }) => {
 
   return (
     <>
-      <FiverrModal appearInSeconds={50} />
-      <FiverrHeader />
+      {randomNumber === 0 && (
+        <>
+          <FiverrModal appearInSeconds={50} />
+          <FiverrHeader />
+        </>
+      )}
+
+      {randomNumber === 1 && (
+        <>
+          <WixModal appearInSeconds={50} />
+          <WixHeader />
+        </>
+      )}
       <div 
         style={styles.actionsBar}
         className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" 
