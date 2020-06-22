@@ -12,7 +12,7 @@ const FiverrHeader = () => (
     <Message
         color="violet"
         content={
-            <>
+            <div className="text-center">
                 <strong className="mr-2">In between jobs?</strong>
                 <span className="mr-2">Earn some extra money as a freelancer using Fiverr.</span>
                 <a
@@ -31,7 +31,7 @@ const FiverrHeader = () => (
                 >
                     Take me there
                 </a>
-            </>
+            </div>
         }
     />
 );
