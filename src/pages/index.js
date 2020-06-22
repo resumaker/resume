@@ -36,9 +36,8 @@ const styles = {
     flexDirection: 'column',
   },
   directionButton: {
-    marginTop: -15,
+    marginRight: 15,
     display: 'flex',
-    marginBottom: 15,
     alignItems: 'center',
     alignSelf: 'flex-end',
   },
@@ -223,32 +222,47 @@ const CreatePage = ({ data }) => {
         </a>
 
         <div className="flex flex-wrap" style={styles.headerRightContainer}>
-          <Label 
-            image
-            circular
-            as="a" 
-            color="violet"
-            style={{ 
-              ...styles.directionButton, 
-              marginTop: isMobile ? 0 : -15,
-              alignSelf: `flex-${isMobile ? 'start' : 'end'}`,
-            }}
-            onClick={() => 
-              dispatch({ 
-                type: 'SET_FIELD', 
-                payload: { 
-                  path: 'direction',
-                  value: direction === 'rtl' ? 'ltr' : 'rtl',
-                }, 
-              })
-            }
-          >
-            <TiDirections size={18} className="ml-1 mr-2" />
-            Change Text Direction
-            <Label.Detail style={{paddingRight: 15}}>
-              {direction.toUpperCase()}
-            </Label.Detail>
-          </Label>
+          <div className={`flex items-center mb-4 justify-${isMobile ? 'start' : 'end'}`}>
+            <Label 
+              image
+              as="a" 
+              circular
+              color="violet"
+              style={styles.directionButton}
+              onClick={() => 
+                dispatch({ 
+                  type: 'SET_FIELD', 
+                  payload: { 
+                    path: 'direction',
+                    value: direction === 'rtl' ? 'ltr' : 'rtl',
+                  }, 
+                })
+              }
+            >
+              <TiDirections size={18} className="ml-1 mr-2" />
+              Change Text Direction
+              <Label.Detail style={{paddingRight: 15}}>
+                {direction.toUpperCase()}
+              </Label.Detail>
+            </Label>
+            <Popup
+                content="Clear the whole document. Anything you have edited will be lost."
+                trigger={
+                  <Button 
+                    circular
+                    size="tiny"
+                    icon="refresh" 
+                    color="violet" 
+                    content="Clear Document" 
+                    onClick={() => {
+                      window.localStorage.clear();
+                      window.location.reload();
+                    }}
+                    labelPosition="right" 
+                  />
+                }
+              />
+          </div>
 
           <div className="flex flex-wrap">
             {!isEdit && (
