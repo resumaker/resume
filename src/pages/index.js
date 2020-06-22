@@ -126,9 +126,10 @@ const CreatePage = ({ data }) => {
 
   const exportResume = async docType => {
     const resumeEl = document.getElementById('resume');
+    const y = resumeEl.offsetTop ? resumeEl.offsetTop : (isMobile ? 230 : 180);
     const width = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).width) : 0;
     const height = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).height) : 0;
-    const canvas = await html2canvas(resumeEl, { y: isMobile ? 215 : 135, width, height });
+    const canvas = await html2canvas(resumeEl, { y, width, height });
     if (docType === 'pdf') {
       exportPDF(canvas, resume.fullname);
     } else if (docType === 'png') {

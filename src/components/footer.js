@@ -6,18 +6,18 @@ const Footer = ({ social }) => {
   const { direction } = useSelector(({ global }) => global);
 
   return (
-    <footer className="py-6 mx-auto items-center justify-between md:flex">
-      <div className="items-center flex tracking-wide mb-5 md:mb-0 justify-center text-sm ml-2">
+    <footer className="py-6 mx-auto items-center justify-between md:flex bg-white">
+      <div className="items-center flex tracking-wide mb-5 md:mb-0 justify-center text-sm ml-2 bg-white">
         {direction === 'ltr' && (
-          <span className="inline-block mr-1 ml-1">
+          <span className="inline-block mr-1 ml-1 bg-white">
             © {new Date().getFullYear()} | proudly powered by
           </span>
         )}
         <a
-          className="text-primary-500 hover:text-primary-700 font-bold"
-          href="https://resumaker.me"
           target="_blank"
           rel="noopener noreferrer"
+          href="https://resumaker.me"
+          className="text-primary-500 hover:text-primary-700 font-bold bg-white"
         >
           https://resumaker.me
         </a>

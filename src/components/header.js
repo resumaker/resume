@@ -41,7 +41,7 @@ const Header = ({ name, role, contacts }) => {
         )}
       </div>
 
-      <div className={`mt-5 md:mt-0 md:border-${ltr ? 'l' : 'r'} md:border-neutral-300 md:p${ltr ? 'l' : 'r'}-4`}>
+      <div className={`mt-5 md:mt-0 md:border-${ltr ? 'l' : 'r'} md:border-neutral-300 md:p${ltr ? 'l' : 'r'}-4 bg-white`}>
         {contacts && Object.keys(contacts).map(key => (
           <Contact key={key} field={key} value={contacts[key]} />
         ))}
