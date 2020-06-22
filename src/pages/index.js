@@ -381,6 +381,7 @@ const CreatePage = ({ data }) => {
             </Dropdown>
             <div className="flex items-center color-picker-container">
               <ColorPicker 
+                initialColor={themeColor}
                 onChange={color => 
                   dispatch({ 
                     type: 'SET_FIELD',

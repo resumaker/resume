@@ -33,10 +33,13 @@ const styles = {
 };
 
 class ColorPicker extends React.Component {
-  state = {
-    displayColorPicker: false,
-    color: '#5b4f96',
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayColorPicker: false,
+      color: this.props.initialColor || '#5b4f96',
+    };
+  }
 
   handleClick = () => {
     this.setState({ displayColorPicker: !this.state.displayColorPicker });
