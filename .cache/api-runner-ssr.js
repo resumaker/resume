@@ -5,11 +5,11 @@ var plugins = [{
       plugin: require('/Users/guypeer/Desktop/projects/resumaker/node_modules/gatsby-plugin-offline/gatsby-ssr'),
       options: {"plugins":[]},
     },{
-      plugin: require('/Users/guypeer/Desktop/projects/resumaker/node_modules/gatsby-plugin-react-redux/gatsby-ssr'),
-      options: {"plugins":[],"pathToCreateStoreModule":"./src/store/index","serialize":{"space":0,"isJSON":true,"unsafe":false},"cleanupOnClient":true,"windowKey":"__PRELOADED_STATE__"},
-    },{
       plugin: require('/Users/guypeer/Desktop/projects/resumaker/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
       options: {"plugins":[],"trackingId":"UA-169227649-1"},
+    },{
+      plugin: require('/Users/guypeer/Desktop/projects/resumaker/gatsby-ssr'),
+      options: {"plugins":[]},
     }]
 // During bootstrap, we write requires at top of this file which looks like:
 // var plugins = [

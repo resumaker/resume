@@ -1,3 +1,8 @@
+import React from 'react';
+import { Provider } from 'react-redux';
+
+import createStore from './src/store';
+
 (function() {
   const link = document.createElement('link');
   link.setAttribute('rel', 'stylesheet');
@@ -14,3 +19,12 @@
     head.appendChild(style);
   });
 })();
+
+export const wrapRootElement = ({ element }) => {
+  const store = createStore(
+    JSON.parse(window.localStorage.getItem('resumakerSettings') || '{}')
+  );
+  return (
+    <Provider store={store}>{element}</Provider>
+  );
+}

@@ -3,6 +3,7 @@ module.exports = {
     isMobile: true,
     mode: 'preview',
     direction: 'ltr',
+    themeColor: '#5b4f96',
 
     resume: {
         fullname: 'Jon London',

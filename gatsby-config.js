@@ -44,19 +44,19 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     `gatsby-plugin-postcss`,
-    {
-      resolve: `gatsby-plugin-react-redux`,
-      options: {
-          pathToCreateStoreModule: './src/store/index',
-          serialize: {
-              space: 0,
-              isJSON: true,
-              unsafe: false,
-          },
-          cleanupOnClient: true,
-          windowKey: '__PRELOADED_STATE__',
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-react-redux`,
+    //   options: {
+    //       pathToCreateStoreModule: './src/store/index',
+    //       serialize: {
+    //           space: 0,
+    //           isJSON: true,
+    //           unsafe: false,
+    //       },
+    //       cleanupOnClient: true,
+    //       windowKey: '__PRELOADED_STATE__',
+    //   },
+    // },
   ],
 };
 

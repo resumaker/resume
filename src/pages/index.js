@@ -1,8 +1,8 @@
 import Img from 'gatsby-image';
 import { graphql } from 'gatsby';
 import kebabCase from 'lodash.kebabcase';
+import React, { useEffect } from 'react';
 import { TiDirections } from 'react-icons/ti';
-import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import { Button, Label, Popup, Dropdown, Icon } from 'semantic-ui-react';
@@ -111,11 +111,18 @@ function exportDoc(htmlBody, name){
 
 const CreatePage = ({ data }) => {
   const dispatch = useDispatch();
-  const { mode, resume, touched, direction, isMobile } = useSelector(({ global }) => global);
+
+  const { 
+    mode, 
+    resume, 
+    touched, 
+    isMobile,
+    direction, 
+    themeColor,
+  } = useSelector(({ global }) => global);
+
   const ltr = direction === 'ltr';
   const isEdit = mode === 'edit';
-
-  const [themeColor, setThemeColor] = useState('#5b4f96');
 
   const exportResume = async docType => {
     const resumeEl = document.getElementById('resume');
@@ -194,7 +201,7 @@ const CreatePage = ({ data }) => {
       label: direction.toUpperCase(),
     });
   }, [direction]);
-  
+
   return (
     <>
       <FiverrModal appearInSeconds={50} />
@@ -373,7 +380,14 @@ const CreatePage = ({ data }) => {
               )}
             </Dropdown>
             <div className="flex items-center color-picker-container">
-              <ColorPicker onChange={setThemeColor} />
+              <ColorPicker 
+                onChange={color => 
+                  dispatch({ 
+                    type: 'SET_FIELD',
+                    payload: { path: 'themeColor', value: color },
+                  })
+                } 
+              />
               <Label basic color="violet" pointing="left">
                 Customize Theme Color
               </Label>

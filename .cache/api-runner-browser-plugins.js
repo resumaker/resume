@@ -5,9 +5,6 @@ module.exports = [{
       plugin: require('../node_modules/gatsby-plugin-offline/gatsby-browser.js'),
       options: {"plugins":[]},
     },{
-      plugin: require('../node_modules/gatsby-plugin-react-redux/gatsby-browser.js'),
-      options: {"plugins":[],"pathToCreateStoreModule":"./src/store/index","serialize":{"space":0,"isJSON":true,"unsafe":false},"cleanupOnClient":true,"windowKey":"__PRELOADED_STATE__"},
-    },{
       plugin: require('../node_modules/gatsby-plugin-google-analytics/gatsby-browser.js'),
       options: {"plugins":[],"trackingId":"UA-169227649-1"},
     },{
