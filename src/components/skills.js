@@ -74,7 +74,7 @@ const Skills = () => {
       </h1>
       {!isEmpty(resume.skills) && resume.skills.map((skill, i) => (
         <div className="flex my-5" key={`${skill.title}-${i}`} style={{justifyContent: 'space-between'}}>
-          <div className="2-full">
+          <div style={{width: '100%'}}>
             <h1 className="item-header font-semibold text-lg mb-2">
               {skill.title}
             </h1>
