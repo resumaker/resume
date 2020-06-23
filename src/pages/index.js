@@ -439,12 +439,12 @@ const CreatePage = ({ data }) => {
           <Summary data={resume.summary} />
           <div className="border-b border-neutral-300 pb-2 my-5 lg:flex">
             <div className={`lg:w-2/3 lg:p${ltr ? 'r' : 'l'}-8`}>
-              {resume.experience && <Experience />}
-              {resume.projects && <Projects />}
+              <Experience />
+              <Projects />
             </div>
             <div className={`lg:w-1/3 lg:p${ltr ? 'l' : 'r'}-8 lg:border-${ltr ? 'l' : 'r'} lg:border-neutral-300`}>
-              {resume.skills && <Skills />}
-              {resume.education && <Education />}
+              <Skills />
+              <Education />
               {resume.sidebar && resume.sidebar.map(item => (
                 <List key={`${item.title}-side`} data={item} />
               ))}

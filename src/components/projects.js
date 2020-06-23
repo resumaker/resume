@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import isEmpty from 'lodash.isempty';
 import { GrMoreVertical } from 'react-icons/gr';
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -24,7 +25,7 @@ const createNewProject = () => ({
 
 const Projects = () => {
   const dispatch = useDispatch();
-  const { mode, touched, resume } = useSelector(({ global }) => global);
+  const { mode, touched, sections, resume } = useSelector(({ global }) => global);
   const isEdit = mode === 'edit';
 
   const [open, setOpen] = useState(false);
@@ -50,7 +51,23 @@ const Projects = () => {
 
   return (
     <section>
-      <h1 className="section-header">Projects</h1>
+      <h1 className="section-header">
+        {!isEdit ? get(sections, 'projects.text', 'Projects') : (
+          <Input 
+            size="mini"
+            value={get(sections, 'projects.text', 'Projects')}
+            onChange={text => 
+              dispatch({ 
+                type: 'SET_FIELD',
+                payload: { 
+                  path: 'sections.projects.text', 
+                  value: text,
+                }, 
+              })
+            }
+          />
+        )}
+      </h1>
       {!isEmpty(resume.projects) && resume.projects.map((item, i) => (
         <div className="flex my-5" key={`${item.name}-${i}`} style={{justifyContent: 'space-between'}}>
           <article>

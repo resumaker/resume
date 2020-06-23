@@ -5,6 +5,25 @@ module.exports = {
     direction: 'ltr',
     themeColor: '#5b4f96',
 
+    // sections: {
+    //     experience: {
+    //         order: 1,
+    //         text: 'Experience',
+    //     },
+    //     projects: {
+    //         order: 2,
+    //         text: 'Projects',
+    //     },
+    //     skills: {
+    //         order: 3,
+    //         text: 'Skills',
+    //     },
+    //     education: {
+    //         order: 4,
+    //         text: 'Education',
+    //     },
+    // },
+
     resume: {
         fullname: 'Jon London',
         role: 'Software Engineer',

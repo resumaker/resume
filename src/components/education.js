@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import isEmpty from 'lodash.isempty';
 import DatePicker from 'react-date-picker';
 import { GrMoreVertical } from 'react-icons/gr';
@@ -29,7 +30,7 @@ const createNewEducation = () => ({
 
 const Education = () => {
   const dispatch = useDispatch();
-  const { mode, touched, resume } = useSelector(({ global }) => global);
+  const { mode, touched, sections, resume } = useSelector(({ global }) => global);
   const isEdit = mode === 'edit';
 
   const [open, setOpen] = useState(false);
@@ -63,7 +64,23 @@ const Education = () => {
 
   return (
     <section className="mb-5">
-      <h1 className="section-header mb-5">Education</h1>
+      <h1 className="section-header mb-5">
+        {!isEdit ? get(sections, 'education.text', 'Education') : (
+          <Input 
+            size="mini"
+            value={get(sections, 'education.text', 'Education')}
+            onChange={text => 
+              dispatch({ 
+                type: 'SET_FIELD',
+                payload: { 
+                  path: 'sections.education.text', 
+                  value: text,
+                }, 
+              })
+            }
+          />
+        )}
+      </h1>
       {!isEmpty(resume.education) && resume.education.map(
         ({ degree, institution, start, end }, i) => (
           <div key={`${degree}-${i}`} className="flex my-2" style={styles.justify}>          

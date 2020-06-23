@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import isEmpty from 'lodash.isempty';
 import DatePicker from 'react-date-picker';
 import { GrMoreVertical } from 'react-icons/gr';
@@ -27,7 +28,7 @@ const createNewExperience = () => ({
 
 const Experience = () => {
   const dispatch = useDispatch();
-  const { mode, touched, resume } = useSelector(({ global }) => global);
+  const { mode, touched, sections, resume } = useSelector(({ global }) => global);
   const isEdit = mode === 'edit';
 
   const [open, setOpen] = useState(false);
@@ -61,7 +62,23 @@ const Experience = () => {
 
   return (
     <section>
-      <h1 className="section-header">Experience</h1>
+      <h1 className="section-header">
+        {!isEdit ? get(sections, 'experience.text', 'Experience') : (
+          <Input 
+            size="mini"
+            value={get(sections, 'experience.text', 'Experience')}
+            onChange={text => 
+              dispatch({ 
+                type: 'SET_FIELD',
+                payload: { 
+                  path: 'sections.experience.text', 
+                  value: text,
+                }, 
+              })
+            }
+          />
+        )}
+      </h1>
       {!isEmpty(resume.experience) && resume.experience.map((item, i) => (
         <div className="flex my-5" key={`${item.company}-${i}`} style={{justifyContent: 'space-between'}}>
           <article>

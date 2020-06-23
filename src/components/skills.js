@@ -1,3 +1,4 @@
+import get from 'lodash.get';
 import isEmpty from 'lodash.isempty';
 import { GrMoreVertical } from 'react-icons/gr';
 import { AiFillPlusCircle } from 'react-icons/ai';
@@ -28,7 +29,7 @@ const createNewSkill = () => ({
 
 const Skills = () => {
   const dispatch = useDispatch();
-  const { mode, touched, resume } = useSelector(({ global }) => global);
+  const { mode, touched, sections, resume } = useSelector(({ global }) => global);
   const isEdit = mode === 'edit';
 
   const [open, setOpen] = useState(false);
@@ -54,10 +55,26 @@ const Skills = () => {
 
   return (
     <section>
-      <h1 className="section-header">Skills</h1>
+      <h1 className="section-header">
+        {!isEdit ? get(sections, 'skills.text', 'Skills') : (
+          <Input 
+            size="mini"
+            value={get(sections, 'skills.text', 'Skills')}
+            onChange={text => 
+              dispatch({ 
+                type: 'SET_FIELD',
+                payload: { 
+                  path: 'sections.skills.text', 
+                  value: text,
+                }, 
+              })
+            }
+          />
+        )}
+      </h1>
       {!isEmpty(resume.skills) && resume.skills.map((skill, i) => (
         <div className="flex my-5" key={`${skill.title}-${i}`} style={{justifyContent: 'space-between'}}>
-          <div style={{width: '100%'}}>
+          <div className="2-full">
             <h1 className="item-header font-semibold text-lg mb-2">
               {skill.title}
             </h1>
