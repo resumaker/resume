@@ -1,5 +1,9 @@
 import React from 'react';
+import get from 'lodash.get';
+import set from 'lodash.set';
+import isEmpty from 'lodash.isempty';
 import { Provider } from 'react-redux';
+import isPlainObject from 'lodash.isplainobject';
 
 import createStore from './src/store';
 
@@ -20,11 +24,37 @@ import createStore from './src/store';
   });
 })();
 
+const loadInitialState = () => {
+  const state = JSON.parse(window.localStorage.getItem('resumakerSettings') || '{}');
+  if (isEmpty(state)) {
+    return state;
+  }
+  if (isPlainObject(state)) {
+    if (isPlainObject(get(state, 'global.resume.contact.phone'))) {
+      return state;
+    }
+    set(state, 'global.resume.contact.phone', {});
+    set(state, 'global.resume.contact.phone.value', get(state, 'global.resume.contact.phone', ''));
+    set(state, 'global.resume.contact.phone.visible', true);
+
+    set(state, 'global.resume.contact.email', {});
+    set(state, 'global.resume.contact.email.value', get(state, 'global.resume.contact.email', ''));
+    set(state, 'global.resume.contact.email.visible', true);
+
+    set(state, 'global.resume.contact.website', {});
+    set(state, 'global.resume.contact.website.value', get(state, 'global.resume.contact.website', ''));
+    set(state, 'global.resume.contact.website.visible', true);
+
+    set(state, 'global.resume.contact.location', {});
+    set(state, 'global.resume.contact.location.value', get(state, 'global.resume.contact.location', ''));
+    set(state, 'global.resume.contact.location.visible', true);
+  }
+  return state;
+};
+
 export const wrapRootElement = ({ element }) => {
-  const store = createStore(
-    JSON.parse(window.localStorage.getItem('resumakerSettings') || '{}')
-  );
+  const store = createStore(loadInitialState());
   return (
     <Provider store={store}>{element}</Provider>
   );
-}
+};
