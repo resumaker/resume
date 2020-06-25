@@ -16,10 +16,10 @@ const FiverrHeader = () => (
                 <strong className="mr-2">In between jobs?</strong>
                 <span className="mr-2">Earn some extra money as a freelancer using Fiverr.</span>
                 <a
-                    rel="noopener"
                     target="_blank"
                     title="Fiverr Link"
                     style={styles.link}
+                    rel="noopener noreferrer"
                     onClick={() => {
                         trackCustomEvent({
                             category: `Affiliate - Fiverr`,

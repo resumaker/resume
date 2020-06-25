@@ -227,11 +227,11 @@ const CreatePage = ({ data }) => {
         className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" 
       >
         <a 
-          rel="noopener"
           target="_blank"
           className="my-4"
           title="Resumaker Logo" 
           style={styles.logoLink} 
+          rel="noopener noreferrer"
           href="https://resumaker.me" 
         >
           <Img fixed={data.logo.childImageSharp.fixed} alt="Resumaker Logo" />

@@ -16,10 +16,10 @@ const WixHeader = () => (
                 <strong className="mr-2">Need a website?</strong>
                 <span className="mr-2">Wix let's you create a professional website without coding.</span>
                 <a
-                    rel="noopener"
                     target="_blank"
                     title="Wix Link"
                     style={styles.link}
+                    rel="noopener noreferrer"
                     onClick={() => {
                         trackCustomEvent({
                             category: `Affiliate - Wix`,

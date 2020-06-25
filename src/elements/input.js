@@ -13,7 +13,7 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
             if (type === 'select') {
                 onChange(arg.value);
                 trackCustomEvent({
-                    category: `Select Option - "${arg.value}"`,
+                    category: arg.value,
                     action: 'Select',
                     label: 'Select Option',
                 });
@@ -28,11 +28,13 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
                     value: type === 'select' ? e : e.target.value,
                 }, 
             });
-            trackCustomEvent({
-                category: `Change Input (Type, Value) - "(${type}, ${type === 'select' ? e : e.target.value})"`,
-                action: 'Change Input Type',
-                label: 'Change Input Type',
-            });
+            if (type === 'select') {
+                trackCustomEvent({
+                    category: e,
+                    action: 'Select',
+                    label: 'Select Option',
+                });
+            }
         }
     };
 
@@ -47,8 +49,8 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
                     placeholder={placeholder}
                     onBlur={e => 
                         trackCustomEvent({
-                            category: `Value - "${e.target.value}"`,
-                            action: 'Input',
+                            category: e.target.value,
+                            action: 'Textarea',
                             label: 'Change Textarea',
                         })
                     }
@@ -118,7 +120,7 @@ const CustomInput = ({ type, value, rows, size, path, placeholder, options, poin
                     placeholder={placeholder} 
                     onBlur={e => 
                         trackCustomEvent({
-                            category: `Value - "${e.target.value}"`,
+                            category: e.target.value,
                             action: 'Input',
                             label: 'Change Input',
                         })

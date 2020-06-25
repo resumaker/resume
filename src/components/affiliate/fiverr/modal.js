@@ -8,6 +8,11 @@ const styles = {
         lineHeight: 1.5,
         letterSpacing: 0.2,
     },
+    notNow: {
+        textDecoration: 'underline',
+        cursor: 'pointer',
+        color: '#64589b',
+    },
 };
 
 class FiverrModal extends Component {
@@ -58,15 +63,17 @@ class FiverrModal extends Component {
                 </div>
                 </Modal.Content>
                 <Modal.Actions>
-                <Button negative onClick={this.onClose}>Not now</Button>
+                <span onClick={this.onClose} style={styles.notNow}>
+                    Not now
+                </span>
                 <Button
                     as="a"
-                    ref="noopener"
                     target="_blank"
                     icon="checkmark"
                     title="Fiverr Link"
                     labelPosition="right"
                     content="Take me there"
+                    rel="noopener noreferrer"
                     onClick={() => {
                         trackCustomEvent({
                             category: `Affiliate - Fiverr`,
