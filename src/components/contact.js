@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaTrash } from 'react-icons/fa';
 import { Button } from 'semantic-ui-react';
 import { FaMapSigns } from 'react-icons/fa';
@@ -21,11 +21,19 @@ const styles = {
   },
 };
 
-const ContactField = ({ Icon, InputField, PreviewField, buttonText }) => {
-  const { mode } = useSelector(({ global }) => global);
+const ContactField = ({ Icon, InputField, PreviewField, buttonText, field }) => {
+  const dispatch = useDispatch();
+  const { mode, resume } = useSelector(({ global }) => global);
+  const { visible } = resume.contact[field];
 
-  const [visible, setVisibility] = useState(true);
-  const toggleVisibility = () => setVisibility(!visible);
+  const toggleVisibility = () => 
+    dispatch({ 
+      type: 'SET_FIELD', 
+      payload: { 
+        value: !visible,
+        path: `resume.contact.${field}.visible`,
+      },
+    });
 
   return (
     <>
@@ -75,7 +83,7 @@ const Contact = ({ field, value }) => {
               type="email"
               label="Email"
               value={value}
-              path="resume.contact.email"
+              path="resume.contact.email.value"
             /> 
           }
           PreviewField={
@@ -84,6 +92,7 @@ const Contact = ({ field, value }) => {
             </a>
           }
           buttonText="Add Email"
+          field={field}
         />
       )}
 
@@ -94,7 +103,7 @@ const Contact = ({ field, value }) => {
             <Input
                 label="Phone"
                 InputComp={
-                <PhoneInput
+                  <PhoneInput
                   enableSearch
                   value={value}
                   searchStyle={{maxWidth: 160}}
@@ -105,7 +114,7 @@ const Contact = ({ field, value }) => {
                   onChange={value => 
                     dispatch({ 
                       type: 'SET_FIELD',
-                      payload: { path: 'resume.contact.phone', value },
+                      payload: { path: 'resume.contact.phone.value', value },
                     })
                   }
                 />
@@ -118,6 +127,7 @@ const Contact = ({ field, value }) => {
             </a>
           }
           buttonText="Add Phone"
+          field={field}
         />
       )}
 
@@ -129,7 +139,7 @@ const Contact = ({ field, value }) => {
               type="url"
               value={value}
               label="Website"
-              path="resume.contact.website"
+              path="resume.contact.website.value"
             />
           }
           PreviewField={
@@ -144,6 +154,7 @@ const Contact = ({ field, value }) => {
             </a>
           }
           buttonText="Add Website"
+          field={field}
         />
       )}
 
@@ -154,13 +165,14 @@ const Contact = ({ field, value }) => {
             <Input
               value={value}
               label="Location"
-              path="resume.contact.location"
+              path="resume.contact.location.value"
             />
           }
           PreviewField={
             <span className="contact-link my-2">{value}</span>
           }
           buttonText="Add Location"
+          field={field}
         />
       )}
     </span>

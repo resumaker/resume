@@ -5,24 +5,24 @@ module.exports = {
     direction: 'ltr',
     themeColor: '#5b4f96',
 
-    // sections: {
-    //     experience: {
-    //         order: 1,
-    //         text: 'Experience',
-    //     },
-    //     projects: {
-    //         order: 2,
-    //         text: 'Projects',
-    //     },
-    //     skills: {
-    //         order: 3,
-    //         text: 'Skills',
-    //     },
-    //     education: {
-    //         order: 4,
-    //         text: 'Education',
-    //     },
-    // },
+    sections: {
+        experience: {
+            order: 1,
+            text: 'Experience',
+        },
+        projects: {
+            order: 2,
+            text: 'Projects',
+        },
+        skills: {
+            order: 3,
+            text: 'Skills',
+        },
+        education: {
+            order: 4,
+            text: 'Education',
+        },
+    },
 
     resume: {
         fullname: 'Jon London',
@@ -31,10 +31,22 @@ module.exports = {
         summary: 'Highly focused technologist with a multidisciplinary skill set honed over 10+ years in the IT industry. I strive to build great products and can take an initial idea, tackle it from multiple angles and take it from something great to something incredible. With 10+ years of experience in various industries, I help tech startups from idea phase to high volumes. I design and build scalable solutions, implement internal processes that fit your organization, build teams that produce results.',
 
         contact: {
-            phone: '+972503215221',
-            email: 'resumakerme@gmail.com',
-            website: 'https://datayears.com',
-            location: 'Chicago, USA'
+            phone: {
+                value: '+972503215221',
+                visible: true,
+            },
+            email: {
+                value: 'resumakerme@gmail.com',
+                visible: true,
+            },
+            website: {
+                value: 'https://datayears.com',
+                visible: true,
+            },
+            location: {
+                value: 'Chicago, USA',
+                visible: true,
+            },
         },
 
         skills: [
@@ -177,43 +189,49 @@ module.exports = {
             },
         ],
 
-        social: [
-            {
-            service: 'youtube',
-            url: 'https://www.youtube.com/channel/UCczRc31u_YXNiSpYKxQU_Ug'
-            },
-            {
-            service: 'linkedin',
-            url: 'https://www.linkedin.com/in/barancezayirli'
-            },
-            {
-            service: 'twitter',
-            url: 'https://twitter.com/barancezayirli'
-            },
-            {
-            service: 'angellist',
-            url: 'https://angel.co/baran-cezayirli'
-            },
-            {
-            service: 'github',
-            url: 'https://github.com/barancezayirli'
-            },
-            {
-            service: 'facebook',
-            url: 'https://www.facebook.com/barancezayirli'
-            },
-            {
-            service: 'instagram',
-            url: 'https://www.instagram.com/barancezayirli'
-            }
-        ],
+        // social: [
+        //     {
+        //     service: 'youtube',
+        //     url: 'https://www.youtube.com/channel/UCczRc31u_YXNiSpYKxQU_Ug'
+        //     },
+        //     {
+        //     service: 'linkedin',
+        //     url: 'https://www.linkedin.com/in/barancezayirli'
+        //     },
+        //     {
+        //     service: 'twitter',
+        //     url: 'https://twitter.com/barancezayirli'
+        //     },
+        //     {
+        //     service: 'angellist',
+        //     url: 'https://angel.co/baran-cezayirli'
+        //     },
+        //     {
+        //     service: 'github',
+        //     url: 'https://github.com/barancezayirli'
+        //     },
+        //     {
+        //     service: 'facebook',
+        //     url: 'https://www.facebook.com/barancezayirli'
+        //     },
+        //     {
+        //     service: 'instagram',
+        //     url: 'https://www.instagram.com/barancezayirli'
+        //     }
+        // ],
 
         projects: [
             {
-                name: 'Resumaker.me',
+                name: 'Resumaker',
                 company: 'Open source',
                 description: 'An online free, beatufully designed template for creating professional, customisable resumes.',
                 link: 'https://resumaker.me',
+            },
+            {
+                name: 'Datayears',
+                company: 'Personal',
+                description: 'A website showcasing and analaysing specific topics on a variety of categories.',
+                link: 'https://datayears.com',
             },
         ],
     },
