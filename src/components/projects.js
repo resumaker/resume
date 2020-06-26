@@ -14,6 +14,12 @@ const styles = {
     margin: '15px 0',
     alignItems:'center',
   },
+  projectLink: {
+    fontSize: 13,
+  },
+  spaceBetween: {
+    justifyContent: 'space-between',
+  },
 };
 
 const createNewProject = () => ({
@@ -69,7 +75,11 @@ const Projects = () => {
         )}
       </h1>
       {!isEmpty(resume.projects) && resume.projects.map((item, i) => (
-        <div className="flex my-5" key={`${item.name}-${i}`} style={{justifyContent: 'space-between'}}>
+        <div 
+          className="flex my-5" 
+          key={`${item.name}-${i}`} 
+          style={styles.spaceBetween}
+        >
           <article>
             <h2 className="item-header">{item.name}</h2>
             <h3 className="item-sub">{item.company}</h3>
@@ -77,11 +87,11 @@ const Projects = () => {
             {item.link && (
               <div className="flex">
                 <a
-                  className="btn btn-secondary"
-                  rel="noopener noreferrer"
-                  style={{fontSize:13}}
-                  href={item.link}
                   target="_blank"
+                  href={item.link}
+                  rel="noopener noreferrer"
+                  style={styles.projectLink}
+                  className="btn btn-secondary"
                 >
                   {item.link}
                 </a>

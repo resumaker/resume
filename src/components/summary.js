@@ -23,6 +23,9 @@ const styles = {
     margin: 'auto',
     position: 'fixed',
   },
+  profilePicture: {
+    borderColor: '#eee',
+  },
 };
 
 const toBase64 = file => new Promise((resolve, reject) => {
@@ -57,6 +60,22 @@ const Summary = ({ data }) => {
     });
   };
 
+  const onUpdateFiles = async fileItems => {
+    if (isEmpty(fileItems)) {
+      setProfilePicture('./profile.png');
+    } else {
+      if (!fileItems[0].file.type.startsWith('image/')) {
+        if (filePond && filePond.current) {
+          filePond.current.removeFiles();
+        }
+        return setInvalidFile(true);
+      }
+      const base64Image = await toBase64(fileItems[0].file);
+      setProfilePicture(base64Image);
+    }
+    setFiles(fileItems);
+  };
+
   return (
     <section className="py-5 border-b border-neutral-300 lg:flex items-center">
       <div className="my-5 md:w-full lg:w-1/4 xl:w-1/4">
@@ -65,28 +84,14 @@ const Summary = ({ data }) => {
             files={files}
             ref={filePond}
             allowMultiple={false}
-            onupdatefiles={async fileItems => {
-              if (isEmpty(fileItems)) {
-                setProfilePicture('./profile.png');
-              } else {
-                if (!fileItems[0].file.type.startsWith('image/')) {
-                  if (filePond && filePond.current) {
-                    filePond.current.removeFiles();
-                  }
-                  return setInvalidFile(true);
-                }
-                const base64Image = await toBase64(fileItems[0].file);
-                setProfilePicture(base64Image);
-              }
-              setFiles(fileItems);
-            }}
+            onupdatefiles={onUpdateFiles}
             labelIdle='Drag & Drop your profile picture or <span class="filepond--label-action">Browse</span>'
           />
         ) : (
           <img
             alt="profile"
             src={resume.profilePicture}
-            style={{borderColor: '#eee'}}
+            style={styles.profilePicture}
             className="rounded-full border mx-auto xs:w-32 sm:w-64 md:w-64 xl:w-64 lg:w-64"
           />
         )}
@@ -101,7 +106,10 @@ const Summary = ({ data }) => {
         )}
       </div>
 
-      <Portal onClose={() => setInvalidFile(false)} open={invalidFile}>
+      <Portal 
+        open={invalidFile}
+        onClose={() => setInvalidFile(false)} 
+      >
         <Segment style={styles.portal}>
           <Header>Invalid File Type</Header>
           <p className="mb-4">Only image files can be uploaded.</p>

@@ -7,7 +7,7 @@ module.exports = {
     description: `Resumaker eases the process of building professional, beautiful & costumisable resumes and cv documents. Edit, Customise, Preview, and Export your resume within minutes.`,
     siteUrl: `https://app.resumaker.me/`,
     social: {
-      twitter: `guypeer1`,
+      twitter: `Resumaker2`,
     },
   },
   plugins: [
@@ -44,19 +44,6 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     `gatsby-plugin-postcss`,
-    // {
-    //   resolve: `gatsby-plugin-react-redux`,
-    //   options: {
-    //       pathToCreateStoreModule: './src/store/index',
-    //       serialize: {
-    //           space: 0,
-    //           isJSON: true,
-    //           unsafe: false,
-    //       },
-    //       cleanupOnClient: true,
-    //       windowKey: '__PRELOADED_STATE__',
-    //   },
-    // },
   ],
 };
 

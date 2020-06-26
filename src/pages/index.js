@@ -1,13 +1,14 @@
 import Img from 'gatsby-image';
 import { graphql } from 'gatsby';
 import random from 'lodash.random';
-import kebabCase from 'lodash.kebabcase';
-import React, { useEffect } from 'react';
+import { Base64 } from 'js-base64';
 import { TiDirections } from 'react-icons/ti';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import { Button, Label, Popup, Dropdown, Icon } from 'semantic-ui-react';
 
+import exportResume from '../utils/export';
 import ColorPicker from '../elements/color-picker';
 import WixModal from '../components/affiliate/wix/modal';
 import WixHeader from '../components/affiliate/wix/header';
@@ -21,9 +22,6 @@ import '../css/phone-input.css';
 import '../css/calendar.css';
 import '../css/date-picker.css';
 import '../main.css';
-
-const jsPDF = typeof window !== `undefined` ? require('jspdf') : null;
-const html2canvas = typeof window !== `undefined` ? require('html2canvas') : null;
 
 const randomNumber = random(1);
 
@@ -46,72 +44,21 @@ const styles = {
     alignItems: 'center',
     alignSelf: 'flex-end',
   },
+  fixedMobileDesktopLink: {
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    position: 'fixed',
+    transition: 'bottom 1s',
+    padding: '20px 10px 10px',
+    boxShadow: `0 0 4px #5b4f96`,
+    justifyContent: 'space-between',
+  },
+  close: {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+  },
 };
-
-const exportPNG = (canvas, name) => {
-  const imgData = canvas.toDataURL('image/png');
-  const link = document.createElement('a');
-  link.download = `${kebabCase(name)}-resume.png`;
-  link.href = imgData;
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  trackCustomEvent({
-    category: 'Export PNG',
-    action: 'Click',
-    label: 'Export',
-  });
-};
-
-const exportPDF = (canvas, name) => {
-  const imgData = canvas.toDataURL('image/png', 1.0);
-  const doc = (() => {
-    if (canvas.width > canvas.height) {
-      return new jsPDF('l', 'mm', [canvas.width, canvas.height]);
-    }
-    return new jsPDF('p', 'mm', [canvas.height, canvas.width]);
-  })();
-
-  const docWidth = doc.internal.pageSize.getWidth();
-  const docHeight = doc.internal.pageSize.getHeight();
-
-  doc.addImage(imgData, 'PNG', 0, 0, docWidth, docHeight);
-  doc.save(`${kebabCase(name)}-resume.pdf`);
-
-  trackCustomEvent({
-    category: 'Export PDF',
-    action: 'Click',
-    label: 'Export',
-  });
-};
-
-function exportDoc(htmlBody, name){
-  const htmlHead = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-  const htmlEnd = '</body></html>';
-  const html = htmlHead + htmlBody + htmlEnd;
-
-  const blob = new Blob(['\ufeff', html], { type: 'application/msword' });
-  const url = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(html);  
-  const filename = `${kebabCase(name)}-resume.doc`;
-  
-  if (navigator.msSaveOrOpenBlob ){
-      navigator.msSaveOrOpenBlob(blob, filename);
-  } else {
-      const downloadLink = document.createElement('a');
-      document.body.appendChild(downloadLink);
-      downloadLink.href = url;
-      downloadLink.download = filename;
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-  }
-
-  trackCustomEvent({
-    category: 'Export DOCS',
-    action: 'Click',
-    label: 'Export',
-  });
-}
 
 const CreatePage = ({ data }) => {
   const dispatch = useDispatch();
@@ -125,23 +72,12 @@ const CreatePage = ({ data }) => {
     themeColor,
   } = useSelector(({ global }) => global);
 
+  const [copied, setCopied] = useState(false);
+  const [showDesktopCopy, setShowDesktopCopy] = useState(false);
+  const [copyEnabled, setCopyEnabled] = useState(!/^data:image\/(png|gif|webp|jpe?g);base64,/.test(resume.profilePicture));
+
   const ltr = direction === 'ltr';
   const isEdit = mode === 'edit';
-
-  const exportResume = async docType => {
-    const resumeEl = document.getElementById('resume');
-    const y = resumeEl.offsetTop ? resumeEl.offsetTop : (isMobile ? 230 : 180);
-    const width = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).width) : 0;
-    const height = typeof window !== `undefined` ? parseFloat(window.getComputedStyle(resumeEl).height) : 0;
-    const canvas = await html2canvas(resumeEl, { y, width, height });
-    if (docType === 'pdf') {
-      exportPDF(canvas, resume.fullname);
-    } else if (docType === 'png') {
-      exportPNG(canvas, resume.fullname);
-    } else if (docType === 'docx') {
-      exportDoc(resumeEl.innerHTML, resume.fullname);
-    }
-  };
 
   const toggleMode = () => {
     trackCustomEvent({
@@ -175,6 +111,23 @@ const CreatePage = ({ data }) => {
     };
   }, []);
 
+  useEffect(function onProfilePictureChanged() {
+    setCopyEnabled(!/^data:image\/(png|gif|webp|jpe?g);base64,/.test(resume.profilePicture));
+  }, [resume.profilePicture]);
+
+  useEffect(function onMobile() {
+    if (isMobile && touched) {
+      let t = window.setTimeout(() => {
+        setShowDesktopCopy(true);
+      }, 10000);
+      return () => {
+        if (t) {
+          window.clearTimeout(t);
+        }
+      };
+    }
+  }, [isMobile, touched]);
+
   useEffect(function onColorChange() {
     const customThemeStylesEl = document.getElementById('custom-theme-styles');
     customThemeStylesEl.innerHTML = `
@@ -206,7 +159,7 @@ const CreatePage = ({ data }) => {
       label: direction.toUpperCase(),
     });
   }, [direction]);
-
+  
   return (
     <>
       {randomNumber === 0 && (
@@ -215,13 +168,56 @@ const CreatePage = ({ data }) => {
           <FiverrHeader />
         </>
       )}
-
       {randomNumber === 1 && (
         <>
           <WixModal appearInSeconds={50} />
           <WixHeader />
         </>
       )}
+      {isMobile && copyEnabled && (
+        <div 
+          className="bg-white" 
+          style={{
+            ...styles.fixedMobileDesktopLink,
+            bottom: showDesktopCopy ? 0 : -300,
+          }}
+        >
+          <p className="mb-4">
+            Desktop editing experience is better.
+            Click <strong>Copy</strong> & paste the link to your pc
+            to gain a better experience while saving 
+            the data you have already edited.
+          </p>
+          <div>
+            <Button 
+              size="tiny"
+              color="violet" 
+              disabled={copied}
+              labelPosition="right" 
+              icon={copied ? 'checkmark' : 'copy'}
+              content={copied ? 'Copied' : 'Copy'}
+              onClick={() => {
+                var copyText = document.getElementById('copy-desktop-link');
+                copyText.value = `${window.location.origin}?d=${encodeURIComponent(Base64.encode(window.localStorage.getItem('resumakerSettings')))}`;
+                copyText.focus();
+                copyText.select();
+                document.execCommand('copy');
+                setCopied(true);
+                window.setTimeout(() => setCopied(false), 2000);
+              }}
+            />
+            <span 
+              className="ml-4" 
+              style={styles.close}
+              onClick={() => setShowDesktopCopy(false)}
+            >
+              Close
+            </span>
+            <input type="text" value="" id="copy-desktop-link" style={{position: 'fixed', bottom: -2000, left: -1000}} />
+          </div>
+        </div>
+      )}
+
       <div 
         style={styles.actionsBar}
         className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" 
@@ -256,7 +252,7 @@ const CreatePage = ({ data }) => {
               }
             >
               <TiDirections size={18} className="ml-1 mr-2" />
-              Change Text Direction
+              Change Direction
               <Label.Detail style={{paddingRight: 15}}>
                 {direction.toUpperCase()}
               </Label.Detail>
@@ -269,7 +265,7 @@ const CreatePage = ({ data }) => {
                     size="tiny"
                     icon="refresh" 
                     color="violet" 
-                    content="Clear Document" 
+                    content="Clear" 
                     onClick={() => {
                       window.localStorage.clear();
                       window.location.reload();
@@ -323,7 +319,7 @@ const CreatePage = ({ data }) => {
                 <Dropdown.Menu>
                   <Dropdown.Header content="Choose Format" />
                   <Dropdown.Divider />
-                  <Dropdown.Item onClick={() => exportResume('pdf')}>
+                  <Dropdown.Item onClick={() => exportResume('pdf', resume.fullname, isMobile)}>
                     <Button 
                       size="small" 
                       color="violet" 
@@ -333,7 +329,7 @@ const CreatePage = ({ data }) => {
                     />
                   </Dropdown.Item>
 
-                  <Dropdown.Item onClick={() => exportResume('png')}>
+                  <Dropdown.Item onClick={() => exportResume('png', resume.fullname, isMobile)}>
                     <Button 
                       size="small" 
                       color="violet" 
@@ -365,7 +361,7 @@ const CreatePage = ({ data }) => {
                           <div 
                             style={styles.actionsBar}
                             className="flex items-center" 
-                            onClick={() => exportResume('docx')}
+                            onClick={() => exportResume('docx', resume.fullname, isMobile)}
                           >
                             <span>Low</span>
                             <Popup
@@ -383,7 +379,7 @@ const CreatePage = ({ data }) => {
                             style={styles.actionsBar}
                             className="flex items-center" 
                             onClick={() => {
-                              exportResume('pdf');
+                              exportResume('pdf', resume.fullname, isMobile);
                               trackCustomEvent({
                                 category: 'Affiliate - PDFSimpli',
                                 action: 'Navigate',
