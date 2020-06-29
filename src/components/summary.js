@@ -62,7 +62,7 @@ const Summary = ({ data }) => {
 
   const onUpdateFiles = async fileItems => {
     if (isEmpty(fileItems)) {
-      setProfilePicture('./profile.png');
+      setProfilePicture(`${window.location.origin}/profile.png`);
     } else {
       if (!fileItems[0].file.type.startsWith('image/')) {
         if (filePond && filePond.current) {
