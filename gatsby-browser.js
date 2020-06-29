@@ -30,7 +30,9 @@ const loadInitialState = () => {
   const parsed = queryString.parse(window.location.search);
   if (!isEmpty(parsed) && parsed.d) {
     try {
-      const state = JSON.parse(Base64.decode(decodeURIComponent(parsed.d)));
+      const state = JSON.parse(
+        Base64.decode(decodeURIComponent(parsed.d))
+      );
       return state;
     } catch(e) {}
   }

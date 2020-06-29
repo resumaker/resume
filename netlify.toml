@@ -1,0 +1,14 @@
+[[redirects]]
+    from = "/"
+    to = "/il"
+    status = 302
+    force = true
+    conditions = {Language = "he"}
+
+[[redirects]]
+    from = "/"
+    to = "/"
+    status = 302
+    force = true
+    headers = {X-Locale = "il"}
+    conditions = {Country = "il"}
