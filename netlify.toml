@@ -10,4 +10,4 @@
     to = "/il"
     status = 302
     force = true
-    conditions = {Country = "il"}
+    conditions = {Country = ["il"]}
