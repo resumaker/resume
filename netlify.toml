@@ -3,7 +3,7 @@
     to = "/il"
     status = 302
     force = true
-    conditions = {Language = "he"}
+    conditions = {Language = ["he"]}
 
 [[redirects]]
     from = "/"
