@@ -1,5 +1,21 @@
 [[redirects]]
     from = "/"
+    to = "/il?d=:d"
+    status = 302
+    force = true
+    query = {d = ":d"}
+    conditions = {Language = ["he"]}
+
+[[redirects]]
+    from = "/"
+    to = "/il?d=:d"
+    status = 302
+    force = true
+    query = {d = ":d"}
+    conditions = {Country = ["il"]}
+
+[[redirects]]
+    from = "/"
     to = "/il"
     status = 302
     force = true
