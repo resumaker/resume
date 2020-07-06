@@ -16,6 +16,22 @@
 
 [[redirects]]
     from = "/"
+    to = "/il?fbclid=:fbclid"
+    status = 302
+    force = true
+    query = {fbclid = ":fbclid"}
+    conditions = {Language = ["he"]}
+
+[[redirects]]
+    from = "/"
+    to = "/il?fbclid=:fbclid"
+    status = 302
+    force = true
+    query = {fbclid = ":fbclid"}
+    conditions = {Country = ["il"]}
+
+[[redirects]]
+    from = "/"
     to = "/il"
     status = 302
     force = true
