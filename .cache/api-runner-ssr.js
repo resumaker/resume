@@ -5,6 +5,9 @@ var plugins = [{
       plugin: require('/Users/guypeer/Desktop/projects/resumaker/resumaker-editor/node_modules/gatsby-plugin-offline/gatsby-ssr'),
       options: {"plugins":[]},
     },{
+      plugin: require('/Users/guypeer/Desktop/projects/resumaker/resumaker-editor/node_modules/gatsby-plugin-load-script/gatsby-ssr'),
+      options: {"plugins":[],"src":"https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js","data-name":"BMC-Widget","data-id":"superlaunchapp","data-description":"Support me on Buy me a coffee!","data-message":"Thanks for visiting! You can support my work by buying me a coffee 💜","data-color":"#5b4f96","data-position":"right","data-x_margin":"18","data-y_margin":"18","async":true,"defer":true},
+    },{
       plugin: require('/Users/guypeer/Desktop/projects/resumaker/resumaker-editor/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
       options: {"plugins":[],"trackingId":"UA-169227649-1"},
     },{

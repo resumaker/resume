@@ -222,6 +222,12 @@ module.exports = {
 
         projects: [
             {
+                name: 'Super Launch',
+                company: 'Super Launch Inc.',
+                description: 'The fastest way to build a professional landing page to showcase your app.',
+                link: 'https://superlaunch.app',
+            },     
+            {
                 name: 'Resumaker',
                 company: 'Open source',
                 description: 'An online free, beatufully designed template for creating professional, customisable resumes.',

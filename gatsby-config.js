@@ -44,6 +44,22 @@ module.exports = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     `gatsby-plugin-postcss`,
+    {
+      resolve: 'gatsby-plugin-load-script',
+      options: {
+        src: 'https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js',
+        'data-name': 'BMC-Widget',
+        'data-id': 'superlaunchapp',
+        'data-description': 'Support me on Buy me a coffee!',
+        'data-message': 'Thanks for visiting! You can support my work by buying me a coffee 💜',
+        'data-color': '#5b4f96',
+        'data-position': 'right',
+        'data-x_margin': '18',
+        'data-y_margin': '18',
+        async: true,
+        defer: true,
+      },
+    },
   ],
 };
 

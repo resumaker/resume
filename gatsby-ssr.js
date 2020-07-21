@@ -5,7 +5,5 @@ const createStore = require('./src/store').default;
 const store = createStore();
 
 exports.wrapRootElement = ({ element }) => (
-    <Provider store={store}>
-        {element}
-    </Provider>
+    <Provider store={store}>{element}</Provider>
 );
