@@ -228,7 +228,9 @@ const CreatePage = ({ data }) => {
         >
           <Img fixed={data.logo.childImageSharp.fixed} alt="Resumaker Logo" />
         </a>
-
+        <a href="https://www.producthunt.com/posts/resumaker?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-resumaker" target="_blank" style={{marginBottom:10}}>
+            <img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=221191&theme=light" alt="Resumaker - Create a professional resume designed by recruitment experts | Product Hunt Embed" style={{width: 250, height: 54,width:250, height:54}} />
+        </a>
         <div className="flex flex-wrap" style={styles.headerRightContainer}>
           <div className={`flex items-center mb-4 justify-${isMobile ? 'start' : 'end'}`}>
             <Label 
