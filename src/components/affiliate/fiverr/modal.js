@@ -47,7 +47,7 @@ class FiverrModal extends Component {
 
     render() {
         return (
-            <Modal size="tiny" open={this.state.open} onClose={this.onClose}>
+            <Modal size="tiny" open={this.state.open}>
                 <Modal.Header>Earn money in-between jobs</Modal.Header>
                 <Modal.Content>
                 <div style={styles.text}>

@@ -47,7 +47,7 @@ class WixModal extends Component {
 
     render() {
         return (
-            <Modal size="tiny" open={this.state.open} onClose={this.onClose}>
+            <Modal size="tiny" open={this.state.open}>
                 <Modal.Header>Create a professional website for free</Modal.Header>
                 <Modal.Content>
                 <div style={styles.text}>
