@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Menu, Sidebar, Button, Header, Divider, Message, Tab, Accordion } from 'semantic-ui-react';
+import { Menu, Sidebar, Button, Header, Divider, Message, Label, Accordion } from 'semantic-ui-react';
 
 import PHLabel from '../product-hunt/label';
 import ColorPicker from '../../../elements/color-picker';
@@ -68,7 +68,7 @@ const rootPanels = [
             icon="external alternate"
             rel="noopener noreferrer"
             href={FIVERR_AFFILIATE_FREELANCER_WEBSITE}
-            content="Take me there"
+            content="Start Earning"
           />
         </div>
       ),
@@ -91,7 +91,7 @@ const rootPanels = [
               icon="external alternate"
               rel="noopener noreferrer"
               href={APPJOBS_AFFILIATE_WEBSITE}
-              content="Take me there"
+              content="See Job Opportunities"
             />
         </div>
       ), 
@@ -108,13 +108,41 @@ const rootPanels = [
               &nbsp; is one of the best resources to learn the latest tech skills and advance your career.
               Enroll using the coupon code <strong>UDACAFFIL2020</strong>  to receive $50 off.
             </div>
+            <div className="mb-4">
+              {[
+                { key: '788182', value: 'Cloud Computing' },
+                { key: '788180', value: 'Business' },
+                { key: '788179', value: 'Data Analyst' },
+                { key: '788186', value: 'Data Science' },
+                { key: '788184', value: 'Front End Development' },
+                { key: '788196', value: 'Programming Intro' },
+                { key: '803127', value: 'Growth Product Manager' },
+                { key: '824121', value: 'AI for Healthcare' },
+                { key: '828292', value: 'AWS Cloud Architect' },
+                { key: '828338', value: 'SQL' },
+                { key: '843711', value: 'Java Web Development' },
+                { key: '864372', value: 'Cyber Security' },
+              ].map(({ key, value }) => (
+                <Label 
+                  key={key} 
+                  color="violet"
+                  as="a" 
+                  href={`https://imp.i115008.net/c/2380348/${key}/11298`} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  style={{marginBottom:5}}
+                >
+                  {value}
+                </Label>
+              ))}
+            </div>
             <Button
               as="a"
               target="_blank" 
               icon="external alternate"
               rel="noopener noreferrer"
               href={UDACITY_AFFILIATE_HOMEPAGE}
-              content="Take me there"
+              content="See All Courses"
             />
         </div>
       ), 
@@ -137,7 +165,7 @@ const rootPanels = [
               icon="external alternate"
               rel="noopener noreferrer"
               href={WIX_AFFILIATE_WEBSITE}
-              content="Take me there"
+              content="Build a Website"
             />
         </div>
       ), 
@@ -160,7 +188,7 @@ const rootPanels = [
               icon="external alternate"
               rel="noopener noreferrer"
               href="https://blog.resumaker.me"
-              content="Take me there"
+              content="Start Reading"
             />
         </div>
       ), 
