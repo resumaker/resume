@@ -1,6 +1,7 @@
 module.exports = {
     touched: false,
     isMobile: true,
+    sidebarActive: true,
     mode: 'preview',
     direction: 'ltr',
     themeColor: '#5b4f96',

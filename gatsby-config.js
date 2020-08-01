@@ -56,6 +56,7 @@ module.exports = {
         'data-position': 'right',
         'data-x_margin': '18',
         'data-y_margin': '18',
+        disable: typeof window !== `undefined` ? window.innerWidth < 767 : false,
         async: true,
         defer: true,
       },

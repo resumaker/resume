@@ -4,6 +4,7 @@ import { SketchPicker } from 'react-color'
 const styles = {
   container: {
     height: 32,
+    position: 'relative',
   },
   color: {
     width: 42,
@@ -14,14 +15,16 @@ const styles = {
     padding: 5,
     height: 32,
     borderRadius: 1,
-    background: '#fff',
-    boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
-    display: 'inline-block',
     cursor: 'pointer',
+    background: '#fff',
+    display: 'inline-block',
+    boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
   },
   popover: {
     position: 'absolute',
+    left: '20%',
     zIndex: 2,
+    top: 40,
   },
   cover: {
     top: 0,

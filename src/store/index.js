@@ -1,18 +1,21 @@
 import produce from 'immer';
-import set from 'lodash.set';
+import set from 'lodash/set';
+import omit from 'lodash/omit';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 import initialState from './initial-state';
 
+const STORE_OMIT = ['isMobile'];
+
 const updateLocalStorage = state => {
   if (typeof window !== `undefined` && 'localStorage' in window) {
     try {
       const store = JSON.parse(window.localStorage.getItem('resumakerSettings'));
-      store.global = state;
+      store.global = omit(state, STORE_OMIT);
       window.localStorage.setItem('resumakerSettings', JSON.stringify(store));
     } catch(e) {
-      window.localStorage.setItem('resumakerSettings', JSON.stringify({ global: state }));
+      window.localStorage.setItem('resumakerSettings', JSON.stringify({ global: omit(state, STORE_OMIT) }));
     }
   }
 };

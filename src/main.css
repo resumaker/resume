@@ -81,6 +81,13 @@
     content: '';
 }
 
+@media only screen and (max-width: 768px) {
+    #bmc-wbtn,
+    #bmc-wbtn + div {
+        display: none !important;
+    }
+}
+
 @media only screen and (max-width: 483px) {
     .color-picker-container {
         margin-top: 1.5rem;

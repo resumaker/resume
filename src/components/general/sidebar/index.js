@@ -1,0 +1,263 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Menu, Sidebar, Button, Header, Divider, Message, Tab, Accordion } from 'semantic-ui-react';
+
+import ColorPicker from '../../../elements/color-picker';
+
+import { useDispatch } from '../../../hooks/use-dispatch';
+
+import {
+  WIX_AFFILIATE_WEBSITE,
+  APPJOBS_AFFILIATE_WEBSITE,
+  UDACITY_AFFILIATE_HOMEPAGE,
+  FIVERR_AFFILIATE_FREELANCER_WEBSITE,
+} from '../../affiliate/constants';
+
+const styles = {
+  closeButton: {
+    marginBottom: 30,
+  },
+  directionButton: {
+    marginRight: 15,
+    display: 'flex',
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+  },
+};
+
+const rootPanels = [
+  // { 
+  //   key: 'panel-1a', 
+  //   title: 'Video Resume', 
+  //   content: {
+  //     content: (
+  //       <div className="pl-6 pr-6">
+  //           <div className="mb-4">
+  //             <a href="https://blog.resumaker.me" target="_blank" rel="noopener noreferrer">Resumaker blog</a>
+  //             &nbsp; contains articles that will help you advance your career in the resume creation, interview
+  //             and earnings aspects.
+  //           </div>
+  //           <Button
+  //             as="a"
+  //             target="_blank" 
+  //             rel="noopener noreferrer"
+  //             href="https://blog.resumaker.me"
+  //             content="Take me there"
+  //           />
+  //       </div>
+  //     ), 
+  //   },
+  // },
+  { 
+    key: 'panel-1b', 
+    title: 'Extra Income', 
+    content: {
+      content: (
+        <div className="pl-6 pr-6">
+          <div className="mb-4">
+            <a href={FIVERR_AFFILIATE_FREELANCER_WEBSITE} target="_blank" rel="noopener noreferrer">Fiverr</a>
+            &nbsp; is the world's largest freelancer marketplace. Generate extra income by offering your services
+            to thousands of consumers.
+          </div>
+          <Button
+            as="a"
+            target="_blank" 
+            rel="noopener noreferrer"
+            href={FIVERR_AFFILIATE_FREELANCER_WEBSITE}
+            content="Take me there"
+          />
+        </div>
+      ),
+    },
+  },
+  { 
+    key: 'panel-1c', 
+    title: 'Find a Job', 
+    content: {
+      content: (
+        <div className="pl-6 pr-6">
+            <div className="mb-4">
+              <a href={APPJOBS_AFFILIATE_WEBSITE} target="_blank" rel="noopener noreferrer">Appjobs</a>
+              &nbsp; is the one of the largest job boards in the world. Find a job that suits you best 
+              our of hundreds of opportunities.
+            </div>
+            <Button
+              as="a"
+              target="_blank" 
+              rel="noopener noreferrer"
+              href={APPJOBS_AFFILIATE_WEBSITE}
+              content="Take me there"
+            />
+        </div>
+      ), 
+    },
+  },
+  { 
+    key: 'panel-1d', 
+    title: 'Education', 
+    content: {
+      content: (
+        <div className="pl-6 pr-6">
+            <div className="mb-4">
+              <a href={UDACITY_AFFILIATE_HOMEPAGE} target="_blank" rel="noopener noreferrer">Udacity</a>
+              &nbsp; is one of the best resources to learn the latest tech skills and advance your career.
+              Enroll using the coupon code <strong>UDACAFFIL2020</strong>  to receive $50 off.
+            </div>
+            <Button
+              as="a"
+              target="_blank" 
+              rel="noopener noreferrer"
+              href={UDACITY_AFFILIATE_HOMEPAGE}
+              content="Take me there"
+            />
+        </div>
+      ), 
+    },
+  },
+  { 
+    key: 'panel-1e', 
+    title: 'Website', 
+    content: {
+      content: (
+        <div className="pl-6 pr-6">
+            <div className="mb-4">
+              <a href={WIX_AFFILIATE_WEBSITE} target="_blank" rel="noopener noreferrer">Wix</a>
+              &nbsp; offers hundreds of great free templates to build a professional website for 
+              your business and to showcase your portfolio.
+            </div>
+            <Button
+              as="a"
+              target="_blank" 
+              rel="noopener noreferrer"
+              href={WIX_AFFILIATE_WEBSITE}
+              content="Take me there"
+            />
+        </div>
+      ), 
+    },
+  },
+  { 
+    key: 'panel-1f', 
+    title: 'Blog', 
+    content: {
+      content: (
+        <div className="pl-6 pr-6">
+            <div className="mb-4">
+              <a href="https://blog.resumaker.me" target="_blank" rel="noopener noreferrer">Resumaker blog</a>
+              &nbsp; contains articles that will help you advance your career in the resume creation, interview
+              and earnings aspects.
+            </div>
+            <Button
+              as="a"
+              target="_blank" 
+              rel="noopener noreferrer"
+              href="https://blog.resumaker.me"
+              content="Take me there"
+            />
+        </div>
+      ), 
+    },
+  },
+];
+
+
+
+const SidebarSemantic = () => {
+  const dispatch = useDispatch();
+  const { sidebarActive, isMobile, direction, themeColor } = useSelector(({ global }) => global);
+
+  return (
+      <Sidebar
+        vertical
+        as={Menu}
+        icon="labeled"
+        animation="overlay"
+        visible={sidebarActive}
+        width={isMobile ? 'wide' : 'very wide'}
+        onHide={() => dispatch('sidebarActive', false)}
+      >
+        <div className="mb-4 p-6">
+          <Header as="h3">Actions</Header>
+          <Divider />
+          <div className="mb-4">
+            <div className="mb-2">
+              <Message size={isMobile ? 'mini' : 'small'}>
+                <div className="mb-2">
+                  Current Direction: 
+                  <strong>{direction === 'rtl' ? 'Right-to-Left' : 'Left-to-right' }</strong>.
+                </div>
+                <Button 
+                  circular
+                  color="violet"
+                  content="Change Direction"
+                  size={isMobile ? 'tiny' : 'small'}
+                  icon={`align ${direction === 'rtl' ? 'left' : 'right'}`}
+                  labelPosition="right" 
+                  onClick={() => 
+                    dispatch('direction', direction === 'rtl' ? 'ltr' : 'rtl')
+                  }
+                />
+          
+              </Message>
+            </div>
+
+            <div className="mb-4">
+              <Message size={isMobile ? 'mini' : 'small'}>
+                <div className="mb-2">
+                  By clearing, anything you have edited will be lost.
+                </div>
+                <Button 
+                  circular
+                  icon="refresh" 
+                  color="violet" 
+                  content="Clear Document" 
+                  size={isMobile ? 'tiny' : 'small'}
+                  onClick={() => {
+                    window.localStorage.clear();
+                    window.location.reload();
+                  }}
+                  labelPosition="right" 
+                />
+              </Message>
+            </div>  
+            
+            <div className="mb-4">
+              <Message size={isMobile ? 'mini' : 'small'}>
+                <div className="mb-2">
+                  Choose a theme color for your template.
+                </div>
+                <ColorPicker
+                  initialColor={themeColor}
+                  onChange={color => {
+                    dispatch('themeColor', color);
+                  }}
+                />
+              </Message>
+            </div>
+          </div>
+        </div>
+
+        <div className="mb-4 p-6">
+          <Header as="h3">Resources & Tools</Header>
+          <Divider />
+          <Accordion panels={rootPanels} styled />
+        </div>
+
+        {/* <div className="mb-4 p-6">
+          <Header as="h3">Jobs</Header>
+          <Divider />
+        </div> */}
+    
+        <Button 
+          size="large"
+          color="violet" 
+          style={styles.closeButton}
+          onClick={() => dispatch('sidebarActive', false)}
+        >
+          Close
+        </Button>
+      </Sidebar>
+  );
+};
+
+export default SidebarSemantic;
