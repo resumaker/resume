@@ -8,6 +8,7 @@ import ColorPicker from '../../../elements/color-picker';
 import { useDispatch } from '../../../hooks/use-dispatch';
 
 import {
+  UDACITY_LINKS,
   WIX_AFFILIATE_WEBSITE,
   APPJOBS_AFFILIATE_WEBSITE,
   UDACITY_AFFILIATE_HOMEPAGE,
@@ -83,7 +84,7 @@ const rootPanels = [
             <div className="mb-4">
               <a href={APPJOBS_AFFILIATE_WEBSITE} target="_blank" rel="noopener noreferrer">Appjobs</a>
               &nbsp; is the one of the largest job boards in the world. Find a job that suits you best 
-              our of hundreds of opportunities.
+              out of hundreds of opportunities.
             </div>
             <Button
               as="a"
@@ -109,20 +110,7 @@ const rootPanels = [
               Enroll using the coupon code <strong>UDACAFFIL2020</strong>  to receive $50 off.
             </div>
             <div className="mb-4">
-              {[
-                { key: '788182', value: 'Cloud Computing' },
-                { key: '788180', value: 'Business' },
-                { key: '788179', value: 'Data Analyst' },
-                { key: '788186', value: 'Data Science' },
-                { key: '788184', value: 'Front End Development' },
-                { key: '788196', value: 'Programming Intro' },
-                { key: '803127', value: 'Growth Product Manager' },
-                { key: '824121', value: 'AI for Healthcare' },
-                { key: '828292', value: 'AWS Cloud Architect' },
-                { key: '828338', value: 'SQL' },
-                { key: '843711', value: 'Java Web Development' },
-                { key: '864372', value: 'Cyber Security' },
-              ].map(({ key, value }) => (
+              {UDACITY_LINKS.map(({ key, value }) => (
                 <Label 
                   key={key} 
                   color="violet"
