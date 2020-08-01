@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Menu, Sidebar, Button, Header, Divider, Message, Tab, Accordion } from 'semantic-ui-react';
 
+import PHLabel from '../product-hunt/label';
 import ColorPicker from '../../../elements/color-picker';
 
 import { useDispatch } from '../../../hooks/use-dispatch';
@@ -15,6 +16,7 @@ import {
 
 const styles = {
   closeButton: {
+    marginTop: 30,
     marginBottom: 30,
   },
   directionButton: {
@@ -247,15 +249,21 @@ const SidebarSemantic = () => {
           <Header as="h3">Jobs</Header>
           <Divider />
         </div> */}
+
+        <div className="text-center mb-4" style={{display: 'inline-block'}}>
+          <PHLabel />
+        </div>
     
-        <Button 
-          size="large"
-          color="violet" 
-          style={styles.closeButton}
-          onClick={() => dispatch('sidebarActive', false)}
-        >
-          Close
-        </Button>
+        <div>
+          <Button 
+            size="large"
+            color="violet" 
+            style={styles.closeButton}
+            onClick={() => dispatch('sidebarActive', false)}
+          >
+            Close
+          </Button>
+        </div>
       </Sidebar>
   );
 };
