@@ -1,11 +1,12 @@
 import React from 'react';
 import get from 'lodash.get';
 import set from 'lodash.set';
+import isNil from 'lodash/isNil';
 import { Base64 } from 'js-base64';
 import isEmpty from 'lodash.isempty';
 import queryString from 'query-string';
 import { Provider } from 'react-redux';
-import isPlainObject from 'lodash.isplainobject';
+import isPlainObject from 'lodash/isPlainObject';
 
 import createStore from './src/store';
 
@@ -60,6 +61,10 @@ const loadInitialState = () => {
     set(state, 'global.resume.contact.location', {});
     set(state, 'global.resume.contact.location.value', get(state, 'global.resume.contact.location', ''));
     set(state, 'global.resume.contact.location.visible', true);
+  }
+
+  if (isNil(get(state, 'global.sidebarActive'))) {
+    set(state, 'global.sidebarActive', true);
   }
   return state;
 };
