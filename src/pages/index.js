@@ -32,6 +32,11 @@ const styles = {
   actionsBar: {
     justifyContent: 'space-between',
   },  
+  sidebarArrow: {
+    zIndex: 103,
+    cursor: 'pointer',
+    position: 'fixed',
+  },
   directionButton: {
     marginRight: 15,
     display: 'flex',
@@ -127,22 +132,20 @@ const ResumePage = () => {
         size={isMobile ? '36' : 'large'}
         name={`arrow ${sidebarActive ? 'left' : 'right'}`}
         style={{
-          zIndex: 103,
-          position: 'fixed',
-          cursor: 'pointer',
+          ...styles.sidebarArrow,
           top: isMobile? 75 : 2,
           left: isMobile ? 1 : 3,
         }}
         onClick={() => dispatch('sidebarActive', !sidebarActive)}
       />
 
-      <FiverrModal appearInSeconds={45} />
+      <FiverrModal appearInSeconds={60} />
       {header === 'fiverr' && <FiverrHeader />}
 
-      <AppjobsModal appearInSeconds={130} />
+      <AppjobsModal appearInSeconds={150} />
       {header === 'appjobs' && <AppjobsHeader />}
 
-      <WixModal appearInSeconds={260} />
+      <WixModal appearInSeconds={320} />
 
       <CopyButton />
 

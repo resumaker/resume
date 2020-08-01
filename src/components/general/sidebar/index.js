@@ -42,6 +42,7 @@ const rootPanels = [
   //           <Button
   //             as="a"
   //             target="_blank" 
+  //             icon="external alternate"
   //             rel="noopener noreferrer"
   //             href="https://blog.resumaker.me"
   //             content="Take me there"
@@ -64,6 +65,7 @@ const rootPanels = [
           <Button
             as="a"
             target="_blank" 
+            icon="external alternate"
             rel="noopener noreferrer"
             href={FIVERR_AFFILIATE_FREELANCER_WEBSITE}
             content="Take me there"
@@ -86,6 +88,7 @@ const rootPanels = [
             <Button
               as="a"
               target="_blank" 
+              icon="external alternate"
               rel="noopener noreferrer"
               href={APPJOBS_AFFILIATE_WEBSITE}
               content="Take me there"
@@ -108,6 +111,7 @@ const rootPanels = [
             <Button
               as="a"
               target="_blank" 
+              icon="external alternate"
               rel="noopener noreferrer"
               href={UDACITY_AFFILIATE_HOMEPAGE}
               content="Take me there"
@@ -130,6 +134,7 @@ const rootPanels = [
             <Button
               as="a"
               target="_blank" 
+              icon="external alternate"
               rel="noopener noreferrer"
               href={WIX_AFFILIATE_WEBSITE}
               content="Take me there"
@@ -140,7 +145,7 @@ const rootPanels = [
   },
   { 
     key: 'panel-1f', 
-    title: 'Blog', 
+    title: 'Our Blog', 
     content: {
       content: (
         <div className="pl-6 pr-6">
@@ -152,6 +157,7 @@ const rootPanels = [
             <Button
               as="a"
               target="_blank" 
+              icon="external alternate"
               rel="noopener noreferrer"
               href="https://blog.resumaker.me"
               content="Take me there"
@@ -179,7 +185,7 @@ const SidebarSemantic = () => {
         onHide={() => dispatch('sidebarActive', false)}
       >
         <div className="mb-4 p-6">
-          <Header as="h3">Actions</Header>
+          <Header as="h3">Editor Actions</Header>
           <Divider />
           <div className="mb-4">
             <div className="mb-2">
