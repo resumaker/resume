@@ -30,8 +30,6 @@ const Banner = () => (
         href={`https://imp.i115008.net/c/2380348/${bannerId}/11298`} 
     >
         <img 
-            async
-            defer
             border="0" 
             width="728" 
             height="90"
