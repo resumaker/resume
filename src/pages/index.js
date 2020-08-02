@@ -11,8 +11,6 @@ import CopyButton from '../components/general/action-buttons/copy';
 import FiverrModal from '../components/affiliate/fiverr/modal';
 import FiverrHeader from '../components/affiliate/fiverr/header';
 
-import AppjobsModal from '../components/affiliate/appjobs/modal';
-
 import WixModal from '../components/affiliate/wix/modal';
 
 import UdacityBanner from '../components/affiliate/udacity/banner';
@@ -129,8 +127,7 @@ const ResumePage = () => {
 
       <FiverrHeader />
       <FiverrModal appearInSeconds={60} />
-      <AppjobsModal appearInSeconds={180} />
-      <WixModal appearInSeconds={320} />
+      <WixModal appearInSeconds={280} />
 
       <CopyButton />
 
