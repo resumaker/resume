@@ -56,17 +56,23 @@ const rootPanels = [
       content: (
         <div className="pl-6 pr-6">
           <div className="mb-4">
-            <a href={FIVERR_AFFILIATE_FREELANCER_WEBSITE} target="_blank" rel="noopener noreferrer">Fiverr</a>
+            <a 
+              target="_blank" 
+              rel="noopener noreferrer"
+              href={FIVERR_AFFILIATE_FREELANCER_WEBSITE} 
+            >
+              Fiverr
+            </a>
             &nbsp; is the world's largest freelancer marketplace. Generate extra income by offering your services
             to thousands of consumers.
           </div>
           <Button
             as="a"
             target="_blank" 
-            icon="external alternate"
-            rel="noopener noreferrer"
-            href={FIVERR_AFFILIATE_FREELANCER_WEBSITE}
             content="Start Earning"
+            rel="noopener noreferrer"
+            icon="external alternate"
+            href={FIVERR_AFFILIATE_FREELANCER_WEBSITE}
           />
         </div>
       ),
@@ -109,13 +115,13 @@ const rootPanels = [
             <div className="mb-4">
               {UDACITY_LINKS.map(({ key, value }) => (
                 <Label 
+                  as="a" 
                   key={key} 
                   color="violet"
-                  as="a" 
-                  href={`https://imp.i115008.net/c/2380348/${key}/11298`} 
                   target="_blank" 
-                  rel="noopener noreferrer" 
                   style={{marginBottom:5}}
+                  rel="noopener noreferrer" 
+                  href={`https://imp.i115008.net/c/2380348/${key}/11298`} 
                 >
                   {value}
                 </Label>
@@ -140,7 +146,13 @@ const rootPanels = [
       content: (
         <div className="pl-6 pr-6">
             <div className="mb-4">
-              <a href={WIX_AFFILIATE_WEBSITE} target="_blank" rel="noopener noreferrer">Wix</a>
+              <a 
+                target="_blank" 
+                rel="noopener noreferrer"
+                href={WIX_AFFILIATE_WEBSITE} 
+              >
+                Wix
+              </a>
               &nbsp; offers hundreds of great free templates to build a professional website for 
               your business and to showcase your portfolio.
             </div>
@@ -149,8 +161,8 @@ const rootPanels = [
               target="_blank" 
               icon="external alternate"
               rel="noopener noreferrer"
-              href={WIX_AFFILIATE_WEBSITE}
               content="Build a Website"
+              href={WIX_AFFILIATE_WEBSITE}
             />
         </div>
       ), 
@@ -163,17 +175,23 @@ const rootPanels = [
       content: (
         <div className="pl-6 pr-6">
             <div className="mb-4">
-              <a href="https://blog.resumaker.me" target="_blank" rel="noopener noreferrer">Resumaker blog</a>
+              <a 
+                target="_blank" 
+                rel="noopener noreferrer"
+                href="https://blog.resumaker.me" 
+              >
+                Resumaker blog
+              </a>
               &nbsp; contains articles that will help you advance your career in the resume creation, interview
               and earnings aspects.
             </div>
             <Button
               as="a"
               target="_blank" 
-              icon="external alternate"
-              rel="noopener noreferrer"
-              href="https://blog.resumaker.me"
               content="Start Reading"
+              rel="noopener noreferrer"
+              icon="external alternate"
+              href="https://blog.resumaker.me"
             />
         </div>
       ), 
