@@ -17,6 +17,8 @@ import AppjobsHeader from '../components/affiliate/appjobs/header';
 
 import WixModal from '../components/affiliate/wix/modal';
 
+import UdacityBanner from '../components/affiliate/udacity/banner';
+
 import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components/resume';
 
 import { useDispatch } from '../hooks/use-dispatch';
@@ -187,16 +189,8 @@ const ResumePage = () => {
           <Footer social={resume.social} />
         </div>
       </main>
-      {/* <h3 id="788199">
-        <a href="https://imp.i115008.net/c/2380348/788199/11298">
-          Learn the latest tech skills and advance your career with Udacity. Enroll now to receive $50 off your Nanodegree Program!
-        </a>
-      </h3> */}
 
-      <a href="https://imp.i115008.net/c/2380348/788180/11298" id="788180">
-        <img src="//a.impactradius-go.com/display-ad/11298-788180" border="0" alt="" width="728" height="90" style={{margin:'auto'}} />
-      </a>
-      {/* <a href="https://imp.i115008.net/c/2380348/788196/11298" id="788196"><img src="//a.impactradius-go.com/display-ad/11298-788196" border="0" alt="" width="2912" height="360"/></a> */}
+      <UdacityBanner />
     </>
   );
 };
