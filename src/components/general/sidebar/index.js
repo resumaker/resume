@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Menu, Sidebar, Button, Header, Divider, Message, Label, Accordion, Modal, Icon } from 'semantic-ui-react';
+import { Menu, Sidebar, Button, Header, Divider, Message, Label, Accordion, Modal, Icon, Checkbox } from 'semantic-ui-react';
 
 import PHLabel from '../product-hunt/label';
 import ColorPicker from '../../../elements/color-picker';
@@ -42,8 +42,8 @@ const rootPanels = [
             <Button
               as="a"
               icon="mail"
-              href="mailto:resumakerme@gmail.com"
               content="Send us an email"
+              href="mailto:resumakerme@gmail.com?subject=Video%20Resume&body=I%20am%20interested%20in%20creating%20a%20free%20video%20resume."
             />
         </div>
       ), 
@@ -204,7 +204,7 @@ const rootPanels = [
 const SidebarSemantic = () => {
   const dispatch = useDispatch();
   const [clearModalOpened, setClearModalOpened] = useState(false); 
-  const { sidebarActive, isMobile, direction, themeColor } = useSelector(({ global }) => global);
+  const { sidebarActive, isMobile, direction, themeColor, lookingForJob } = useSelector(({ global }) => global);
 
   return (
       <Sidebar
@@ -307,10 +307,15 @@ const SidebarSemantic = () => {
           <Accordion panels={rootPanels} styled />
         </div>
 
-        {/* <div className="mb-4 p-6">
+        <div className="mb-4 p-6">
           <Header as="h3">Jobs</Header>
           <Divider />
-        </div> */}
+          <Checkbox
+            checked={lookingForJob}
+            label="Looking for a job"
+            onChange={() => dispatch('lookingForJob', !lookingForJob)}
+          />
+        </div>
 
         <div className="text-center mb-4" style={{display: 'inline-block'}}>
           <PHLabel />
