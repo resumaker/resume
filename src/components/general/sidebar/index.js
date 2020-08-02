@@ -214,7 +214,6 @@ const SidebarSemantic = () => {
         animation="overlay"
         visible={sidebarActive}
         width={isMobile ? 'wide' : 'very wide'}
-        onHide={() => dispatch('sidebarActive', false)}
       >
         <div className="mb-4 p-6">
           <Header as="h3">Editor Actions</Header>
