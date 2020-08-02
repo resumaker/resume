@@ -99,10 +99,10 @@ const ResumePage = () => {
   useEffect(function onDirectionChange() {
     const customThemeStylesEl = document.getElementById('custom-direction-styles');
     if (ltr) {
-      customThemeStylesEl.innerHTML = `* {direction: ${direction};}`;
+      customThemeStylesEl.innerHTML = `main {direction: ${direction};}`;
     } else {
       customThemeStylesEl.innerHTML = `
-        * {direction: ${direction};}
+        main {direction: ${direction};}
         .section-header {border-left-width: 0 !important; border-right-width: 4px; padding-left: 0; padding-right: 10px;}
       `;
     }

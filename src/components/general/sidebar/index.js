@@ -29,29 +29,26 @@ const styles = {
 };
 
 const rootPanels = [
-  // { 
-  //   key: 'panel-1a', 
-  //   title: 'Video Resume', 
-  //   content: {
-  //     content: (
-  //       <div className="pl-6 pr-6">
-  //           <div className="mb-4">
-  //             <a href="https://blog.resumaker.me" target="_blank" rel="noopener noreferrer">Resumaker blog</a>
-  //             &nbsp; contains articles that will help you advance your career in the resume creation, interview
-  //             and earnings aspects.
-  //           </div>
-  //           <Button
-  //             as="a"
-  //             target="_blank" 
-  //             icon="external alternate"
-  //             rel="noopener noreferrer"
-  //             href="https://blog.resumaker.me"
-  //             content="Take me there"
-  //           />
-  //       </div>
-  //     ), 
-  //   },
-  // },
+  { 
+    key: 'panel-1a', 
+    title: 'Video Resume', 
+    content: {
+      content: (
+        <div className="pl-6 pr-6">
+            <div className="mb-4">
+              We create professional video resumes for free. In order to request a resume,
+              please send us an email and we will schedule.
+            </div>
+            <Button
+              as="a"
+              icon="mail"
+              href="mailto:resumakerme@gmail.com"
+              content="Send us an email"
+            />
+        </div>
+      ), 
+    },
+  },
   { 
     key: 'panel-1b', 
     title: 'Extra Income', 
