@@ -1,4 +1,3 @@
-import sample from 'lodash/sample';
 import React, { useEffect } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
@@ -13,7 +12,6 @@ import FiverrModal from '../components/affiliate/fiverr/modal';
 import FiverrHeader from '../components/affiliate/fiverr/header';
 
 import AppjobsModal from '../components/affiliate/appjobs/modal';
-import AppjobsHeader from '../components/affiliate/appjobs/header';
 
 import WixModal from '../components/affiliate/wix/modal';
 
