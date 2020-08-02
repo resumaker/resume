@@ -1,7 +1,7 @@
 import sample from 'lodash/sample';
+import React, { useEffect } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
-import React, { useState, useEffect } from 'react';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 import Logo from '../components/general/logo';
@@ -47,11 +47,8 @@ const styles = {
   },
 };
 
-const AFFILIATE_HEADERS = ['fiverr', 'appjobs'];
-
 const ResumePage = () => {
   const dispatch = useDispatch();
-  const [header, setHeader] = useState('fiverr');
 
   const { 
     mode, 
@@ -115,15 +112,6 @@ const ResumePage = () => {
     });
   }, [direction]);
 
-  useEffect(function switchAffiliateHeader() {
-    const interval = window.setInterval(() => {
-      if (interval) { setHeader(sample(AFFILIATE_HEADERS)); }
-    }, 60000);
-    return () => {
-        if (interval) { window.clearInterval(interval); }
-    };
-  }, []);  
-  
   return (
     <>
       <Icon 
@@ -141,12 +129,9 @@ const ResumePage = () => {
         onClick={() => dispatch('sidebarActive', !sidebarActive)}
       />
 
+      <FiverrHeader />
       <FiverrModal appearInSeconds={60} />
-      {header === 'fiverr' && <FiverrHeader />}
-
-      <AppjobsModal appearInSeconds={150} />
-      {header === 'appjobs' && <AppjobsHeader />}
-
+      <AppjobsModal appearInSeconds={180} />
       <WixModal appearInSeconds={320} />
 
       <CopyButton />
