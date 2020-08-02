@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Menu, Sidebar, Button, Header, Divider, Message, Label, Accordion } from 'semantic-ui-react';
+import { Menu, Sidebar, Button, Header, Divider, Message, Label, Accordion, Modal, Icon } from 'semantic-ui-react';
 
 import PHLabel from '../product-hunt/label';
 import ColorPicker from '../../../elements/color-picker';
@@ -185,6 +185,7 @@ const rootPanels = [
 
 const SidebarSemantic = () => {
   const dispatch = useDispatch();
+  const [clearModalOpened, setClearModalOpened] = useState(false); 
   const { sidebarActive, isMobile, direction, themeColor } = useSelector(({ global }) => global);
 
   return (
@@ -227,18 +228,43 @@ const SidebarSemantic = () => {
                 <div className="mb-2">
                   By clearing, anything you have edited will be lost.
                 </div>
-                <Button 
-                  circular
-                  icon="refresh" 
-                  color="violet" 
-                  content="Clear Document" 
-                  size={isMobile ? 'tiny' : 'small'}
-                  onClick={() => {
-                    window.localStorage.clear();
-                    window.location.reload();
-                  }}
-                  labelPosition="right" 
-                />
+                <Modal
+                  size="tiny"
+                  open={clearModalOpened}
+                  onOpen={() => setClearModalOpened(true)}
+                  trigger={
+                    <Button 
+                      circular
+                      icon="refresh" 
+                      color="violet" 
+                      labelPosition="right" 
+                      content="Clear Document" 
+                      size={isMobile ? 'tiny' : 'small'}
+                    />
+                  }
+                >
+                  <Header icon='exclamation' color="red" content='Are you sure?' />
+                  <Modal.Content>
+                    After clearing, everything you have edited so far will be lost 
+                    and your document will start from scratch. This action is irreversible.
+                  </Modal.Content>
+                  <Modal.Actions>
+                    <Button color="red" onClick={() => setClearModalOpened(false)}>
+                      <Icon name="remove" /> No
+                    </Button>
+                    <Button 
+                      color="green"    
+                      onClick={() => {
+                        window.setTimeout(() => {
+                          window.localStorage.clear();
+                          window.location.reload();
+                        }, 500);
+                      }}
+                    >
+                      <Icon name="checkmark" /> Yes
+                    </Button>
+                  </Modal.Actions>
+                </Modal>
               </Message>
             </div>  
             
