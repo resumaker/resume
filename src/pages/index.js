@@ -8,11 +8,9 @@ import Sidebar from '../components/general/sidebar';
 import ActionButtons from '../components/general/action-buttons';
 import CopyButton from '../components/general/action-buttons/copy';
 
+import WixModal from '../components/affiliate/wix/modal';
 import FiverrModal from '../components/affiliate/fiverr/modal';
 import FiverrHeader from '../components/affiliate/fiverr/header';
-
-import WixModal from '../components/affiliate/wix/modal';
-
 import UdacityBanner from '../components/affiliate/udacity/banner';
 
 import { Header, Summary, Experience, Projects, Skills, List, Education, Footer, SEO } from '../components/resume';

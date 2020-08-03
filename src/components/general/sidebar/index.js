@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import isEmpty from 'lodash/isEmpty';
 import { useSelector } from 'react-redux';
-import { Menu, Sidebar, Button, Header, Divider, Message, Label, Accordion, Modal, Icon, Checkbox } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import { Menu, Sidebar, Button, Header, Divider, Message, Label, Accordion, Modal, Card, Icon, Checkbox } from 'semantic-ui-react';
 
 import PHLabel from '../product-hunt/label';
 import ColorPicker from '../../../elements/color-picker';
@@ -25,6 +27,11 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     alignSelf: 'flex-end',
+  },
+  jobsContainer: {
+    maxHeight: 480,
+    direction: 'rtl',
+    overflowY: 'auto',
   },
 };
 
@@ -199,12 +206,20 @@ const rootPanels = [
   },
 ];
 
-
-
 const SidebarSemantic = () => {
   const dispatch = useDispatch();
+  const [sqlinkJobs, setSqlinkJobs] = useState([]); 
   const [clearModalOpened, setClearModalOpened] = useState(false); 
   const { sidebarActive, isMobile, direction, themeColor, lookingForJob } = useSelector(({ global }) => global);
+
+  useEffect(function fetchJobs() {
+    (async () => {
+      try {
+        const { data: jobs } = await axios.get('/json/jobs/sqlink-26.json');
+        setSqlinkJobs(jobs);
+      } catch(e) {}
+    })();
+  }, []);
 
   return (
       <Sidebar
@@ -307,15 +322,48 @@ const SidebarSemantic = () => {
           <Accordion panels={rootPanels} styled />
         </div>
 
-        <div className="mb-4 p-6">
-          <Header as="h3">Jobs</Header>
-          <Divider />
-          <Checkbox
-            checked={lookingForJob}
-            label="Looking for a job"
-            onChange={() => dispatch('lookingForJob', !lookingForJob)}
-          />
-        </div>
+        {!isEmpty(sqlinkJobs) && (
+          <div className="mb-4 p-6">
+            <Header as="h3">Jobs in Israel</Header>
+            <Divider />
+            {/* <Checkbox
+              checked={lookingForJob}
+              label="Looking for a job"
+              onChange={() => dispatch('lookingForJob', !lookingForJob)}
+            /> */}
+            <div 
+              style={styles.jobsContainer}
+              className="flex flex-wrap justify-center mt-5 p-4" 
+            >
+              {sqlinkJobs.map(job => (
+                <Card key={job.id}>
+                  <Card.Content
+                    content={
+                      <div>
+                        <Header as="h3">{job.name}</Header>
+                        <div>{job.location} <Icon name="map marker alternate" /></div>
+                      </div>
+                    }
+                  />
+                  <Card.Content description={job.description} />
+                  <Card.Content extra>
+                    <div>
+                    <Button
+                      as="a"
+                      href={job.url}
+                      target="_blank" 
+                      content="צפה במשרה"
+                      labelPosition="left"
+                      icon="external alternate"
+                      rel="noopener noreferrer"
+                    />
+                    </div>
+                  </Card.Content>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="text-center mb-4" style={{display: 'inline-block'}}>
           <PHLabel />

@@ -41,6 +41,13 @@ module.exports = {
         path: `${__dirname}/src/images/`,
       },
     },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     name: `json`,
+    //     path: `${__dirname}/src/json/`,
+    //   },
+    // },
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     `gatsby-plugin-postcss`,
