@@ -210,7 +210,7 @@ const SidebarSemantic = () => {
   const dispatch = useDispatch();
   const [sqlinkJobs, setSqlinkJobs] = useState([]); 
   const [clearModalOpened, setClearModalOpened] = useState(false); 
-  const { sidebarActive, isMobile, direction, themeColor, lookingForJob } = useSelector(({ global }) => global);
+  const { sidebarActive, isMobile, direction, themeColor, resume, lookingForJob } = useSelector(({ global }) => global);
 
   useEffect(function fetchJobs() {
     (async () => {
@@ -323,7 +323,7 @@ const SidebarSemantic = () => {
         </div>
 
         {!isEmpty(sqlinkJobs) && (
-          <div className="mb-4 p-6">
+          <div className="mb-4 p-2">
             <Header as="h3">Jobs in Israel</Header>
             <Divider />
             {/* <Checkbox
@@ -347,17 +347,20 @@ const SidebarSemantic = () => {
                   />
                   <Card.Content description={job.description} />
                   <Card.Content extra>
-                    <div>
-                    <Button
-                      as="a"
-                      href={job.url}
-                      target="_blank" 
-                      content="צפה במשרה"
-                      labelPosition="left"
-                      icon="external alternate"
-                      rel="noopener noreferrer"
-                    />
+                    <div className="mb-2">
+                      <Button
+                        as="a"
+                        icon="upload"
+                        target="_blank" 
+                        labelPosition="left"
+                        content="העלה קורות חיים"
+                        rel="noopener noreferrer"
+                        href={`mailto:CVbuzzer@sqlink.com?subject=Resume%20-%20${resume.fullname}&body=I%20am%20a%20${resume.role},%20my%20email%20address%20is%20"${resume.contact.email.value}"%20%0AI%20would%20like%20to%20apply%20to%20this%20position:%20"${job.url.replace('https://www.sqlink.com/career/', '')}".%0AAttached is my CV.`}
+                      />
                     </div>
+                    <small>
+                      לחיצה על הכפתור תאפשר לך להעלות את קובץ קו״ח שלך ולהעבירם לחברת השמה שתשבץ אותך כמועמד למשרה הנ״ל.
+                    </small>
                   </Card.Content>
                 </Card>
               ))}
