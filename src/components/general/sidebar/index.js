@@ -215,7 +215,7 @@ const SidebarSemantic = () => {
   useEffect(function fetchJobs() {
     (async () => {
       try {
-        const { data: jobs } = await axios.get('/json/jobs/sqlink-26.json');
+        const { data: jobs } = await axios.get('/json/jobs/sqlink-0.json');
         setSqlinkJobs(jobs);
       } catch(e) {}
     })();
@@ -355,7 +355,7 @@ const SidebarSemantic = () => {
                         labelPosition="left"
                         content="העלה קורות חיים"
                         rel="noopener noreferrer"
-                        href={`mailto:CVbuzzer@sqlink.com?subject=Resume%20-%20${resume.fullname}&body=I%20am%20a%20${resume.role},%20my%20email%20address%20is%20"${resume.contact.email.value}"%20%0AI%20would%20like%20to%20apply%20to%20this%20position:%20"${job.url.replace('https://www.sqlink.com/career/', '')}".%0AAttached is my CV.`}
+                        href={`mailto:CVbuzzer@sqlink.com?subject=Resume%20-%20${resume.fullname}&body=I%20am%20a%20${resume.role},%20my%20email%20address%20is%20"${resume.contact.email.value}"%20%0AI%20would%20like%20to%20apply%20to%20position:%20"${job.id}".%0AAttached is my CV.`}
                       />
                     </div>
                     <small>
