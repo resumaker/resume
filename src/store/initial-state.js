@@ -2,7 +2,8 @@ module.exports = {
     touched: false,
     isMobile: true,
     sidebarActive: true,
-    lookingForJob: true,
+    jobsSidebarActive: false,
+    
     mode: 'preview',
     direction: 'ltr',
     themeColor: '#5b4f96',

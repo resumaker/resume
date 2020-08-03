@@ -68,6 +68,9 @@ const loadInitialState = () => {
   }  
   if (isNil(get(state, 'global.lookingForJob'))) {
     set(state, 'global.lookingForJob', true);
+  } 
+  if (isNil(get(state, 'global.josSidebarActive'))) {
+    set(state, 'global.josSidebarActive', false);
   }
   return state;
 };

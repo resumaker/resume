@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Icon } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
+import { Icon, Button, Flag } from 'semantic-ui-react';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 import Logo from '../components/general/logo';
 import Sidebar from '../components/general/sidebar';
+import JobsSidebar from '../components/general/jobs-sidebar';
 import ActionButtons from '../components/general/action-buttons';
 import CopyButton from '../components/general/action-buttons/copy';
 
@@ -39,6 +40,11 @@ const styles = {
     alignItems: 'center',
     alignSelf: 'flex-end',
   },
+  jobsButton: {
+    marginBottom: 10,
+    marginLeft: 5,
+    width: 145,
+  },
 };
 
 const ResumePage = () => {
@@ -52,6 +58,7 @@ const ResumePage = () => {
     themeColor, 
     isMobile, 
     sidebarActive,
+    jobsSidebarActive,
   } = useSelector(({ global }) => global);
 
   const ltr = direction === 'ltr';
@@ -115,12 +122,13 @@ const ResumePage = () => {
         color="violet"
         size={isMobile ? '36' : 'large'}
         name={`arrow ${sidebarActive ? 'left' : 'right'}`}
+        onClick={() => dispatch('sidebarActive', !sidebarActive)}
         style={{
           ...styles.sidebarArrow,
+          zIndex: jobsSidebarActive ? -1 : 103,
           top: isMobile? 75 : 2,
           left: isMobile ? 1 : 3,
         }}
-        onClick={() => dispatch('sidebarActive', !sidebarActive)}
       />
 
       <FiverrHeader />
@@ -130,12 +138,23 @@ const ResumePage = () => {
       <CopyButton />
 
       <Sidebar />
+      <JobsSidebar />
 
       <div 
         style={styles.actionsBar}
         className="flex container flex-wrap items-center mx-auto bg-white py-5 pl-1" 
       >
-        <Logo />
+        <div className="flex" style={{flexDirection:'column'}}>
+          <Logo />
+          <Button 
+            style={styles.jobsButton}
+            color={isMobile ? 'black' : 'violet'}
+            onClick={() => dispatch('jobsSidebarActive', true)}
+          >
+            <Flag name='il' />
+            Jobs in Israel 
+          </Button>   
+        </div>
         
         <div className="flex flex-wrap">
           <ActionButtons />
