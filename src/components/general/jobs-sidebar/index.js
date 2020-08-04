@@ -10,23 +10,17 @@ const styles = {
   closeButton: {
     marginBottom: 30,
   },
-  directionButton: {
-    marginRight: 15,
-    display: 'flex',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
+  closeIcon: {
+    top: 10,
+    right: 15,
+    cursor: 'pointer',
+    position: 'absolute',
   },
   jobsContainer: {
       direction: 'rtl',
       overflowY: 'auto',
       alignItems: 'center',
       maxHeight: 'calc(100vh - 310px)',
-  },
-  closeIcon: {
-    top: 10,
-    right: 15,
-    cursor: 'pointer',
-    position: 'absolute',
   },
 };
 
@@ -103,12 +97,15 @@ const SidebarSemantic = () => {
                                   <Card.Content
                                     content={
                                       <div>
-                                        <div className="mb-4" dangerouslySetInnerHTML={{__html: job.description}} />
+                                        <div 
+                                          className="mb-4" 
+                                          dangerouslySetInnerHTML={{__html: job.description}} 
+                                        />
                                         <Popup 
                                           hoverable
                                           positionFixed
-                                          content={job.requirements}
                                           style={{direction:'rtl'}}
+                                          content={job.requirements}
                                           trigger={
                                             <a 
                                               href="/requirements" 
@@ -149,7 +146,7 @@ const SidebarSemantic = () => {
                 <Pagination
                     pointing
                     secondary
-                    totalPages={8}
+                    totalPages={5}
                     siblingRange={3}
                     boundaryRange={0}
                     activePage={activeJobsPage}
