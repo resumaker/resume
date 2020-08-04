@@ -2,7 +2,7 @@ import axios from 'axios';
 import isEmpty from 'lodash/isEmpty';
 import { useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { Menu, Sidebar, Button, Header, Divider, Pagination, Label, Accordion, Modal, Card, Icon } from 'semantic-ui-react';
+import { Menu, Sidebar, Button, Header, Divider, Pagination, Loader, Dimmer, Card, Icon, Popup } from 'semantic-ui-react';
 
 import { useDispatch } from '../../../hooks/use-dispatch';
 
@@ -33,18 +33,21 @@ const styles = {
 const SidebarSemantic = () => {
   const dispatch = useDispatch();
   const [sqlinkJobs, setSqlinkJobs] = useState([]); 
+  const [loadingJobs, setLoadingJobs] = useState(true); 
   const [activeJobsPage, setActiveJobsPage] = useState(1); 
   const { jobsSidebarActive, resume } = useSelector(({ global }) => global);
 
   const fetchJobs = async i => {
     try {
-    const { data: jobs } = await axios.get(`/json/jobs/sqlink-${i}.json`);
-    setSqlinkJobs(jobs);
+      setLoadingJobs(true);
+      const { data: jobs } = await axios.get(`/json/jobs/sqlink-${i}.json`);
+      setSqlinkJobs(jobs);
     } catch(e) {}
+    setLoadingJobs(false);
   };
 
   useEffect(function fetchInitialJobs() {
-    fetchJobs(activeJobsPage - 1);
+    fetchJobs(activeJobsPage);
   }, [activeJobsPage]);
 
   if (isEmpty(sqlinkJobs)) {
@@ -76,43 +79,77 @@ const SidebarSemantic = () => {
                     style={styles.jobsContainer}
                     className="flex flex-wrap justify-center mt-5 mb-8 p-4" 
                 >
-                    {sqlinkJobs.map(job => (
-                        <div key={job.id} className="m-4">
-                            <Card>
-                                <Card.Content
+                  {loadingJobs ? (
+                    <Dimmer active>
+                      <Loader size="massive">טוען משרות...</Loader>
+                    </Dimmer>
+                  ) : (
+                    <>
+                      {sqlinkJobs.map(job => {
+                        return (
+                          <div key={job.id} className="m-4">
+                              <Card>
+                                  <Card.Content
+                                      content={
+                                          <div>
+                                            <Header as="h3">{job.name}</Header>
+                                            <div>
+                                              {job.location} 
+                                              <Icon name="map marker alternate" />
+                                            </div>
+                                          </div>
+                                      }
+                                  />
+                                  <Card.Content
                                     content={
-                                        <div>
-                                          <Header as="h3">{job.name}</Header>
-                                          <div>{job.location} <Icon name="map marker alternate" /></div>
-                                        </div>
-                                    }
-                                />
-                                <Card.Content description={job.description} />
-                                <Card.Content extra>
-                                    <div className="mb-2">
-                                        <Button
-                                          as="a"
-                                          icon="upload"
-                                          target="_blank" 
-                                          labelPosition="left"
-                                          content="העלה קורות חיים"
-                                          rel="noopener noreferrer"
-                                          href={`mailto:CVbuzzer@sqlink.com?subject=Resume%20-%20${resume.fullname},%20applying for "${job.name}"&body=I%20am%20a%20${resume.role}.%0AI%20would%20like%20to%20apply%20to%20position:%20"${job.id}".%0AAttached is my CV.`}
+                                      <div>
+                                        <div className="mb-4" dangerouslySetInnerHTML={{__html: job.description}} />
+                                        <Popup 
+                                          hoverable
+                                          positionFixed
+                                          content={job.requirements}
+                                          style={{direction:'rtl'}}
+                                          trigger={
+                                            <a 
+                                              href="/requirements" 
+                                              onClick={e => e.preventDefault()} 
+                                              style={{textDecoration:'underline'}}
+                                            >
+                                              דרישות משרה
+                                            </a>
+                                          } 
                                         />
-                                    </div>
-                                    <small>
-                                        לחיצה על הכפתור תאפשר לך להעלות את קובץ קו״ח שלך ולהעבירם לחברת השמה שתשבץ אותך כמועמד למשרה הנ״ל.
-                                    </small>
-                                </Card.Content>
-                            </Card>
-                        </div>
-                    ))}
+                                      </div>
+                                    }
+                                  />
+                                  <Card.Content extra>
+                                      <div className="mb-2">
+                                          <Button
+                                            as="a"
+                                            icon="upload"
+                                            target="_blank" 
+                                            labelPosition="left"
+                                            content="העלה קורות חיים"
+                                            rel="noopener noreferrer"
+                                            href={`mailto:CVbuzzer@sqlink.com?subject=Resume%20-%20${resume.fullname},%20applying for "${job.name}"&body=I%20am%20a%20${resume.role}.%0AI%20would%20like%20to%20apply%20to%20position:%20"${job.id}".%0AAttached is my CV.`}
+                                          />   
+                                      </div>
+                                      <small>
+                                          לחיצה על הכפתור תאפשר לך להעלות את קובץ קו״ח שלך ולהעבירם לחברת השמה שתשבץ אותך כמועמד למשרה הנ״ל.
+                                      </small>
+                                  </Card.Content>
+                              </Card>
+                          </div>
+                        );
+                      })}
+                    </>
+                  )}
                 </div>
 
                 <Pagination
                     pointing
                     secondary
-                    totalPages={27}
+                    totalPages={8}
                     siblingRange={3}
                     boundaryRange={0}
                     activePage={activeJobsPage}
