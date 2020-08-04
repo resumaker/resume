@@ -198,9 +198,9 @@ const JobsSidebar = () => {
                     </Dimmer>
                   ) : isEmpty(filteredSqlinkJobs) ? (
                     <Message
-                      icon="empty"
+                      icon="folder open outline"
                       header="אין בדף זה תוצאות המתאימות לחיפוש שלך"
-                      content="אנא נסו לעבור לדף אחר או לשנות את בחירתך מילות החיפוש"
+                      content="אנא נסה/י לעבור לדף אחר או לשנות את בחירת מילות החיפוש"
                     />
                   ) : (
                     <>
