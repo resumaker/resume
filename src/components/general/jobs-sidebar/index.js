@@ -3,6 +3,7 @@ import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import { useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import { Menu, Sidebar, Button, Header, Divider, Pagination, Loader, Dimmer, Card, Icon, Popup, Dropdown, Label, Message } from 'semantic-ui-react';
 
 import JOB_LOCATIONS from '../../../json/jobs/sqlink/job-locations.json';
@@ -205,13 +206,18 @@ const JobsSidebar = () => {
                   ) : (
                     <>
                       {filteredSqlinkJobs.map(job => {
+                        if (job.location === '&nbsp;') {
+                          return null;
+                        }
                         return (
                           <div key={job.id} className="m-4">
                               <Card>
                                   <Card.Content
                                       content={
                                           <div>
-                                            <Header as="h3">{job.name}</Header>
+                                            <Header as="h3">
+                                              <span dangerouslySetInnerHTML={{__html: job.name}} />
+                                            </Header>
                                             <div>
                                               {job.location} 
                                               <Icon name="map marker alternate" />
@@ -230,7 +236,9 @@ const JobsSidebar = () => {
                                           hoverable
                                           positionFixed
                                           style={{direction:'rtl'}}
-                                          content={job.requirements}
+                                          content={
+                                            <div dangerouslySetInnerHTML={{__html: job.requirements}} />
+                                          }
                                           trigger={
                                             <a 
                                               href="/requirements" 
@@ -251,9 +259,16 @@ const JobsSidebar = () => {
                                             icon="upload"
                                             target="_blank" 
                                             labelPosition="left"
-                                            content="העלה קורות חיים"
                                             rel="noopener noreferrer"
+                                            content="העלה קורות חיים"
                                             href={`mailto:CVbuzzer@sqlink.com?subject=Resume%20-%20${resume.fullname},%20applying for "${job.name}"&body=I%20am%20a%20${resume.role}.%0AI%20would%20like%20to%20apply%20to%20position:%20"${job.id}".%0AAttached is my CV.`}
+                                            onClick={() => {
+                                              trackCustomEvent({
+                                                category: 'Sqlink',
+                                                action: 'Upload',
+                                                label: 'Upload CV',
+                                              });
+                                            }}
                                           />   
                                       </div>
                                       <small>
@@ -271,7 +286,7 @@ const JobsSidebar = () => {
                 <Pagination
                     pointing
                     secondary
-                    totalPages={7}
+                    totalPages={4}
                     siblingRange={3}
                     boundaryRange={0}
                     activePage={activeJobsPage}
