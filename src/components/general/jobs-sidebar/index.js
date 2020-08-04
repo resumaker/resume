@@ -153,7 +153,7 @@ const JobsSidebar = () => {
                           });
                         }}
                       />
-                      {location}
+                      <span className="ml-2">{location}</span>
                      </Label>
                   ))}
                   {filters.positions.map(position => (
@@ -183,7 +183,7 @@ const JobsSidebar = () => {
                           });
                         }}
                       />
-                      {category}
+                      <span className="ml-2">{category}</span>
                      </Label>
                   ))}
                 </div>
