@@ -1,8 +1,13 @@
 import axios from 'axios';
+import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import { useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { Menu, Sidebar, Button, Header, Divider, Pagination, Loader, Dimmer, Card, Icon, Popup } from 'semantic-ui-react';
+import { Menu, Sidebar, Button, Header, Divider, Pagination, Loader, Dimmer, Card, Icon, Popup, Dropdown, Label, Message } from 'semantic-ui-react';
+
+import JOB_LOCATIONS from '../../../json/jobs/sqlink/job-locations.json';
+import JOB_CATEGORIES from '../../../json/jobs/sqlink/job-categories.json';
+import JOB_PROFESSIONS from '../../../json/jobs/sqlink/job-professions.json';
 
 import { useDispatch } from '../../../hooks/use-dispatch';
 
@@ -24,11 +29,22 @@ const styles = {
   },
 };
 
-const SidebarSemantic = () => {
+const createDropdownOptions = options => 
+  options.map(opt => ({ key: opt, text: opt, value: opt }));
+
+const JobsSidebar = () => {
   const dispatch = useDispatch();
   const [sqlinkJobs, setSqlinkJobs] = useState([]); 
   const [loadingJobs, setLoadingJobs] = useState(true); 
   const [activeJobsPage, setActiveJobsPage] = useState(1); 
+
+  const [locations, setLocations] = useState(createDropdownOptions(JOB_LOCATIONS));
+  const [positions, setPositions] = useState(createDropdownOptions(JOB_PROFESSIONS));
+  const [categories, setCategories] = useState(createDropdownOptions(JOB_CATEGORIES));
+
+  const [filters, setFilters] = useState({ locations: [], positions: [], categories: [] });
+  const [filteredSqlinkJobs, setFilteredSqlinkJobs] = useState([]);
+
   const { jobsSidebarActive, resume } = useSelector(({ global }) => global);
 
   const fetchJobs = async i => {
@@ -44,9 +60,15 @@ const SidebarSemantic = () => {
     fetchJobs(activeJobsPage);
   }, [activeJobsPage]);
 
-  if (isEmpty(sqlinkJobs)) {
-      return null;
-  }
+  useEffect(function setFilteredSqlinkJobsEffect() {
+    setFilteredSqlinkJobs(
+      sqlinkJobs.filter(job => (
+        (isEmpty(filters.locations) || filters.locations.includes(job.location))
+        && (isEmpty(filters.positions) || filters.positions.includes(job.profession))
+        && (isEmpty(filters.categories) || filters.categories.includes(job.category))
+      ))
+    );
+  }, [sqlinkJobs, filters]);
 
   return (
       <Sidebar
@@ -69,6 +91,103 @@ const SidebarSemantic = () => {
             <Header as="h2">משרות הייטק בישראל</Header>
             <Divider />
             <div className="mb-4 p-2">
+                <div className="mb-8" style={{direction:'rtl'}}>
+                  <Dropdown 
+                    search
+                    selection 
+                    placeholder="מיקום"
+                    options={locations}
+                    icon="map marker alternate"
+                    noResultsMessage="לא נמצאו תוצאות"
+                    onChange={(_, { value: location }) => {
+                      setLocations(locations.filter(({ value }) => value !== location));
+                      setFilters({ 
+                        ...filters, 
+                        locations: [...filters.locations, location],
+                      });
+                    }}
+                  />
+                  <Dropdown 
+                    search
+                    selection 
+                    icon="suitcase"
+                    options={positions}
+                    placeholder="תפקידים"
+                    noResultsMessage="לא נמצאו תוצאות"
+                    onChange={(_, { value: position }) => {
+                      setPositions(positions.filter(({ value }) => value !== position));
+                      setFilters({ 
+                        ...filters, 
+                        positions: [...filters.positions, position],
+                      });
+                    }}
+                  />
+                  <Dropdown 
+                    search
+                    selection 
+                    icon="options"
+                    className="icon"
+                    options={categories}
+                    placeholder="קטגוריות"
+                    noResultsMessage="לא נמצאו תוצאות"
+                    onChange={(_, { value: category }) => {
+                      setCategories(categories.filter(({ value }) => value !== category));
+                      setFilters({ 
+                        ...filters, 
+                        categories: [...filters.categories, category],
+                      });
+                    }}
+                  />
+                </div>
+
+                <div>
+                  {filters.locations.map(location => (
+                    <Label as="a" key={location}>
+                      <Icon 
+                        name="close"
+                        onClick={() => {
+                          setLocations([...locations, ...createDropdownOptions([location])]);
+                          setFilters({
+                            ...filters,
+                            locations: filters.locations.filter(loc => loc !== location),
+                          });
+                        }}
+                      />
+                      {location}
+                     </Label>
+                  ))}
+                  {filters.positions.map(position => (
+                    <Label as="a" key={position}>
+                      <Icon 
+                        name="close"
+                        onClick={() => {
+                          setPositions([...positions, ...createDropdownOptions([position])]);
+                          setFilters({
+                            ...filters,
+                            positions: filters.positions.filter(pos => pos !== position),
+                          });
+                        }}
+                      />
+                      <span className="ml-2">{position}</span>
+                     </Label>
+                  ))}
+                  {filters.categories.map(category => (
+                    <Label as="a" key={category}>
+                      <Icon 
+                        name="close"
+                        onClick={() => {
+                          setCategories([...categories, ...createDropdownOptions([category])]);
+                          setFilters({
+                            ...filters,
+                            categories: filters.categories.filter(cat => cat !== category),
+                          });
+                        }}
+                      />
+                      {category}
+                     </Label>
+                  ))}
+                </div>
+
                 <div 
                     style={styles.jobsContainer}
                     className="flex flex-wrap justify-center mt-5 mb-8 p-4" 
@@ -77,9 +196,15 @@ const SidebarSemantic = () => {
                     <Dimmer active>
                       <Loader size="massive">טוען משרות...</Loader>
                     </Dimmer>
+                  ) : isEmpty(filteredSqlinkJobs) ? (
+                    <Message
+                      icon="empty"
+                      header="אין בדף זה תוצאות המתאימות לחיפוש שלך"
+                      content="אנא נסו לעבור לדף אחר או לשנות את בחירתך מילות החיפוש"
+                    />
                   ) : (
                     <>
-                      {sqlinkJobs.map(job => {
+                      {filteredSqlinkJobs.map(job => {
                         return (
                           <div key={job.id} className="m-4">
                               <Card>
@@ -172,4 +297,4 @@ const SidebarSemantic = () => {
   );
 };
 
-export default SidebarSemantic;
+export default JobsSidebar;

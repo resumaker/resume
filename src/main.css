@@ -81,6 +81,15 @@
     content: '';
 }
 
+.ui.search.dropdown,
+.ui.menu .ui.dropdown .menu>.item {
+    text-align: right !important;
+}
+.ui.multiple.search.dropdown>.text {
+    right: 0 !important;
+    left: auto !important;
+}
+
 @media only screen and (max-width: 768px) {
     #bmc-wbtn,
     #bmc-wbtn + div {
