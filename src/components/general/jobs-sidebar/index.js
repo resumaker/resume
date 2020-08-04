@@ -146,7 +146,7 @@ const SidebarSemantic = () => {
                 <Pagination
                     pointing
                     secondary
-                    totalPages={5}
+                    totalPages={7}
                     siblingRange={3}
                     boundaryRange={0}
                     activePage={activeJobsPage}
