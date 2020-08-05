@@ -1,5 +1,7 @@
+import queryString from 'query-string';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation } from '@reach/router';
 import { Icon, Button, Flag } from 'semantic-ui-react';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
@@ -49,6 +51,7 @@ const styles = {
 
 const ResumePage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const { 
     mode, 
@@ -79,6 +82,14 @@ const ResumePage = () => {
     return () => {
       window.removeEventListener('resize', onResize);
     };
+  }, []);
+
+  useEffect(function openJobPortal() {
+    const qp = queryString.parse(location.search);
+    if (qp['jobs']) {
+      window.history.replaceState(null, null, location.origin);
+      dispatch('jobsSidebarActive', true);
+    }
   }, []);
 
   useEffect(function onColorChange() {
