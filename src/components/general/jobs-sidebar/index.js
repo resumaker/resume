@@ -1,5 +1,4 @@
 import axios from 'axios';
-import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 import { useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
@@ -106,6 +105,11 @@ const JobsSidebar = () => {
                         ...filters, 
                         locations: [...filters.locations, location],
                       });
+                      trackCustomEvent({
+                        category: 'Job Filters',
+                        action: `Location: ${location}`,
+                        label: location,
+                      });
                     }}
                   />
                   <Dropdown 
@@ -120,6 +124,11 @@ const JobsSidebar = () => {
                       setFilters({ 
                         ...filters, 
                         positions: [...filters.positions, position],
+                      });
+                      trackCustomEvent({
+                        category: 'Job Filters',
+                        action: `Position: ${position}`,
+                        label: position,
                       });
                     }}
                   />
@@ -136,6 +145,11 @@ const JobsSidebar = () => {
                       setFilters({ 
                         ...filters, 
                         categories: [...filters.categories, category],
+                      });
+                      trackCustomEvent({
+                        category: 'Job Filters',
+                        action: `Category: ${category}`,
+                        label: category,
                       });
                     }}
                   />
@@ -265,7 +279,7 @@ const JobsSidebar = () => {
                                             onClick={() => {
                                               trackCustomEvent({
                                                 category: 'Sqlink',
-                                                action: 'Upload',
+                                                action: 'Upload CV',
                                                 label: 'Upload CV',
                                               });
                                             }}
@@ -293,6 +307,11 @@ const JobsSidebar = () => {
                     className="flex-wrap justify-center"
                     onPageChange={(_, { activePage }) => {
                         setActiveJobsPage(activePage);
+                        trackCustomEvent({
+                          category: 'Paginate Jobs',
+                          action: 'Paginate Jobs',
+                          label: activePage,
+                        });
                     }}
                 />
             </div>
@@ -303,7 +322,9 @@ const JobsSidebar = () => {
             size="large"
             color="violet" 
             style={styles.closeButton}
-            onClick={() => dispatch('jobsSidebarActive', false)}
+            onClick={() => {
+              dispatch('jobsSidebarActive', false);
+            }}
           >
             סגור
           </Button>

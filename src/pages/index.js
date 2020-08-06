@@ -90,7 +90,16 @@ const ResumePage = () => {
       window.history.replaceState(null, null, location.origin);
       dispatch('jobsSidebarActive', true);
     }
-  }, []);
+  }, []);  
+  
+  useEffect(function onOpenJobPortal() {
+    const label = jobsSidebarActive ? 'Open Jobs' : 'Close Jobs';
+    trackCustomEvent({
+      category: label,
+      action: label,
+      label: label,
+    });
+  }, [jobsSidebarActive]);
 
   useEffect(function onColorChange() {
     const customThemeStylesEl = document.getElementById('custom-theme-styles');
