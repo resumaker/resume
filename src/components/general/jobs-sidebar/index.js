@@ -261,7 +261,7 @@ const JobsSidebar = () => {
                                             labelPosition="left"
                                             rel="noopener noreferrer"
                                             content="העלה קורות חיים"
-                                            href={`mailto:CVbuzzer@sqlink.com?subject=Resume%20-%20${resume.fullname},%20applying for "${job.name}"&body=I%20am%20a%20${resume.role}.%0AI%20would%20like%20to%20apply%20to%20position:%20"${job.id}".%0AAttached is my CV.`}
+                                            href={`mailto:resumakerjobs@gmail.com?subject=Resume%20-%20${resume.fullname},%20applying for "${job.name}"&body=I%20am%20a%20${resume.role}.%0AI%20would%20like%20to%20apply%20to%20position:%20"${job.id}".%0AAttached is my CV.`}
                                             onClick={() => {
                                               trackCustomEvent({
                                                 category: 'Sqlink',
