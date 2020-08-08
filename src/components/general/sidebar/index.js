@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 import { Menu, Sidebar, Button, Header, Divider, Message, Label, Accordion, Modal, Icon } from 'semantic-ui-react';
 
 import PHLabel from '../product-hunt/label';
@@ -44,6 +45,13 @@ const rootPanels = [
               icon="mail"
               content="Send us an email"
               href="mailto:resumakerme@gmail.com?subject=Video%20Resume&body=I%20am%20interested%20in%20creating%20a%20free%20video%20resume."
+              onClick={() => {
+                trackCustomEvent({
+                  category: 'Video Resume',
+                  action: 'Video Resume',
+                  label: 'Video Resume',
+                });
+              }}
             />
         </div>
       ), 
@@ -73,6 +81,13 @@ const rootPanels = [
             rel="noopener noreferrer"
             icon="external alternate"
             href={FIVERR_AFFILIATE_FREELANCER_WEBSITE}
+            onClick={() => {
+              trackCustomEvent({
+                category: 'Affiliate - Fiverr',
+                action: 'Navigate',
+                label: 'Fiverr',
+              });
+            }}
           />
         </div>
       ),
@@ -96,6 +111,13 @@ const rootPanels = [
               rel="noopener noreferrer"
               href={APPJOBS_AFFILIATE_WEBSITE}
               content="See Job Opportunities"
+              onClick={() => {
+                trackCustomEvent({
+                  category: 'Affiliate - Appjobs',
+                  action: 'Navigate',
+                  label: 'Appjobs',
+                });
+              }}
             />
         </div>
       ), 
@@ -134,6 +156,13 @@ const rootPanels = [
               rel="noopener noreferrer"
               href={UDACITY_AFFILIATE_HOMEPAGE}
               content="See All Courses"
+              onClick={() => {
+                trackCustomEvent({
+                  category: 'Affiliate - Udacity',
+                  action: 'Navigate',
+                  label: 'Udacity',
+                });
+              }}
             />
         </div>
       ), 
@@ -163,6 +192,13 @@ const rootPanels = [
               rel="noopener noreferrer"
               content="Build a Website"
               href={WIX_AFFILIATE_WEBSITE}
+              onClick={() => {
+                trackCustomEvent({
+                  category: 'Affiliate - Wix',
+                  action: 'Navigate',
+                  label: 'Wix',
+                });
+              }}
             />
         </div>
       ), 
@@ -192,6 +228,13 @@ const rootPanels = [
               rel="noopener noreferrer"
               icon="external alternate"
               href="https://blog.resumaker.me"
+              onClick={() => {
+                trackCustomEvent({
+                  category: 'Clickout',
+                  action: 'Blog',
+                  label: 'Blog',
+                });
+              }}
             />
         </div>
       ), 
