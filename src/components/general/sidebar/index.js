@@ -11,7 +11,6 @@ import { useDispatch } from '../../../hooks/use-dispatch';
 import {
   UDACITY_LINKS,
   WIX_AFFILIATE_WEBSITE,
-  APPJOBS_AFFILIATE_WEBSITE,
   UDACITY_AFFILIATE_HOMEPAGE,
   FIVERR_AFFILIATE_FREELANCER_WEBSITE,
 } from '../../affiliate/constants';
@@ -95,36 +94,6 @@ const rootPanels = [
   },
   { 
     key: 'panel-1c', 
-    title: 'Find a Job', 
-    content: {
-      content: (
-        <div className="pl-6 pr-6">
-            <div className="mb-4">
-              <a href={APPJOBS_AFFILIATE_WEBSITE} target="_blank" rel="noopener noreferrer">Appjobs</a>
-              &nbsp; is the one of the largest job boards in the world. Find a job that suits you best 
-              out of hundreds of opportunities.
-            </div>
-            <Button
-              as="a"
-              target="_blank" 
-              icon="external alternate"
-              rel="noopener noreferrer"
-              href={APPJOBS_AFFILIATE_WEBSITE}
-              content="See Job Opportunities"
-              onClick={() => {
-                trackCustomEvent({
-                  category: 'Affiliate - Appjobs',
-                  action: 'Navigate',
-                  label: 'Appjobs',
-                });
-              }}
-            />
-        </div>
-      ), 
-    },
-  },
-  { 
-    key: 'panel-1d', 
     title: 'Education', 
     content: {
       content: (
@@ -169,7 +138,7 @@ const rootPanels = [
     },
   },
   { 
-    key: 'panel-1e', 
+    key: 'panel-1d', 
     title: 'Website', 
     content: {
       content: (
@@ -205,7 +174,7 @@ const rootPanels = [
     },
   },
   { 
-    key: 'panel-1f', 
+    key: 'panel-1e', 
     title: 'Our Blog', 
     content: {
       content: (
