@@ -175,6 +175,41 @@ const rootPanels = [
   },
   { 
     key: 'panel-1e', 
+    title: 'Capital markets', 
+    content: {
+      content: (
+        <div className="pl-6 pr-6">
+            <div className="mb-4">
+              <a 
+                target="_blank" 
+                rel="noopener noreferrer"
+                href="https://www.funzing.com/sd/uQ8QlM" 
+              >
+                Capital Markets lecture
+              </a>
+              &nbsp; that will introduce you the tools that will help you invest your money smartly, in order to get you closer to financial freedom.
+            </div>
+            <Button
+              as="a"
+              target="_blank" 
+              content="See the Course"
+              rel="noopener noreferrer"
+              icon="external alternate"
+              href="https://www.funzing.com/sd/uQ8QlM"
+              onClick={() => {
+                trackCustomEvent({
+                  category: 'Clickout',
+                  action: 'Funzing',
+                  label: 'Funzing',
+                });
+              }}
+            />
+        </div>
+      ), 
+    },
+  },
+  { 
+    key: 'panel-1f', 
     title: 'Our Blog', 
     content: {
       content: (
@@ -325,7 +360,21 @@ const SidebarSemantic = () => {
             icon="clipboard list"
             labelPosition="right"
             content="Jobs in Israel"
+            style={{marginBottom: 10}}
             onClick={() => dispatch('jobsSidebarActive', !jobsSidebarActive)}
+          />
+
+          <Button 
+            size="large"
+            icon="dollar"
+            color="violet"
+            labelPosition="right"
+            content="Learn to Invest"
+            style={{marginBottom: 10}}
+            onClick={() => {
+              window.open('https://www.funzing.com/sd/uQ8QlM', '_blank');
+            }}
+            title="Learn to smartly invest your money into the capital markets, to get yourself closer to financial freedom over the years"
           />
         </div>
 

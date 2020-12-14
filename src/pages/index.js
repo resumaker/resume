@@ -45,7 +45,7 @@ const styles = {
   jobsButton: {
     marginBottom: 10,
     marginLeft: 5,
-    width: 145,
+    width: 155,
   },
 };
 
@@ -173,6 +173,17 @@ const ResumePage = () => {
           >
             <Flag name='il' />
             Jobs in Israel 
+          </Button>   
+          <Button 
+            color="black"
+            style={styles.jobsButton}
+            onClick={() => {
+              window.open('https://www.funzing.com/sd/uQ8QlM', '_blank');
+            }}
+            title="Learn to smartly invest your money into the capital markets, to get yourself closer to financial freedom over the years"
+          >
+            <Icon name="money" color="green" />
+            Learn to Invest 
           </Button>   
         </div>
         
